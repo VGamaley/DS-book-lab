@@ -1,12 +1,12 @@
 # publish the book with different HTML styles; you should not need this script
 
-unlink('_book', recursive = TRUE)
+unlink('docs', recursive = TRUE)
 
 x = readLines('index.Rmd')
 i = 1
 s = paste0('title: "A Minimal Book Example (', c('Bootstrap', 'Tufte'), ' Style)"')
 for (fmt in c('html_book', 'tufte_html_book')) {
-  unlink('_book', recursive = TRUE)
+  unlink('docs', recursive = TRUE)
   file.copy('index.Rmd', '_index.Rmd')
   file.copy('_output.yml', '_output.yml2')
   writeLines(
@@ -22,13 +22,13 @@ for (fmt in c('html_book', 'tufte_html_book')) {
   file.rename('_output.yml2', '_output.yml')
   if (res != 0) stop('Failed to compile the book to ', fmt)
   i = i + 1
-  bookdown::publish_book(paste0('bookdown-demo', i))
+  bookdown::publish_book(paste0('DS-book-lab', i))
 }
-unlink('_book', recursive = TRUE)
+unlink('docs', recursive = TRUE)
 
 # default formats
 formats = c(
-  'bookdown::pdf_book', 'bookdown::epub_book', 'bookdown::gitbook'
+ 'bookdown::gitbook'
 )
 
 # render the book to all formats unless they are specified via command-line args
@@ -38,4 +38,4 @@ for (fmt in formats) {
   if (res != 0) stop('Failed to compile the book to ', fmt)
 }
 
-bookdown::publish_book('bookdown-demo')
+bookdown::publish_book('DS-book-lab')
