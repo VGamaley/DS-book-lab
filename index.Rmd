@@ -1,6 +1,6 @@
 --- 
-title: "A Minimal Book Example"
-author: "Yihui Xie"
+title: "Data Science на R. Лабораторні роботи"
+author: "Валерій СИДОРЕНКО"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
@@ -17,6 +17,7 @@ description: "This is a minimal example of using the bookdown package to write a
 This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports, e.g., a math equation $a^2 + b^2 = c^2$.
 
 The **bookdown** package can be installed from CRAN or Github:
+Рядок українською.
 
 ```{r eval=FALSE}
 # install.packages("bookdown")
