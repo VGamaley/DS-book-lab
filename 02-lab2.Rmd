@@ -406,6 +406,7 @@ flights_sqlite <- copy_to(con, nycflights13::flights, "flights",
 )
 
 head(flights_sqlite)
+
 ```
 
 
@@ -461,6 +462,8 @@ summarise(destinations,
   planes = n_distinct(tailnum),
   flights = n()
 )
+
+DBI::dbDisconnect(con)
 ```
 
 
