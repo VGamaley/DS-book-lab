@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Розділ 2 Модуль 1. Базовий. Лабораторна робота №1. Створення основи типового Data Science-проєкту | Data Science на R. Лабораторний практикум</title>
+  <meta name="description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Розділ 2 Модуль 1. Базовий. Лабораторна робота №1. Створення основи типового Data Science-проєкту | Data Science на R. Лабораторний практикум" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  <meta name="github-repo" content="VGamaley/DS-book-lab" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Розділ 2 Модуль 1. Базовий. Лабораторна робота №1. Створення основи типового Data Science-проєкту | Data Science на R. Лабораторний практикум" />
+  
+  <meta name="twitter:description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  
+
+<meta name="author" content="© Сидоренко В. М." />
+
+
+<meta name="date" content="2022-03-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="лабораторна-робота-2.-маніпулювання-даними.html"/>
+<script src="libs/header-attrs-2.12/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Вступ<span></span></a></li>
+<li class="chapter" data-level="2" data-path="modul1.html"><a href="modul1.html"><i class="fa fa-check"></i><b>2</b> Модуль 1. Базовий. Лабораторна робота №1. Створення основи типового Data Science-проєкту<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="modul1.html"><a href="modul1.html#що-ви-будете-вміти"><i class="fa fa-check"></i><b>2.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="modul1.html"><a href="modul1.html#короткі-теоретичні-відомості"><i class="fa fa-check"></i><b>2.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="modul1.html"><a href="modul1.html#що-таке-data-science-проект"><i class="fa fa-check"></i><b>2.2.1</b> Що таке Data Science-проект?<span></span></a></li>
+<li class="chapter" data-level="2.2.2" data-path="modul1.html"><a href="modul1.html#концепція-грамотного-програмування"><i class="fa fa-check"></i><b>2.2.2</b> Концепція грамотного програмування<span></span></a></li>
+<li class="chapter" data-level="2.2.3" data-path="modul1.html"><a href="modul1.html#markdown-і-rmarkdown"><i class="fa fa-check"></i><b>2.2.3</b> Markdown і RMarkdown<span></span></a></li>
+<li class="chapter" data-level="2.2.4" data-path="modul1.html"><a href="modul1.html#інсталяція-r"><i class="fa fa-check"></i><b>2.2.4</b> Інсталяція R<span></span></a></li>
+<li class="chapter" data-level="2.2.5" data-path="modul1.html"><a href="modul1.html#інсталяція-rstudio"><i class="fa fa-check"></i><b>2.2.5</b> Інсталяція RStudio<span></span></a></li>
+<li class="chapter" data-level="2.2.6" data-path="modul1.html"><a href="modul1.html#CreateRMarkdown"><i class="fa fa-check"></i><b>2.2.6</b> Створення RMarkdown-документу<span></span></a></li>
+<li class="chapter" data-level="2.2.7" data-path="modul1.html"><a href="modul1.html#генерація-електронного-документу"><i class="fa fa-check"></i><b>2.2.7</b> Генерація електронного документу<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="modul1.html"><a href="modul1.html#приклад-створення-markdown-документу"><i class="fa fa-check"></i><b>2.3</b> Приклад створення Markdown-документу<span></span></a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="modul1.html"><a href="modul1.html#постановка-задачі"><i class="fa fa-check"></i><b>2.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="2.3.2" data-path="modul1.html"><a href="modul1.html#виконання-завдання"><i class="fa fa-check"></i><b>2.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="2.3.3" data-path="modul1.html"><a href="modul1.html#індивідуальні-завдання-на-лабораторну-роботу"><i class="fa fa-check"></i><b>2.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+<li class="chapter" data-level="2.3.4" data-path="modul1.html"><a href="modul1.html#домашнє-завдання"><i class="fa fa-check"></i><b>2.3.4</b> Домашнє завдання<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="лабораторна-робота-2.-маніпулювання-даними.html"><a href="лабораторна-робота-2.-маніпулювання-даними.html"><i class="fa fa-check"></i><b>3</b> Лабораторна робота №2. Маніпулювання даними<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="лабораторна-робота-2.-маніпулювання-даними.html"><a href="лабораторна-робота-2.-маніпулювання-даними.html#що-ви-будете-вміти-1"><i class="fa fa-check"></i><b>3.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="лабораторна-робота-2.-маніпулювання-даними.html"><a href="лабораторна-робота-2.-маніпулювання-даними.html#короткі-теоретичні-відомості-1"><i class="fa fa-check"></i><b>3.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="лабораторна-робота-2.-маніпулювання-даними.html"><a href="лабораторна-робота-2.-маніпулювання-даними.html#що-таке-маніпулювання-данними"><i class="fa fa-check"></i><b>3.2.1</b> Що таке маніпулювання данними?<span></span></a></li>
+<li class="chapter" data-level="3.2.2" data-path="лабораторна-робота-2.-маніпулювання-даними.html"><a href="лабораторна-робота-2.-маніпулювання-даними.html#імпорт-даних"><i class="fa fa-check"></i><b>3.2.2</b> Імпорт даних<span></span></a></li>
+<li class="chapter" data-level="3.2.3" data-path="лабораторна-робота-2.-маніпулювання-даними.html"><a href="лабораторна-робота-2.-маніпулювання-даними.html#приведення-даних-до-охайного-вигляду"><i class="fa fa-check"></i><b>3.2.3</b> Приведення даних до охайного вигляду<span></span></a></li>
+<li class="chapter" data-level="3.2.4" data-path="лабораторна-робота-2.-маніпулювання-даними.html"><a href="лабораторна-робота-2.-маніпулювання-даними.html#трансформація"><i class="fa fa-check"></i><b>3.2.4</b> Трансформація<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="лабораторна-робота-2.-маніпулювання-даними.html"><a href="лабораторна-робота-2.-маніпулювання-даними.html#приклад-виконання-індівідуального-завдання"><i class="fa fa-check"></i><b>3.3</b> Приклад виконання індівідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="лабораторна-робота-2.-маніпулювання-даними.html"><a href="лабораторна-робота-2.-маніпулювання-даними.html#постановка-задачі-1"><i class="fa fa-check"></i><b>3.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="3.3.2" data-path="лабораторна-робота-2.-маніпулювання-даними.html"><a href="лабораторна-робота-2.-маніпулювання-даними.html#виконання-завдання-1"><i class="fa fa-check"></i><b>3.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="3.3.3" data-path="лабораторна-робота-2.-маніпулювання-даними.html"><a href="лабораторна-робота-2.-маніпулювання-даними.html#індивідуальні-завдання-на-лабораторну-роботу-1"><i class="fa fa-check"></i><b>3.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="methods.html"><a href="methods.html#math-example"><i class="fa fa-check"></i><b>4.1</b> math example<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words<span></span></a></li>
+<li><a href="references.html#references">References<span></span></a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science на R. Лабораторний практикум</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modul1" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Розділ 2</span> Модуль 1. Базовий. Лабораторна робота №1. Створення основи типового Data Science-проєкту<a href="modul1.html#modul1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Мета:</strong> <em>“Швидкий старт” для створення бази Data Science-проекту у середовищі <code>R-Studio</code> <span class="citation">(<a href="#ref-R-Studio" role="doc-biblioref">RStudio Team 2020</a>)</span> із застосуванням концепції “грамотного програмування” засобами мови програмування <code>R</code> <span class="citation">(<a href="#ref-R-base" role="doc-biblioref">R Core Team 2021</a>)</span>, пакету RMarkdown та системи комп’ютерної верстки LaTeX</em>.</p>
+<div id="що-ви-будете-вміти" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Що ви будете вміти?<a href="modul1.html#що-ви-будете-вміти" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>виконувати експорт/імпорт даних, елеменарну їх обробку, візуалізацію даних та результатів обчислень засобами мови R у середовищі IDE RStudio.</li>
+<li>Створювати електронний документ (у форматах html, pdf, doc) на кшталт того, <strong>який ви зараз читаєте</strong> (інтерактивне меню, можливість показати/сховати код і т. ін.).</li>
+<li>використовувати засоби редактору LaTeX для набору формул, наприклад, як ця: <span class="math inline">\(y(x)=b_0+b_1x+b_2x^2\)</span>.</li>
+<li>створювати бібліографічну базу даних засобами <a href="https://ru.wikipedia.org/wiki/BibTeX">BibTeX</a>, яка автоматично формує розділ посилань ‘References,’ як <strong>у цьому посібнику</strong>.</li>
+</ul>
+</div>
+<div id="короткі-теоретичні-відомості" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Короткі теоретичні відомості<a href="modul1.html#короткі-теоретичні-відомості" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="що-таке-data-science-проект" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Що таке Data Science-проект?<a href="modul1.html#що-таке-data-science-проект" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Будь-який Data Science-проект (альтернативна назва – Data Mining-проект) має на меті реалізацію на практиці методології <a href="https://www.the-modeling-agency.com/crisp-dm.pdf">CRISP DM</a> <span class="citation">(<a href="#ref-CRISP_DM" role="doc-biblioref">wikipedia 2022</a>)</span>. Згідно зі стандартом CRISP-DM 1.0 життєвий цикл проекту Data Mining має складатися з шести фаз (рис. 1):<br />
+- розуміння бізнес-процесів (business understanding);<br />
+- розуміння даних (data understanding);<br />
+- підготовка даних (data preparation);<br />
+- моделювання (modeling);<br />
+- оцінка (evaluation);<br />
+- розгортання (deployment).</p>
+<div class="figure">
+<img src="image/CRISP_DM.jpg" alt="" />
+<p class="caption"><em>Рис. 1. Життєвий цикл процесу Data Mining згідно з методологією CRISP </em></p>
+</div>
+<p><strong>Фаза розуміння</strong> бізнес-процесів включає наступні задачі:<br />
+- визначення бізнес-цілей;<br />
+- визначення ситуації;<br />
+- визначення цілей Data Mining;<br />
+- створення плану проекта.<br />
+<strong>Фаза розуміння</strong> даних включає наступні задачі:<br />
+- первинний збір даних;<br />
+- опис даних;<br />
+- вивчення даних;<br />
+- перевірка якості даних.<br />
+<strong>Фаза підготовки</strong> даних включає в себе всі дії, пов’язані з остаточним формуванням набору даних для аналізу. При цьому виконуються п’ять задач:<br />
+- вибір даних;<br />
+- очищення даних;<br />
+- конструювання даних;<br />
+- інтеграція даних;<br />
+- форматування даних.<br />
+<strong>Фаза моделювання</strong> -– призначена для вибору оптимального методу побудови моделей і настроювання його параметрів для отримання оптимальних рішень. На даній фазі вирішуються наступні задачі:<br />
+- вибір методу моделювання;<br />
+- генерація тестового проекту;<br />
+- створення моделей;<br />
+- оцінка моделей.<br />
+<strong>Фаза оцінки</strong> -– призвана більш ґрунтовно оцінити модель до процесу її остаточного розміщення, щоб впевнитись у досяжності поставлених бізнес-цілей. Дана фаза включає наступні задачі:<br />
+- оцінка результатів;<br />
+- перегляд процесу;<br />
+- визначення подальших дій.<br />
+<strong>Фаза розгортання</strong> передбачає розгортання моделі.</p>
+<p>Якщо виділити з даного процесу суто технологічну складову, то типова технологічна основа будь-якого Data Science-проекту має виглядати наступним чином <span class="citation">(<a href="#ref-r4ds" role="doc-biblioref">Garrett Grolemund 2018</a>)</span> (рис. 2).</p>
+<div class="figure">
+<img src="image/process_DS.png" alt="" />
+<p class="caption"><em>Рис. 2. Структура типового Data Science-проекту</em> <span class="citation">(<a href="#ref-r4ds" role="doc-biblioref">Garrett Grolemund 2018</a>)</span></p>
+</div>
+<p>Перша задача <em>імпорту даних</em> (<strong>Import</strong>) полягає у вилученні необхідних сирих даних з будь-яких джерел (файли, БД, дані з датчиків у реальному часі і т. д.) самого різного формату.</p>
+<p>Друга задача (<strong>Tidy</strong>) – <em>приведення даних до</em> так званого <em>“охайного” вигляду</em>, придатного для аналізу. Як правило мова йде про приведення даних до табличного вигляду “ключ-значення,” або, іншими словами, “об’єкт-ознака.” Дана процедура є частиною більш загальної задачі підготовки даних до аналізу (<strong>Wrangling, Munging</strong>), яка включає інші процедури, наприклад, заповнення пропущених значень (Missing Value Emputation), вилучення неінформативних даних (data reduction), різного роду трансформації (<strong>Transforming</strong>) і т. ін. Тобто, <strong>Tiding+Transforming=Wrangling(Munging)</strong>.</p>
+<p>Тріада задач <em>трансформація-візуалізація-моделювання</em> (<strong>Transform-Visualise-Model</strong>) складаює ядро Data Mining-процесу, суть якого полягає в пошуку нетривіальних практично корисних закономірностей в даних шляхом висування і перевірки гіпотез, побудови різного роду моделей, який обов’язково супроводжується візуалізацією як проміжних, так і кінцевих результатів моделювання, що предоставляються замовнику. Саме ця тріада задач забезпечує фази розуміння (<strong>Understanding</strong>) даних, моделей та паттернів, що знаходяться в даних і створюють основу монетизованого продукту інтелектуального аналізу даних.</p>
+<p>Останній етап – подання проміжних чи остаточних результатів інтелектуального аналізу даних (<strong>Сommunicate</strong>) іншим членам команди, які задіяні у проекті, у зручному для сприйняття вигляді з використанням прози, таблиць, графіків та коду.</p>
+<p>Для реалізації типового Data Science-проекту необхідний відповідний інструментарій, який би був гнучким і задовольняв всім необхідним вимогам, котрих потребують вищезгадані задачі, і давав би можливість розв’язати будь-яку задачу без значних витрат часу, в першу чергу, на маніпулювання даними та підготовку результатів.</p>
+<p>Мова і середовище програмування R з великим арсеналом програмних пакетів, IDE RStudio та технологія так званого <em>грамотного програмування</em> дозволяє ефективну реалізацію всіх етапів типового Data Science-проекту, об’єднавши всі задачі в єдине ціле.</p>
+</div>
+<div id="концепція-грамотного-програмування" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Концепція грамотного програмування<a href="modul1.html#концепція-грамотного-програмування" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Подання проміжних чи остаточних результатів проекту може бути виконано у тому чи іншому вигляді: звіту, презентації, методичних вказівок, наукової статті тощо, в одному з поширених форматів: .doc, pdf, .html тощо.</p>
+<p>Протягом багатьох років у наукових та ділових колах стандартом де-факто є застосування так званої парадигми <a href="https://en.wikipedia.org/wiki/Literate_programming"><em>грамотного програмування</em></a> для підготовки електронних документів з використанням у тому числі і потужніх засобів комп’ютерної графіки. З виникненням і розвитком Data Science, методологію грамотного програмування було взято на озброєння і реалізоване практично в кожному потужному інструменті Data Science.</p>
+<p><em>Грамотне програмування</em> (Literate Programming) – концепція, методологія програмування і документування, в якій програма складається з прози на природній мові упереміж з макропідстановками і кодом на мовах програмування.</p>
+<p>В основі технології грамотного програмування лежить поняття <em>динамічного документу</em> – текстового документу, який складається з тексту та коду, з використанням необхідних мов програмування, який дозволяє згенерувати власне електронний документ заданого формату. При цьому використовуються як можливості мов розмітки документів (напр. Markdown, YAML, HTML, LaTeX), так і можливості доступу до потужних програмних бібліотек, призначених для обробки даних та комп’ютерної графіки.</p>
+<p>Таким чином, логічно мати певне програмне середовище, яке дозволить поєднати низку таких технологій разом і створити зручний інтерфейс розробника. Існують різні програмні засоби і середовища <a href="https://uk.wikipedia.org/wiki/%D0%86%D0%BD%D1%82%D0%B5%D0%B3%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B5_%D1%81%D0%B5%D1%80%D0%B5%D0%B4%D0%BE%D0%B2%D0%B8%D1%89%D0%B5_%D1%80%D0%BE%D0%B7%D1%80%D0%BE%D0%B1%D0%BA%D0%B8">(IDE, Integrated Development Environment, інтегроване середовище розробки)</a>, що дозволяють реалізувати технологію грамотного програмування.</p>
+<p>У даній лабораторній роботі пропонується низка наразі актуальних і популярних інструментів для створення динамічних документів (рис. 3):</p>
+<ul>
+<li><p>IDE <a href="https://www.rstudio.com/">R Studio</a> <span class="citation">(<a href="#ref-R-Studio" role="doc-biblioref">RStudio Team 2020</a>)</span> як інтегроване середовище розробки;</p></li>
+<li><p>спеціалізовану мову програмування <a href="https://cran.r-project.org/">R</a> <span class="citation">(<a href="#ref-R-base" role="doc-biblioref">R Core Team 2021</a>)</span> та арсенал її потужніх бібліотек – для маніпулювання даними та візуалізації результатів;</p></li>
+<li><p>фреймворк <a href="http://rmarkdown.rstudio.com/">RMarkdown</a> <span class="citation">(<a href="#ref-R-rmarkdown" role="doc-biblioref">Allaire et al. 2022</a>)</span> – для підготовки динамічних звітів мовою розмітки <a href="https://uk.wikipedia.org/wiki/Markdown">Markdown</a>; (див.<span class="citation">(<a href="#ref-CheatSheetMarkdown" role="doc-biblioref">sandino 2013</a>)</span> та шпаргалку у RStudio: <em>“Help\Cheat_Sheets”</em>); також покрокове керівництво <a href="https://rpubs.com/domelia/828777">Д. Омельченко</a>; також див. <a href="https://rpubs.com/domelia/834925">R Markdown: продолжение. Подготовка рукописи научной статьи</a>;</p></li>
+<li><p>мову розмітки даних <a href="https://uk.wikipedia.org/wiki/LaTeX">LaTex</a> для високоякісного оформлення наукових документів.</p></li>
+</ul>
+<div class="figure">
+<img src="image/process.png" alt="" />
+<p class="caption"><em>Рис. 3. Структура процесу підготовки електронного документу наукового чи ділового характеру в парадигмі грамотного програмування (literate programming)</em></p>
+</div>
+</div>
+<div id="markdown-і-rmarkdown" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Markdown і RMarkdown<a href="modul1.html#markdown-і-rmarkdown" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Markdown</strong> (МФА: [маркдаун]) – полегшена мова розмітки даних, яку створено з ухилом на прочитність та зручність у публікації з подальшим перетворенням її на structurally valid XHTML або HTML.</p>
+<p>Такі сайти, як GitHub, Reddit та Stack Overflow використовують Markdown для полегшення обговорень між користувачами.</p>
+<p><strong>R Markdown</strong> <span class="citation">(<a href="#ref-RMark" role="doc-biblioref">Yihui Xie 2018</a>)</span> – фреймворк R, який дозволяє створювати динамічні Markdown-документи у середовищі IDE RStudio в стилі грамотного програмування з використанням всіх можливих потужностей мови R та її бібліотек. Дозволяє реалізовувати інтерфейс так званих ноутбуків для створення документів з текстом та кодом разом для виготовлення елегантно відформатованого виводу. Дозволяє використовувати декілька мов, включаючи R, Python, С++, HTML, SQL, <a href="http://mc-stan.org/">Stan</a>. Через конвертор <a href="http://pandoc.org/">Pandoc</a> дозволяє здійснювати вивід у html, doc або pdf формат у вигляді веб-сторінок, брошюр, буклетів, слайдів.</p>
+</div>
+<div id="інсталяція-r" class="section level3 hasAnchor" number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> Інсталяція R<a href="modul1.html#інсталяція-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Для цього необхідно зайти на <a href="https://cran.r-project.org/">CRAN</a>, скачати і встановити актуальну версію R. Даний дистрибутив R має свій GUI, однак його можливості досить обмежені. Тут, у розділі ‘Contributed,’ також можна знайти безліч цікавої літератури, написаної різними мовами.</p>
+<p>Одне з найкоротших і доступних введень у мову R можна знайти на сторінці <a href="http://dkhramov.dp.ua/Comp.R.html#.Wpetc1rFJdj">Дмитра Храмова</a>. Зокрема, ознайомитися з <a href="http://dkhramov.dp.ua/images/edu/Stu.WebMining/ch04_graphics.pdf">елементами базової графіки</a>.</p>
+</div>
+<div id="інсталяція-rstudio" class="section level3 hasAnchor" number="2.2.5">
+<h3><span class="header-section-number">2.2.5</span> Інсталяція RStudio<a href="modul1.html#інсталяція-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Для зручної роботи і відладки програм, зокрема роботи з фреймворком RMarkdown для створення динамічного документу, необхідно встановити IDE <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a>.</p>
+</div>
+<div id="CreateRMarkdown" class="section level3 hasAnchor" number="2.2.6">
+<h3><span class="header-section-number">2.2.6</span> Створення RMarkdown-документу<a href="modul1.html#CreateRMarkdown" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>Завантажити RStudio.</p></li>
+<li><p>Створити RMarkdown-документ у форматі <a href="http://rmarkdown.rstudio.com/r_notebooks.html">R Notebook</a>, вибравши відповідний пункт <a href="https://prnt.sc/gkpes4">меню</a>.</p></li>
+</ol>
+</div>
+<div id="генерація-електронного-документу" class="section level3 hasAnchor" number="2.2.7">
+<h3><span class="header-section-number">2.2.7</span> Генерація електронного документу<a href="modul1.html#генерація-електронного-документу" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Генерація електронного документу здійснюється натисканням комбінації <em>Ctrl+Shift+K</em>.</p>
+</div>
+</div>
+<div id="приклад-створення-markdown-документу" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Приклад створення Markdown-документу<a href="modul1.html#приклад-створення-markdown-документу" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="постановка-задачі" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Постановка задачі<a href="modul1.html#постановка-задачі" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Побудувати графік функції <span class="math inline">\(y(x)=b_ox+b_1+b_2x^2\)</span> для діапазону <span class="math inline">\(x \in [x_1;x_2]\)</span>.</p>
+</div>
+<div id="виконання-завдання" class="section level3 hasAnchor" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Виконання завдання<a href="modul1.html#виконання-завдання" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>Створюємо документ R Markdown, як описано вище у п. <a href="modul1.html#CreateRMarkdown"><em>Створення RMarkdown-документу</em></a>.</p></li>
+<li><p>Налаштовуємо потрібним чином YAML-заголовок документу, у якому задаються метадані всього документу (рис. 4).</p></li>
+</ol>
+<div class="figure">
+<img src="image/YAML.png" alt="" />
+<p class="caption"><em>Рис. 4. Вигляд YAML-заголовку для документу, який ви зараз читаєте</em></p>
+</div>
+<ol start="3" style="list-style-type: decimal">
+<li>Для набору формул використовуємо <code>LaTeX</code> згідно з правилами <a href="https://en.wikibooks.org/wiki/LaTeX/Mathematics">його синтаксису</a>. Формула у RMarkdown-документі має бути взята у символи $:</li>
+</ol>
+<p><code>$y(x)=b_ox+b_1+b_2x^2$</code></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Пишемо код на R засобами базової графіки у відповідній зоні, яка називається чанком @ref(fig:fig_1):</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="modul1.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Задаємо параметри функції</span></span>
+<span id="cb1-2"><a href="modul1.html#cb1-2" aria-hidden="true" tabindex="-1"></a>b0 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb1-3"><a href="modul1.html#cb1-3" aria-hidden="true" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb1-4"><a href="modul1.html#cb1-4" aria-hidden="true" tabindex="-1"></a>b2 <span class="ot">&lt;-</span> <span class="fl">1.57</span></span>
+<span id="cb1-5"><a href="modul1.html#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="modul1.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Задаємо область визначення</span></span>
+<span id="cb1-7"><a href="modul1.html#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="modul1.html#cb1-8" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, .<span class="dv">1</span>)</span>
+<span id="cb1-9"><a href="modul1.html#cb1-9" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> b0 <span class="sc">+</span> b1 <span class="sc">*</span> x <span class="sc">+</span> b2 <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb1-10"><a href="modul1.html#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="modul1.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y,</span>
+<span id="cb1-12"><a href="modul1.html#cb1-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb1-13"><a href="modul1.html#cb1-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb1-14"><a href="modul1.html#cb1-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Графік функції&quot;</span>,</span>
+<span id="cb1-15"><a href="modul1.html#cb1-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>,</span>
+<span id="cb1-16"><a href="modul1.html#cb1-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span></span>
+<span id="cb1-17"><a href="modul1.html#cb1-17" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="cb1-18"><a href="modul1.html#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(x, y,</span>
+<span id="cb1-19"><a href="modul1.html#cb1-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="DS-book-lab_files/figure-html/fig_1-1.png" alt="Example fig." width="80%" />
+<p class="caption">
+(#fig:fig_1)Example fig.
+</p>
+</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="modul1.html#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y) <span class="co"># створюємо таблицю даних</span></span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Продемонструємо можливості пакету <code>rio</code> <span class="citation">(<a href="#ref-R-rio" role="doc-biblioref">Chan and Leeper 2021</a>)</span> для експорту (імпорту) даних на диск (з диску).</li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="modul1.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;rio&quot;) # інсталяція пакету</span></span>
+<span id="cb3-2"><a href="modul1.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio) <span class="co"># підключення пакету</span></span>
+<span id="cb3-3"><a href="modul1.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span>(df, <span class="st">&quot;data/data.csv&quot;</span>)</span></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Виконуємо імпорт даних із файлу і візуалізацію у вигляді таблиці @ref(tab:tab_1).</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="modul1.html#cb4-1" aria-hidden="true" tabindex="-1"></a>dfNew <span class="ot">&lt;-</span>  <span class="fu">import</span>(<span class="st">&quot;data/data.csv&quot;</span>)</span>
+<span id="cb4-2"><a href="modul1.html#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="modul1.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Таблиця засобами knitr</span></span>
+<span id="cb4-4"><a href="modul1.html#cb4-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(dfNew),</span>
+<span id="cb4-5"><a href="modul1.html#cb4-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;_Табл. 1. Фрагмент таблиці даних_&quot;</span>)</span></code></pre></div>
+<table>
+<caption>(#tab:tab_1)<em>Табл. 1. Фрагмент таблиці даних</em></caption>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+<th align="right">y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-1.0</td>
+<td align="right">0.5700</td>
+</tr>
+<tr class="even">
+<td align="right">-0.9</td>
+<td align="right">0.5717</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.8</td>
+<td align="right">0.6048</td>
+</tr>
+<tr class="even">
+<td align="right">-0.7</td>
+<td align="right">0.6693</td>
+</tr>
+<tr class="odd">
+<td align="right">-0.6</td>
+<td align="right">0.7652</td>
+</tr>
+<tr class="even">
+<td align="right">-0.5</td>
+<td align="right">0.8925</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="modul1.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Таблиця засобами stargazer</span></span>
+<span id="cb5-2"><a href="modul1.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># stargazer::stargazer(head(dfNew),</span></span>
+<span id="cb5-3"><a href="modul1.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#                      type = &quot;html&quot;,</span></span>
+<span id="cb5-4"><a href="modul1.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                      summary = FALSE,</span></span>
+<span id="cb5-5"><a href="modul1.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#              title = &quot;_Табл. 1. Фрагмент таблиці даних_&quot;)</span></span>
+<span id="cb5-6"><a href="modul1.html#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="modul1.html#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="modul1.html#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Таблиця засобами xtable</span></span>
+<span id="cb5-9"><a href="modul1.html#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># print(xtable::xtable(head(dfNew),</span></span>
+<span id="cb5-10"><a href="modul1.html#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#                      type = &quot;html&quot;,</span></span>
+<span id="cb5-11"><a href="modul1.html#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#                      html.table.attributes=&quot;border=0&quot;,</span></span>
+<span id="cb5-12"><a href="modul1.html#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#                      summary = FALSE,</span></span>
+<span id="cb5-13"><a href="modul1.html#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#              caption = &quot;_Табл. 1. Фрагмент таблиці даних_&quot;))</span></span></code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>Формуємо результуючу таблицю.</li>
+</ol>
+<p><em>Табл. 2. Параметри функції</em></p>
+<table>
+<thead>
+<tr class="header">
+<th>Параметр</th>
+<th>Значення</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(b_0\)</span></td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(b_1\)</span></td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(b_2\)</span></td>
+<td>1.57</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(x_1\)</span></td>
+<td>-1</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(x_2\)</span></td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="індивідуальні-завдання-на-лабораторну-роботу" class="section level3 hasAnchor" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> Індивідуальні завдання на лабораторну роботу<a href="modul1.html#індивідуальні-завдання-на-лабораторну-роботу" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Видає викладач.</p>
+</div>
+<div id="домашнє-завдання" class="section level3 hasAnchor" number="2.3.4">
+<h3><span class="header-section-number">2.3.4</span> Домашнє завдання<a href="modul1.html#домашнє-завдання" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>Ознайомитися з можливостями пакету <code>ggplot2</code> <span class="citation">(<a href="#ref-ggplot2" role="doc-biblioref">Wickham 2009</a>)</span>.</p></li>
+<li><p>Оптимізувати код, наведений у даній методичці, за допомогою потокового оператора <code>%&gt;%</code> засобами пакету <code>ggplot2</code>.</p></li>
+<li><p>Побудувати графік функції засобами пакету <code>ggplot2</code>. <span class="citation">(<a href="#ref-R-ggplot2" role="doc-biblioref">Wickham et al. 2021</a>)</span></p></li>
+</ol>
+
+</div>
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-R-rmarkdown" class="csl-entry">
+Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2022. <em>Rmarkdown: Dynamic Documents for r</em>. <a href="https://CRAN.R-project.org/package=rmarkdown">https://CRAN.R-project.org/package=rmarkdown</a>.
+</div>
+<div id="ref-R-rio" class="csl-entry">
+Chan, Chung-hong, and Thomas J. Leeper. 2021. <em>Rio: A Swiss-Army Knife for Data i/o</em>. <a href="https://github.com/leeper/rio">https://github.com/leeper/rio</a>.
+</div>
+<div id="ref-r4ds" class="csl-entry">
+Garrett Grolemund, Hadley Wickham. 2018. <em>R for Data Science</em>. <a href="http://r4ds.had.co.nz/index.html">http://r4ds.had.co.nz/index.html</a>.
+</div>
+<div id="ref-R-base" class="csl-entry">
+R Core Team. 2021. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div id="ref-R-Studio" class="csl-entry">
+RStudio Team. 2020. <em>RStudio: Integrated Development Environment for r</em>. Boston, MA: RStudio, PBC. <a href="http://www.rstudio.com/">http://www.rstudio.com/</a>.
+</div>
+<div id="ref-CheatSheetMarkdown" class="csl-entry">
+sandino. 2013. <span>“Cheat Sheet of Markdown.”</span> Article. <a href="https://github.com/sandino/Markdown-Cheatsheet#emphasis">https://github.com/sandino/Markdown-Cheatsheet#emphasis</a>.
+</div>
+<div id="ref-ggplot2" class="csl-entry">
+Wickham, Hadley. 2009. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="https://ggplot2-book.org/">https://ggplot2-book.org/</a>.
+</div>
+<div id="ref-R-ggplot2" class="csl-entry">
+Wickham, Hadley, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, and Dewey Dunnington. 2021. <em>Ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics</em>. <a href="https://CRAN.R-project.org/package=ggplot2">https://CRAN.R-project.org/package=ggplot2</a>.
+</div>
+<div id="ref-CRISP_DM" class="csl-entry">
+wikipedia. 2022. <span>“Cross-Industry Standard Process for Data Mining.”</span> Article. <a href="https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining">https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining</a>.
+</div>
+<div id="ref-RMark" class="csl-entry">
+Yihui Xie, Garrett Grolemund, J. J. Allaire. 2018. <em>R Markdown: The Definitive Guide</em>. <a href="https://bookdown.org/yihui/rmarkdown/">https://bookdown.org/yihui/rmarkdown/</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="лабораторна-робота-2.-маніпулювання-даними.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/01-lab1.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
