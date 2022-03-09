@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Розділ 3 Лабораторна робота №2. Маніпулювання даними | Data Science на R. Лабораторний практикум</title>
+  <meta name="description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Розділ 3 Лабораторна робота №2. Маніпулювання даними | Data Science на R. Лабораторний практикум" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  <meta name="github-repo" content="VGamaley/DS-book-lab" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Розділ 3 Лабораторна робота №2. Маніпулювання даними | Data Science на R. Лабораторний практикум" />
+  
+  <meta name="twitter:description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  
+
+<meta name="author" content="© Сидоренко В. М." />
+
+
+<meta name="date" content="2022-03-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="modul1.html"/>
+<link rel="next" href="lab_3.html"/>
+<script src="libs/header-attrs-2.12/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Вступ<span></span></a></li>
+<li class="chapter" data-level="2" data-path="modul1.html"><a href="modul1.html"><i class="fa fa-check"></i><b>2</b> Модуль 1. Базовий. Лабораторна робота №1. Створення основи типового Data Science-проєкту<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="modul1.html"><a href="modul1.html#що-ви-будете-вміти"><i class="fa fa-check"></i><b>2.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="modul1.html"><a href="modul1.html#короткі-теоретичні-відомості"><i class="fa fa-check"></i><b>2.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="modul1.html"><a href="modul1.html#що-таке-data-science-проект"><i class="fa fa-check"></i><b>2.2.1</b> Що таке Data Science-проект?<span></span></a></li>
+<li class="chapter" data-level="2.2.2" data-path="modul1.html"><a href="modul1.html#концепція-грамотного-програмування"><i class="fa fa-check"></i><b>2.2.2</b> Концепція грамотного програмування<span></span></a></li>
+<li class="chapter" data-level="2.2.3" data-path="modul1.html"><a href="modul1.html#markdown-і-rmarkdown"><i class="fa fa-check"></i><b>2.2.3</b> Markdown і RMarkdown<span></span></a></li>
+<li class="chapter" data-level="2.2.4" data-path="modul1.html"><a href="modul1.html#інсталяція-r"><i class="fa fa-check"></i><b>2.2.4</b> Інсталяція R<span></span></a></li>
+<li class="chapter" data-level="2.2.5" data-path="modul1.html"><a href="modul1.html#інсталяція-rstudio"><i class="fa fa-check"></i><b>2.2.5</b> Інсталяція RStudio<span></span></a></li>
+<li class="chapter" data-level="2.2.6" data-path="modul1.html"><a href="modul1.html#CreateRMarkdown"><i class="fa fa-check"></i><b>2.2.6</b> Створення RMarkdown-документу<span></span></a></li>
+<li class="chapter" data-level="2.2.7" data-path="modul1.html"><a href="modul1.html#генерація-електронного-документу"><i class="fa fa-check"></i><b>2.2.7</b> Генерація електронного документу<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="modul1.html"><a href="modul1.html#приклад-створення-markdown-документу"><i class="fa fa-check"></i><b>2.3</b> Приклад створення Markdown-документу<span></span></a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="modul1.html"><a href="modul1.html#постановка-задачі"><i class="fa fa-check"></i><b>2.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="2.3.2" data-path="modul1.html"><a href="modul1.html#виконання-завдання"><i class="fa fa-check"></i><b>2.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="2.3.3" data-path="modul1.html"><a href="modul1.html#індивідуальні-завдання-на-лабораторну-роботу"><i class="fa fa-check"></i><b>2.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+<li class="chapter" data-level="2.3.4" data-path="modul1.html"><a href="modul1.html#домашнє-завдання"><i class="fa fa-check"></i><b>2.3.4</b> Домашнє завдання<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="lab_2.html"><a href="lab_2.html"><i class="fa fa-check"></i><b>3</b> Лабораторна робота №2. Маніпулювання даними<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="lab_2.html"><a href="lab_2.html#що-ви-будете-вміти-1"><i class="fa fa-check"></i><b>3.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="lab_2.html"><a href="lab_2.html#короткі-теоретичні-відомості-1"><i class="fa fa-check"></i><b>3.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="lab_2.html"><a href="lab_2.html#що-таке-маніпулювання-данними"><i class="fa fa-check"></i><b>3.2.1</b> Що таке маніпулювання данними?<span></span></a></li>
+<li class="chapter" data-level="3.2.2" data-path="lab_2.html"><a href="lab_2.html#імпорт-даних"><i class="fa fa-check"></i><b>3.2.2</b> Імпорт даних<span></span></a></li>
+<li class="chapter" data-level="3.2.3" data-path="lab_2.html"><a href="lab_2.html#приведення-даних-до-охайного-вигляду"><i class="fa fa-check"></i><b>3.2.3</b> Приведення даних до охайного вигляду<span></span></a></li>
+<li class="chapter" data-level="3.2.4" data-path="lab_2.html"><a href="lab_2.html#трансформація"><i class="fa fa-check"></i><b>3.2.4</b> Трансформація<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="lab_2.html"><a href="lab_2.html#приклад-виконання-індівідуального-завдання"><i class="fa fa-check"></i><b>3.3</b> Приклад виконання індівідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="lab_2.html"><a href="lab_2.html#постановка-задачі-1"><i class="fa fa-check"></i><b>3.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="3.3.2" data-path="lab_2.html"><a href="lab_2.html#виконання-завдання-1"><i class="fa fa-check"></i><b>3.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="3.3.3" data-path="lab_2.html"><a href="lab_2.html#індивідуальні-завдання-на-лабораторну-роботу-1"><i class="fa fa-check"></i><b>3.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="lab_3.html"><a href="lab_3.html"><i class="fa fa-check"></i><b>4</b> Лабораторна робота №3. Розвідувальний аналіз даних. Візуалізація<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="lab_3.html"><a href="lab_3.html#що-ви-будете-вміти-2"><i class="fa fa-check"></i><b>4.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="lab_3.html"><a href="lab_3.html#короткі-теоретичні-відомості-2"><i class="fa fa-check"></i><b>4.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="lab_3.html"><a href="lab_3.html#що-таке-розвідувальний-аналіз-даних"><i class="fa fa-check"></i><b>4.2.1</b> Що таке розвідувальний аналіз даних?<span></span></a></li>
+<li class="chapter" data-level="4.2.2" data-path="lab_3.html"><a href="lab_3.html#питання"><i class="fa fa-check"></i><b>4.2.2</b> Питання<span></span></a></li>
+<li class="chapter" data-level="4.2.3" data-path="lab_3.html"><a href="lab_3.html#зниження-розмірності-даних"><i class="fa fa-check"></i><b>4.2.3</b> Зниження розмірності даних<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="lab_3.html"><a href="lab_3.html#приклад-виконання-індивідуального-завдання"><i class="fa fa-check"></i><b>4.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="lab_3.html"><a href="lab_3.html#постановка-задачі-2"><i class="fa fa-check"></i><b>4.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="lab_3.html"><a href="lab_3.html#виконання-завдання-2"><i class="fa fa-check"></i><b>4.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="4.3.3" data-path="lab_3.html"><a href="lab_3.html#індивідуальні-завдання-на-лабораторну-роботу-2"><i class="fa fa-check"></i><b>4.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><i class="fa fa-check"></i><b>5</b> Модуль 2. Моделювання. Лабораторна робота №4. Розгортання моделі<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html#що-ви-будете-вміти-3"><i class="fa fa-check"></i><b>5.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html#короткі-теоретичні-відомості-3"><i class="fa fa-check"></i><b>5.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html#індивідуальні-завдання-на-лабораторну-роботу-3"><i class="fa fa-check"></i><b>5.2.1</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><i class="fa fa-check"></i><b>6</b> Модуль 2. Моделювання. Лабораторна робота №5. Побудова регресійних моделей<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#що-ви-будете-вміти-4"><i class="fa fa-check"></i><b>6.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="6.2" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#короткі-теоретичні-відомості-4"><i class="fa fa-check"></i><b>6.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#що-таке-регресія-і-регресійний-аналіз"><i class="fa fa-check"></i><b>6.2.1</b> Що таке регресія і регресійний аналіз?<span></span></a></li>
+<li class="chapter" data-level="6.2.2" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#формальна-постановка-задачі-регресії"><i class="fa fa-check"></i><b>6.2.2</b> Формальна постановка задачі регресії<span></span></a></li>
+<li class="chapter" data-level="6.2.3" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#статистичний-підхід"><i class="fa fa-check"></i><b>6.2.3</b> Статистичний підхід<span></span></a></li>
+<li class="chapter" data-level="6.2.4" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#підхід-на-основі-машинного-навчання"><i class="fa fa-check"></i><b>6.2.4</b> Підхід на основі машинного навчання<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#ind"><i class="fa fa-check"></i><b>6.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#розуміння-даних"><i class="fa fa-check"></i><b>6.3.1</b> Розуміння даних<span></span></a></li>
+<li class="chapter" data-level="6.3.2" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#підготовка-даних"><i class="fa fa-check"></i><b>6.3.2</b> Підготовка даних<span></span></a></li>
+<li class="chapter" data-level="6.3.3" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#rf"><i class="fa fa-check"></i><b>6.3.3</b> Моделювання<span></span></a></li>
+<li class="chapter" data-level="6.3.4" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#індивідуальні-завдання-на-лабораторну-роботу-4"><i class="fa fa-check"></i><b>6.3.4</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science на R. Лабораторний практикум</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="lab_2" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Розділ 3</span> Лабораторна робота №2. Маніпулювання даними<a href="lab_2.html#lab_2" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Мета:</strong> <em>Засвоєння принципів, знайомвство з інструментами та набуття навичок манпулювання даними (<strong>wrangle</strong>) засобами мови програмування <code>R</code> та колекції пакетів <code>tidyverse</code> <span class="citation">(<a href="#ref-R-tidyverse" role="doc-biblioref">Wickham 2021b</a>)</span>.</em></p>
+<div id="що-ви-будете-вміти-1" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Що ви будете вміти?<a href="lab_2.html#що-ви-будете-вміти-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>виконувати імпорт даних з файлів різного формату, включаючи реляційні бази даних засобами мови R у середовищі IDE RStudio.</li>
+<li>обробляти пропущені значення та приводити дані до “охайного” вигляду за допомогою пакету <code>tidyr</code> <span class="citation">(<a href="#ref-R-tidyr" role="doc-biblioref">Wickham and Girlich 2022</a>)</span>.</li>
+<li>маніпулювати даними засобами мови R у середовищі IDE RStudio в парадигмі пакету <code>dplyr</code> <span class="citation">(<a href="#ref-R-dplyr" role="doc-biblioref">Wickham et al. 2022</a>)</span> з використанням потокового оператору <code>%&gt;%</code>.</li>
+</ul>
+</div>
+<div id="короткі-теоретичні-відомості-1" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Короткі теоретичні відомості<a href="lab_2.html#короткі-теоретичні-відомості-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="що-таке-маніпулювання-данними" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Що таке маніпулювання данними?<a href="lab_2.html#що-таке-маніпулювання-данними" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Wrangle</strong> – найважливша задача початкового етапу, мета якої – підготовка даних до аналізу і яка складається з процедур приведення даних до “охайного” вигляду та трансформації: <strong>Tidy + Transform = Wrangle</strong>. <span class="citation">(<a href="#ref-r4ds" role="doc-biblioref">Garrett Grolemund 2018</a>)</span> (рис. 1). Сюди можна віднести і процедуру імпорту, на етапі якої, власне, і починаються певні трасформації з даними.</p>
+<div class="figure">
+<img src="image/wrangling.png" alt="" />
+<p class="caption"><em>Рис. 1. Структура задачі маніпулювання даними у складі Data Science-проекту</em> <span class="citation">(<a href="#ref-r4ds" role="doc-biblioref">Garrett Grolemund 2018</a>)</span></p>
+</div>
+</div>
+<div id="імпорт-даних" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Імпорт даних<a href="lab_2.html#імпорт-даних" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Перша задача <em>імпорту даних</em> (<strong>Import</strong>) полягає у вилученні необхідних сирих даних з будь-яких джерел (файли, БД, дані з датчиків у реальному часі і т. д.) самого різного формату.<br />
+Вхідні дані можуть бути в оному з трьох наступних форматів (прийнято також називати <em>табульованими</em> (<strong>Tabular Data</strong>) і <em>нетабульованими</em> (<strong>Non-Tabular Data</strong>)):</p>
+<ul>
+<li><em>структурованому</em> – у вигляді таблиці з чітко визначеними полями;</li>
+<li><em>слабоструктурованому</em> – так звані транзакційні дані, в яких проглядається певна структура, але немає чітко визначених полів та їх типів;<br />
+</li>
+<li><em>неструктурованому</em> – будь-якому форматі, як правило, це текст довільної структури.</li>
+</ul>
+<p>Для імпорту і експорту структурованих даних у середовищі R існує маса інструментів як стандартних, так і у складі спеціалізованих пакетів. Найпростіший варіант, який рекомендується для новачка, – відповідні функції пакету <code>rio</code> <span class="citation">(<a href="#ref-rio" role="doc-biblioref">Chan et al. 2018</a>)</span>, що використовувався у <a href="modul1.html#modul1">лаб. роб. №1</a>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="lab_2.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install_formats() #інсталяція додаткових компонентів пакету rio</span></span>
+<span id="cb6-2"><a href="lab_2.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb6-3"><a href="lab_2.html#cb6-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">5</span>))</span>
+<span id="cb6-4"><a href="lab_2.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span>(df, <span class="st">&quot;data/df_data_frame.txt&quot;</span>)</span>
+<span id="cb6-5"><a href="lab_2.html#cb6-5" aria-hidden="true" tabindex="-1"></a>dfImp <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;data/df_data_frame.txt&quot;</span>)</span>
+<span id="cb6-6"><a href="lab_2.html#cb6-6" aria-hidden="true" tabindex="-1"></a>dfImp</span></code></pre></div>
+<pre><code>##   x          y
+## 1 1 -1.0779033
+## 2 2 -0.9384943
+## 3 3 -1.2040543
+## 4 4  1.2950701
+## 5 5  0.4104481</code></pre>
+<p>Пакет працює з файлами широкого спектру форматів і дозволяє виконувати за необхідності конвертацію файлів з одного формату в інший.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="lab_2.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;mtcars&quot;</span>) <span class="co">#підключення стандартного набору даних mtcars</span></span>
+<span id="cb8-2"><a href="lab_2.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># head(mtcars)</span></span>
+<span id="cb8-3"><a href="lab_2.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span>(<span class="fu">head</span>(mtcars), <span class="st">&quot;data/mtcars.dta&quot;</span>)</span>
+<span id="cb8-4"><a href="lab_2.html#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">convert</span>(<span class="st">&#39;data/mtcars.dta&#39;</span>, <span class="st">&#39;data/mtcars.csv&#39;</span>)</span>
+<span id="cb8-5"><a href="lab_2.html#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">import</span>(<span class="st">&quot;data/mtcars.csv&quot;</span>)</span></code></pre></div>
+<pre><code>##    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## 1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## 2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## 3 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## 4 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## 5 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## 6 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+<div id="імпорт-з-реляційних-баз-даних" class="section level4 hasAnchor" number="3.2.2.1">
+<h4><span class="header-section-number">3.2.2.1</span> Імпорт з реляційних баз даних<a href="lab_2.html#імпорт-з-реляційних-баз-даних" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Пакет <code>dplyr</code> <span class="citation">(<a href="#ref-R-dplyr" role="doc-biblioref">Wickham et al. 2022</a>)</span> забезпечує зручний інтерфейс дял роботи з віддаленими реляційними базами даних. Наразі ці можливості відокремлені в окремий пакет <a href="https://cran.rstudio.com/web/packages/dbplyr/vignettes/dbplyr.html"><code>dbplyr</code></a> <span class="citation">(<a href="#ref-R-dbplyr" role="doc-biblioref">Wickham, Girlich, and Ruiz 2021</a>)</span>.
+Основна перевага – користувач повністю абстрагується від факту роботи з базою даних, оперуючи тими ж самими командами, що і для роботи з <code>data.frame</code> (див. нижче). <code>dbplyr</code> бере на себе повну відповідальність за роботу з БД, включаючи трансляцію команд на <code>SQL</code>. Хоча, в окремих випадках більш ефективно використовувати безпосередньо <code>SQL</code>!<br />
+Для роботи з <code>dbplyr</code> необхідно встановити пакет бекенда DBI. Пакет DBI забезпечує загальний інтерфейс, що дозволяє <code>dbplyr</code> працювати з багатьма різними базами даних, використовуючи один і той самий код. <code>DBI</code> автоматично встановлюється за допомогою <code>dbplyr</code>, але необхідно окремо встановити конкретний бекенд для бази даних, до якої ми хочемо підключитися:</p>
+<ul>
+<li><code>RMySQL</code> <span class="citation">(<a href="#ref-R-RMySQL" role="doc-biblioref">Ooms et al. 2021</a>)</span> підключається до <code>MySQL</code> та <code>MariaDB</code>;</li>
+<li><code>RPostgreSQL</code> <span class="citation">(<a href="#ref-R-RPostgreSQL" role="doc-biblioref">Conway et al. 2021</a>)</span> підключається до <code>Postgres</code> та <code>Redshift</code>;</li>
+<li><code>RSQLite</code> <span class="citation">(<a href="#ref-R-RSQLite" role="doc-biblioref">Müller et al. 2022</a>)</span> вбудовує <code>SQLite</code>-базу даних;</li>
+<li><code>odbc</code> <span class="citation">(<a href="#ref-R-odbc" role="doc-biblioref">Hester and Wickham 2021</a>)</span> підключається до багатьох комерційних баз даних через протокол відкритої бази даних;</li>
+<li><code>bigrquery</code> <span class="citation">(<a href="#ref-R-bigrquery" role="doc-biblioref">Wickham and Bryan 2021</a>)</span> підключається до <code>Google BigQuery</code>.</li>
+</ul>
+<p>Для експериментів з базами даних найпростіше почати з <code>SQLite</code>, оскільки все необхідне включено до стандартного пакету <code>R</code>. Нам не потрібно встановлювати що-небудь ще і мати справу з налаштуванням сервера бази даних. Використовувати базу даних <code>SQLite</code> у <code>dplyr</code> дуже просто: достатньо задати шлях і відзначити, що потрібно створити нову БД:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="lab_2.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dbplyr)</span>
+<span id="cb10-2"><a href="lab_2.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb10-3"><a href="lab_2.html#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RSQLite)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="lab_2.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># my_db &lt;- src_sqlite(&quot;data/my_db.sqlite3&quot;, create = T)</span></span></code></pre></div>
+<p><code>my_db</code> зараз не містить даних, тому ми завантажимо туди дані <code>flights</code> (зі стандартного набору <span class="citation">(<a href="#ref-R-nycflights13" role="doc-biblioref">Wickham 2021a</a>)</span>) з використанням зручної функції <code>copy_to()</code>. Це швидкий і “брудний” спосіб для того, щоб помістити дані в базу даних, але він не підходить для дуже великих наборів даних, оскільки всі дані повинні проходити через <code>R</code>.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="lab_2.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
+<span id="cb12-2"><a href="lab_2.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># flights_sqlite &lt;- copy_to(my_db, flights, temporary = FALSE, </span></span>
+<span id="cb12-3"><a href="lab_2.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#                           indexes = list(c(&quot;year&quot;, &quot;month&quot;, &quot;day&quot;), &quot;carrier&quot;, &quot;tailnum&quot;))</span></span>
+<span id="cb12-4"><a href="lab_2.html#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># head(flights_sqlite)</span></span></code></pre></div>
+<p>Нижче показано приклад встановлення з’єднання з існуючою БД через функцію <code>DBConnect</code>, що входить до складу <code>DBI</code> <span class="citation">(<a href="#ref-R-DBI" role="doc-biblioref">R Special Interest Group on Databases (R-SIG-DB), Wickham, and Muller 2021</a>)</span>.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="lab_2.html#cb13-1" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="at">path =</span> <span class="st">&quot;data/my_db.sqlite3&quot;</span>)</span>
+<span id="cb13-2"><a href="lab_2.html#cb13-2" aria-hidden="true" tabindex="-1"></a>flights_sqlite <span class="ot">&lt;-</span> <span class="fu">copy_to</span>(con, nycflights13<span class="sc">::</span>flights, <span class="st">&quot;flights&quot;</span>,</span>
+<span id="cb13-3"><a href="lab_2.html#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">temporary =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb13-4"><a href="lab_2.html#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">indexes =</span> <span class="fu">list</span>(</span>
+<span id="cb13-5"><a href="lab_2.html#cb13-5" aria-hidden="true" tabindex="-1"></a>          <span class="fu">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;month&quot;</span>, <span class="st">&quot;day&quot;</span>), </span>
+<span id="cb13-6"><a href="lab_2.html#cb13-6" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;carrier&quot;</span>, </span>
+<span id="cb13-7"><a href="lab_2.html#cb13-7" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;tailnum&quot;</span>,</span>
+<span id="cb13-8"><a href="lab_2.html#cb13-8" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;dest&quot;</span></span>
+<span id="cb13-9"><a href="lab_2.html#cb13-9" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb13-10"><a href="lab_2.html#cb13-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-11"><a href="lab_2.html#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="lab_2.html#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(flights_sqlite)</span></code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 19]
+## # Database: sqlite 3.37.2 []
+##    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
+## 1  2013     1     1      517            515         2      830            819
+## 2  2013     1     1      533            529         4      850            830
+## 3  2013     1     1      542            540         2      923            850
+## 4  2013     1     1      544            545        -1     1004           1022
+## 5  2013     1     1      554            600        -6      812            837
+## 6  2013     1     1      554            558        -4      740            728
+## # ... with 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
+## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
+## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dbl&gt;</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="lab_2.html#cb15-1" aria-hidden="true" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
+<p>Для більш детального знайомства доцільно скористатися вищезаначеними посиланнями, та матеріалами <a href="https://db.rstudio.com/dplyr/">проекту RStudio</a> <span class="citation">(<a href="#ref-R-dbplyr" role="doc-biblioref">Wickham, Girlich, and Ruiz 2021</a>)</span>, присвяченого роботі з БД в середовищі <code>RStudio</code>, а також <a href="http://biostat-r.blogspot.com/2015/07/dplyr-databases.html#more">російськомовним перекладом Андрія Огурцова</a> документації по <code>dplyr</code>.</p>
+<p>При роботі зі слабоструктурованими та неструктурованими файлами, або коли необхідно маніпулювати даними вже на етапі імпорту, можна скористатися потужностями пакету <code>reader</code> <span class="citation">(<a href="#ref-R-reader" role="doc-biblioref">Cooper 2017</a>)</span> для парсингу даних з нетабульованих джерел за допомогою сімейства методів <code>read_*</code>, <code>col_*</code>, <code>parse_*</code>, включаючи рядки (<strong>strings</strong>), категоріальні змінні (<strong>factors</strong>), данні типу час-дата (<strong>data-time</strong>) (див. шпаргалку <a href="https://www.rstudio.com/resources/cheatsheets/">Data import with readr, readxl, and googlesheets4 cheatsheet</a>), що входить до колекції <a href="https://www.tidyverse.org/">tidyvers</a>.</p>
+</div>
+</div>
+<div id="приведення-даних-до-охайного-вигляду" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Приведення даних до охайного вигляду<a href="lab_2.html#приведення-даних-до-охайного-вигляду" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="що-таке-охайні-дані-tidy-data" class="section level4 hasAnchor" number="3.2.3.1">
+<h4><span class="header-section-number">3.2.3.1</span> Що таке “охайні” дані (tidy data)?<a href="lab_2.html#що-таке-охайні-дані-tidy-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Друга і найбільш трудомістка задача (<strong>Tidy</strong>) – <em>приведення даних до</em> так званого <em>“охайного” вигляду</em>, придатного для аналізу. Як правило мова йде про приведення даних до табличного вигляду “ключ-значення,” або, іншими словами, “об’єкт-ознака.”</p>
+<p>Колекція <code>tidyvers</code> будує свою роботу навколо “охайних” даних, збережених у так званих <code>tibbles</code>, що є розширенням типу <code>data.frame</code>. Забезпечується це за допомогою пакету <code>tibble</code> <span class="citation">(<a href="#ref-R-tibble" role="doc-biblioref">Müller and Wickham 2021</a>)</span>, який предоставляє новий S3 клас для збереження табличних даних. <code>tibbles</code> наслідує клас <code>data.frame</code> і покращує деякі маніпулятивні процедури (див. шпаргалку <a href="doc/data-import.pdf">тут</a>).<br />
+Розглянемо інструментарій пакету <span class="citation">(<a href="#ref-R-tidyr" role="doc-biblioref">Wickham and Girlich 2022</a>)</span>, який вхродить до складу <code>tidyvers</code>, використовуючи матеріали з книги <span class="citation">(<a href="#ref-r4ds" role="doc-biblioref">Garrett Grolemund 2018</a>)</span>. (Більш детально – див. <span class="citation">(<a href="#ref-R-tidyr" role="doc-biblioref">Wickham and Girlich 2022</a>)</span>, або <a href="http://biostat-r.blogspot.com/2016/01/tidy-data.html#more">скорочений переклад російською</a>).<br />
+Існує три взаємопов’язані правила, які роблять набір даних “охайним”:</p>
+<ul>
+<li>Кожна змінна містится у окремому полі;</li>
+<li>Кожне спостереження має містится у окремому рядку;</li>
+<li>Значення кожної змінної має міститися в окремій комірці.</li>
+</ul>
+<div class="figure">
+<img src="image/tidy.png" alt="" />
+<p class="caption"><em>Рис. 2. Три взаємопов’язані правила, які роблять набір даних “охайними”</em> <span class="citation">(<a href="#ref-r4ds" role="doc-biblioref">Garrett Grolemund 2018</a>)</span></p>
+</div>
+<p>Чому доцільно приводити дані до охайного виду? В цьому є дві переваги:</p>
+<ul>
+<li>загальна перевага – такого роду уніфікований вид даних дозволяє ефективно їх зберігати, в тому числі, у реляційній базі даних, і дозволяє маніпулювати їми за допомогою стандартних інструментів;</li>
+<li>специфічна перевага – мова R з точки зору написання ефективного коду передбачає виконання процедури векторизації у всіх випадках, коли це можливо, а це потребує приведення коду до охайного вигляду.</li>
+</ul>
+<p>Нижче наведено приклад роботи з таблицею, що має охайний вигляд.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="lab_2.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="lab_2.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># відносний критерій на 10000</span></span>
+<span id="cb17-2"><a href="lab_2.html#cb17-2" aria-hidden="true" tabindex="-1"></a>table1 <span class="sc">%&gt;%</span>  <span class="co"># стандартний набір даних</span></span>
+<span id="cb17-3"><a href="lab_2.html#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rate =</span> cases <span class="sc">/</span> population <span class="sc">*</span> <span class="dv">10000</span>) <span class="co"># обчислення нового поля</span></span></code></pre></div>
+<pre><code>## # A tibble: 6 x 5
+##   country      year  cases population  rate
+##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt; &lt;dbl&gt;
+## 1 Afghanistan  1999    745   19987071 0.373
+## 2 Afghanistan  2000   2666   20595360 1.29 
+## 3 Brazil       1999  37737  172006362 2.19 
+## 4 Brazil       2000  80488  174504898 4.61 
+## 5 China        1999 212258 1272915272 1.67 
+## 6 China        2000 213766 1280428583 1.67</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="lab_2.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># кількість випадків на рік</span></span>
+<span id="cb19-2"><a href="lab_2.html#cb19-2" aria-hidden="true" tabindex="-1"></a>table1 <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href="lab_2.html#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(year, <span class="at">wt =</span> cases)</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 2
+##    year      n
+##   &lt;int&gt;  &lt;int&gt;
+## 1  1999 250740
+## 2  2000 296920</code></pre>
+<p>Потоковий оператор <code>%&gt;%</code> дає можливість спрощувати написання коду. Оператор працює наступним чином: вираз <code>sin(cos(x))</code> може бути переписаний як <code>x %&gt;% cos() %&gt;% sin()</code>.</p>
+<p>Нижче наведено приклад сумісного застосування потокового оператору і функцій пакету <code>ggplot2</code> <span class="citation">(<a href="#ref-R-ggplot2" role="doc-biblioref">Wickham et al. 2021</a>)</span> для візуалізації результатів.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="lab_2.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Візуалізація динаміки зміни кількості випадків з часом</span></span>
+<span id="cb21-2"><a href="lab_2.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb21-3"><a href="lab_2.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(table1, <span class="fu">aes</span>(year, cases)) <span class="sc">+</span> </span>
+<span id="cb21-4"><a href="lab_2.html#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> country), <span class="at">colour =</span> <span class="st">&quot;grey50&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb21-5"><a href="lab_2.html#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> country))</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="lab_2.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># table1 %&gt;% </span></span>
+<span id="cb22-2"><a href="lab_2.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(rate = cases / population * 10000) %&gt;% </span></span>
+<span id="cb22-3"><a href="lab_2.html#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   ggplot(aes(year, rate)) + </span></span>
+<span id="cb22-4"><a href="lab_2.html#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_line(aes(group = country), colour = &quot;grey50&quot;) + </span></span>
+<span id="cb22-5"><a href="lab_2.html#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_point(aes(colour = country))</span></span></code></pre></div>
+<p><strong>Завдання на самостійну роботу</strong>. Побудувати динаміку відносного критерію <code>rate</code> кількості захворювань по роках для кожної держави.</p>
+</div>
+<div id="процедури-spreading-and-gathering" class="section level4 hasAnchor" number="3.2.3.2">
+<h4><span class="header-section-number">3.2.3.2</span> Процедури Spreading and Gathering<a href="lab_2.html#процедури-spreading-and-gathering" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>На практиці найбільш часто зустрічаються два основних типи “неохайності” даних:</p>
+<ul>
+<li>Значення однієї змінної можуть бути розкидані по багатьох стовпчиках;</li>
+<li>Одне спостереження може бути розсіяне по багатьох рядках.</li>
+</ul>
+<p>Для вирішення цієї проблеми у складі пакету <code>tidyr</code> існують функції <code>gather()</code>і <code>spread()</code>.</p>
+<div id="gathering" class="section level5 hasAnchor" number="3.2.3.2.1">
+<h5><span class="header-section-number">3.2.3.2.1</span> Gathering<a href="lab_2.html#gathering" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Поширеною проблемою є набір даних, де деякі назви стовпців – це не імена змінних, а значення змінної. Візьміть table4a: назви стовпчиків 1999 та 2000 представляють значення змінної року, і кожен рядок містить два спостереження, а не одне.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="lab_2.html#cb23-1" aria-hidden="true" tabindex="-1"></a>table4a</span></code></pre></div>
+<pre><code>## # A tibble: 3 x 3
+##   country     `1999` `2000`
+## * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;
+## 1 Afghanistan    745   2666
+## 2 Brazil       37737  80488
+## 3 China       212258 213766</code></pre>
+<p>Для розв’язку проблеми необхідно зібрати (<strong>gather</strong>) необхідні колонки у пару нових змінних (рис. 3).</p>
+<div class="figure">
+<img src="image/table4.png" alt="" />
+<p class="caption"><em>Рис. 3 Приведення <code>table4</code> до охайної форми</em> <span class="citation">(<a href="#ref-r4ds" role="doc-biblioref">Garrett Grolemund 2018</a>)</span></p>
+</div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="lab_2.html#cb25-1" aria-hidden="true" tabindex="-1"></a>table4a <span class="sc">%&gt;%</span> </span>
+<span id="cb25-2"><a href="lab_2.html#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="st">`</span><span class="at">1999</span><span class="st">`</span>, <span class="st">`</span><span class="at">2000</span><span class="st">`</span>, <span class="at">key =</span> <span class="st">&quot;year&quot;</span>, <span class="at">value =</span> <span class="st">&quot;cases&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   country     year   cases
+##   &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;
+## 1 Afghanistan 1999     745
+## 2 Brazil      1999   37737
+## 3 China       1999  212258
+## 4 Afghanistan 2000    2666
+## 5 Brazil      2000   80488
+## 6 China       2000  213766</code></pre>
+<p>Для комбінування таблиць після приведення їх до охайного вигляду, можна використовувати ліве з’єднання.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="lab_2.html#cb27-1" aria-hidden="true" tabindex="-1"></a>tidy4a <span class="ot">&lt;-</span> table4a <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="lab_2.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="st">`</span><span class="at">1999</span><span class="st">`</span>, <span class="st">`</span><span class="at">2000</span><span class="st">`</span>, <span class="at">key =</span> <span class="st">&quot;year&quot;</span>, <span class="at">value =</span> <span class="st">&quot;cases&quot;</span>)</span>
+<span id="cb27-3"><a href="lab_2.html#cb27-3" aria-hidden="true" tabindex="-1"></a>tidy4b <span class="ot">&lt;-</span> table4b <span class="sc">%&gt;%</span> </span>
+<span id="cb27-4"><a href="lab_2.html#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="st">`</span><span class="at">1999</span><span class="st">`</span>, <span class="st">`</span><span class="at">2000</span><span class="st">`</span>, <span class="at">key =</span> <span class="st">&quot;year&quot;</span>, <span class="at">value =</span> <span class="st">&quot;population&quot;</span>)</span>
+<span id="cb27-5"><a href="lab_2.html#cb27-5" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">left_join</span>(tidy4a, tidy4b)</span></code></pre></div>
+<pre><code>## Joining, by = c(&quot;country&quot;, &quot;year&quot;)</code></pre>
+<pre><code>## # A tibble: 6 x 4
+##   country     year   cases population
+##   &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;      &lt;int&gt;
+## 1 Afghanistan 1999     745   19987071
+## 2 Brazil      1999   37737  172006362
+## 3 China       1999  212258 1272915272
+## 4 Afghanistan 2000    2666   20595360
+## 5 Brazil      2000   80488  174504898
+## 6 China       2000  213766 1280428583</code></pre>
+<p><strong>Завдання на самостійну роботу</strong>. Виконати попереднє завдання, базуючись на таблицях <code>tidy4a</code> і <code>tidy4b</code> з використанням потокового оператора.</p>
+</div>
+<div id="spreading" class="section level5 hasAnchor" number="3.2.3.2.2">
+<h5><span class="header-section-number">3.2.3.2.2</span> Spreading<a href="lab_2.html#spreading" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Це процедура протилежна збиранню. Поширення, або розтягування (spreading) застосовується, коли спостереження знаходяться в різних рядках (рис. 4).</p>
+<div class="figure">
+<img src="image/table2.png" alt="" />
+<p class="caption"><em>Рис. 4 Приведення <code>table2</code> до охайної форми</em> <span class="citation">(<a href="#ref-r4ds" role="doc-biblioref">Garrett Grolemund 2018</a>)</span></p>
+</div>
+<p>Приклад.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="lab_2.html#cb30-1" aria-hidden="true" tabindex="-1"></a>table2</span></code></pre></div>
+<pre><code>## # A tibble: 12 x 4
+##    country      year type            count
+##    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;
+##  1 Afghanistan  1999 cases             745
+##  2 Afghanistan  1999 population   19987071
+##  3 Afghanistan  2000 cases            2666
+##  4 Afghanistan  2000 population   20595360
+##  5 Brazil       1999 cases           37737
+##  6 Brazil       1999 population  172006362
+##  7 Brazil       2000 cases           80488
+##  8 Brazil       2000 population  174504898
+##  9 China        1999 cases          212258
+## 10 China        1999 population 1272915272
+## 11 China        2000 cases          213766
+## 12 China        2000 population 1280428583</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="lab_2.html#cb32-1" aria-hidden="true" tabindex="-1"></a>table2 <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="lab_2.html#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">spread</span>(<span class="at">key =</span> type, <span class="at">value =</span> count)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##   country      year  cases population
+##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583</code></pre>
+</div>
+</div>
+<div id="процедури-separating-і-uniting" class="section level4 hasAnchor" number="3.2.3.3">
+<h4><span class="header-section-number">3.2.3.3</span> Процедури Separating і Uniting<a href="lab_2.html#процедури-separating-і-uniting" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>На практиці може статися випадок, коли в одному стовпчику знаходяться різні змінні. Проблема вирішується шляхом його розділення (separating) на два (див. рис.5).</p>
+<div class="figure">
+<img src="image/table3.png" alt="" />
+<p class="caption"><em>Рис. 5 Приведення <code>table3</code> до охайної форми шляхом розділення стовпчиків</em> <span class="citation">(<a href="#ref-r4ds" role="doc-biblioref">Garrett Grolemund 2018</a>)</span></p>
+</div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="lab_2.html#cb34-1" aria-hidden="true" tabindex="-1"></a>table3</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   country      year rate             
+## * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            
+## 1 Afghanistan  1999 745/19987071     
+## 2 Afghanistan  2000 2666/20595360    
+## 3 Brazil       1999 37737/172006362  
+## 4 Brazil       2000 80488/174504898  
+## 5 China        1999 212258/1272915272
+## 6 China        2000 213766/1280428583</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="lab_2.html#cb36-1" aria-hidden="true" tabindex="-1"></a>table3 <span class="sc">%&gt;%</span> </span>
+<span id="cb36-2"><a href="lab_2.html#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(rate, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##   country      year cases  population
+##   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;     
+## 1 Afghanistan  1999 745    19987071  
+## 2 Afghanistan  2000 2666   20595360  
+## 3 Brazil       1999 37737  172006362 
+## 4 Brazil       2000 80488  174504898 
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583</code></pre>
+<p>Зворотною процедурою до <code>separate()</code> є <code>unite()</code>.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="lab_2.html#cb38-1" aria-hidden="true" tabindex="-1"></a>table5 <span class="sc">%&gt;%</span> </span>
+<span id="cb38-2"><a href="lab_2.html#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(new, century, year, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   country     new   rate             
+##   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;            
+## 1 Afghanistan 1999  745/19987071     
+## 2 Afghanistan 2000  2666/20595360    
+## 3 Brazil      1999  37737/172006362  
+## 4 Brazil      2000  80488/174504898  
+## 5 China       1999  212258/1272915272
+## 6 China       2000  213766/1280428583</code></pre>
+</div>
+<div id="пропущені-значення" class="section level4 hasAnchor" number="3.2.3.4">
+<h4><span class="header-section-number">3.2.3.4</span> Пропущені значення<a href="lab_2.html#пропущені-значення" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Пропущені значення (<strong>missing value</strong>) у наборах даних можуть бути двох видів: <em>явні</em> (позначені як <code>NA</code>, <code>Not Available</code>) і <em>неявні</em> (просто не представлені у даних). Такі дані називаються <em>некомплектні</em>.<br />
+Нижче наведено приклад, який це ілюструє.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="lab_2.html#cb40-1" aria-hidden="true" tabindex="-1"></a>stocks <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb40-2"><a href="lab_2.html#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">year   =</span> <span class="fu">c</span>(<span class="dv">2015</span>, <span class="dv">2015</span>, <span class="dv">2015</span>, <span class="dv">2015</span>, <span class="dv">2016</span>, <span class="dv">2016</span>, <span class="dv">2016</span>),</span>
+<span id="cb40-3"><a href="lab_2.html#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">qtr    =</span> <span class="fu">c</span>(   <span class="dv">1</span>,    <span class="dv">2</span>,    <span class="dv">3</span>,    <span class="dv">4</span>,    <span class="dv">2</span>,    <span class="dv">3</span>,    <span class="dv">4</span>),</span>
+<span id="cb40-4"><a href="lab_2.html#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">return =</span> <span class="fu">c</span>(<span class="fl">1.88</span>, <span class="fl">0.59</span>, <span class="fl">0.35</span>,   <span class="cn">NA</span>, <span class="fl">0.92</span>, <span class="fl">0.17</span>, <span class="fl">2.66</span>)</span>
+<span id="cb40-5"><a href="lab_2.html#cb40-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb40-6"><a href="lab_2.html#cb40-6" aria-hidden="true" tabindex="-1"></a>stocks</span></code></pre></div>
+<pre><code>## # A tibble: 7 x 3
+##    year   qtr return
+##   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1  2015     1   1.88
+## 2  2015     2   0.59
+## 3  2015     3   0.35
+## 4  2015     4  NA   
+## 5  2016     2   0.92
+## 6  2016     3   0.17
+## 7  2016     4   2.66</code></pre>
+<p>Дані за четвертий квартал 2015 явно відсутні про що свідчить відповідне значення. Дані за перший квартал не внесені у таблицю, тобто відсутні неявно, але відсутність можна помітити після відповідної траснформації.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="lab_2.html#cb42-1" aria-hidden="true" tabindex="-1"></a>stocks <span class="sc">%&gt;%</span> </span>
+<span id="cb42-2"><a href="lab_2.html#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(year, return)</span></code></pre></div>
+<pre><code>## # A tibble: 4 x 3
+##     qtr `2015` `2016`
+##   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1     1   1.88  NA   
+## 2     2   0.59   0.92
+## 3     3   0.35   0.17
+## 4     4  NA      2.66</code></pre>
+<p>Виявити множину некомплектних даних можна також з використанням функції <code>complete()</code>.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="lab_2.html#cb44-1" aria-hidden="true" tabindex="-1"></a>stocks <span class="sc">%&gt;%</span> </span>
+<span id="cb44-2"><a href="lab_2.html#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">complete</span>(year, qtr)</span></code></pre></div>
+<pre><code>## # A tibble: 8 x 3
+##    year   qtr return
+##   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1  2015     1   1.88
+## 2  2015     2   0.59
+## 3  2015     3   0.35
+## 4  2015     4  NA   
+## 5  2016     1  NA   
+## 6  2016     2   0.92
+## 7  2016     3   0.17
+## 8  2016     4   2.66</code></pre>
+<p>Проблема некомплектних даних вирішується двома шляхами: виключенням некомплектних спостережень, або імпутацією пропущених значень іншими значеннями, виходячи з певної моделі.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="lab_2.html#cb46-1" aria-hidden="true" tabindex="-1"></a>stocks <span class="sc">%&gt;%</span> </span>
+<span id="cb46-2"><a href="lab_2.html#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(year, return) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-3"><a href="lab_2.html#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(year, return, <span class="st">`</span><span class="at">2015</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2016</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##     qtr year  return
+##   &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;
+## 1     1 2015    1.88
+## 2     2 2015    0.59
+## 3     3 2015    0.35
+## 4     2 2016    0.92
+## 5     3 2016    0.17
+## 6     4 2016    2.66</code></pre>
+<p>У випадках, коли це доцільно, можна використовувати функцію <code>fill()</code>, яка заповнює пропущенні значення, взявши значення з останньої заповненої клітинки:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="lab_2.html#cb48-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Month =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">Year =</span> <span class="fu">c</span>(<span class="dv">2000</span>, <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">11</span>)))</span>
+<span id="cb48-2"><a href="lab_2.html#cb48-2" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
+<pre><code>##    Month Year
+## 1      1 2000
+## 2      2   NA
+## 3      3   NA
+## 4      4   NA
+## 5      5   NA
+## 6      6   NA
+## 7      7   NA
+## 8      8   NA
+## 9      9   NA
+## 10    10   NA
+## 11    11   NA
+## 12    12   NA</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="lab_2.html#cb50-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">fill</span>(Year)</span></code></pre></div>
+<pre><code>##    Month Year
+## 1      1 2000
+## 2      2 2000
+## 3      3 2000
+## 4      4 2000
+## 5      5 2000
+## 6      6 2000
+## 7      7 2000
+## 8      8 2000
+## 9      9 2000
+## 10    10 2000
+## 11    11 2000
+## 12    12 2000</code></pre>
+</div>
+</div>
+<div id="трансформація" class="section level3 hasAnchor" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> Трансформація<a href="lab_2.html#трансформація" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Недостатньо привести дані до охайного вигляду. Найбільш важливі процедури візуалізації та моделювання потребують різного роду трансформації охайних даних: вибірки рядків та полів, перейменування та зміну типів даних, обчислення нових значень, різного роду агрегації тощо.<br />
+<strong>Трансформація</strong> (<strong>Transform</strong>) – друга важлива задача у складі процедури маніпулювання даними.</p>
+<p>Середовище R наразі має низку потужних інструментів для цього, які побудовані на схожих концепціях, серед яких одним з найбільш поширених і потужних є пакет <a href="https://cran.r-project.org/web/packages/dplyr/">dplyr</a> <span class="citation">(<a href="#ref-R-dplyr" role="doc-biblioref">Wickham et al. 2022</a>)</span> зі своєю, як прийнято говорити у професійних колах, “філософією.”</p>
+<p>Наведемо короткий огляд основих команд і прикладів їх застосування згідно з <span class="citation">(<a href="#ref-R-dplyr" role="doc-biblioref">Wickham et al. 2022</a>)</span>.<br />
+Як стверджують розробники, <code>dplyr</code> – граматика маніпулювання даними, що забезпечує послідовний набір дієслів, які допомагають вирішити найбільш поширені проблеми з обробкою даних:</p>
+<ul>
+<li><code>mutate()</code> додає нові змінні, які є функціями існуючих змінних.</li>
+<li><code>select()</code> вибирає стовпчики (поля таблиці) на основі їх імен.</li>
+<li><code>filter()</code> вибирає рядки (спостереження) на основі їх значень.</li>
+<li><code>summarise()</code> зменшує декілька значень до одного резюме.</li>
+<li><code>arrange()</code> змінює упорядкування рядків.</li>
+</ul>
+<p>Усі ці команди об’єднуються природним чином з функцією групування <code>group_by()</code>, яка дозволяє виконувати будь-яку операцію “по групі.” Поряд з даними командами для одинарних таблиць <code>dplyr</code> також надає різноманітні команди для <a href="https://dplyr.tidyverse.org/articles/two-table.html">двох таблиць</a>. Для <a href="http://adv-r.had.co.nz/Functionals.html#functionals-fp">маніпулювання багатьма таблицями</a> викорстовуються засоби пакету <a href="https://purrr.tidyverse.org/"><code>purrr</code></a> <span class="citation">(<a href="#ref-R-purrr" role="doc-biblioref">Henry and Wickham 2020</a>)</span> в парадигмі функціонального програмування, який також входить до <code>tidyverse</code>.<br />
+Як було зазначено вище, <code>dplyr</code> розроблений для того, щоб абстрагуватися від форми, у якій зберігаються дані. Це означає, що при роботі з локальними таблицями даних і з віддаленими таблицями бази даних використовується один і той же самий код R.<br />
+Враховуючи, що більшість команд за своїм сенсом ідентична SQL-командам, з якими студент вже знайомий, наведемо коротко основні приклади їх застосування без зайвих коментарів.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="lab_2.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Вибірка рядків таблиці</span></span>
+<span id="cb52-2"><a href="lab_2.html#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb52-3"><a href="lab_2.html#cb52-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-4"><a href="lab_2.html#cb52-4" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb52-5"><a href="lab_2.html#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">&quot;Droid&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 14
+##   name   height  mass hair_color skin_color  eye_color birth_year sex   gender  
+##   &lt;chr&gt;   &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   
+## 1 C-3PO     167    75 &lt;NA&gt;       gold        yellow           112 none  masculi~
+## 2 R2-D2      96    32 &lt;NA&gt;       white, blue red               33 none  masculi~
+## 3 R5-D4      97    32 &lt;NA&gt;       white, red  red               NA none  masculi~
+## 4 IG-88     200   140 none       metal       red               15 none  masculi~
+## 5 R4-P17     96    NA none       silver, red red, blue         NA none  feminine
+## 6 BB8        NA    NA none       none        black             NA none  masculi~
+## # ... with 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+## #   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="lab_2.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Вибірка полів таблиці</span></span>
+<span id="cb54-2"><a href="lab_2.html#cb54-2" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb54-3"><a href="lab_2.html#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, <span class="fu">ends_with</span>(<span class="st">&quot;color&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 87 x 4
+##    name               hair_color    skin_color  eye_color
+##    &lt;chr&gt;              &lt;chr&gt;         &lt;chr&gt;       &lt;chr&gt;    
+##  1 Luke Skywalker     blond         fair        blue     
+##  2 C-3PO              &lt;NA&gt;          gold        yellow   
+##  3 R2-D2              &lt;NA&gt;          white, blue red      
+##  4 Darth Vader        none          white       yellow   
+##  5 Leia Organa        brown         light       brown    
+##  6 Owen Lars          brown, grey   light       blue     
+##  7 Beru Whitesun lars brown         light       blue     
+##  8 R5-D4              &lt;NA&gt;          white, red  red      
+##  9 Biggs Darklighter  black         light       brown    
+## 10 Obi-Wan Kenobi     auburn, white fair        blue-gray
+## # ... with 77 more rows</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="lab_2.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Створення нового поля у таблиці з послідуючою вибіркою</span></span>
+<span id="cb56-2"><a href="lab_2.html#cb56-2" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb56-3"><a href="lab_2.html#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(name, <span class="at">bmi =</span> mass <span class="sc">/</span> ((height <span class="sc">/</span> <span class="dv">100</span>)  <span class="sc">^</span> <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb56-4"><a href="lab_2.html#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name<span class="sc">:</span>mass, bmi)</span></code></pre></div>
+<pre><code>## # A tibble: 87 x 4
+##    name               height  mass   bmi
+##    &lt;chr&gt;               &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 Luke Skywalker        172    77  26.0
+##  2 C-3PO                 167    75  26.9
+##  3 R2-D2                  96    32  34.7
+##  4 Darth Vader           202   136  33.3
+##  5 Leia Organa           150    49  21.8
+##  6 Owen Lars             178   120  37.9
+##  7 Beru Whitesun lars    165    75  27.5
+##  8 R5-D4                  97    32  34.0
+##  9 Biggs Darklighter     183    84  25.1
+## 10 Obi-Wan Kenobi        182    77  23.2
+## # ... with 77 more rows</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="lab_2.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Сортування даних</span></span>
+<span id="cb58-2"><a href="lab_2.html#cb58-2" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb58-3"><a href="lab_2.html#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(mass))</span></code></pre></div>
+<pre><code>## # A tibble: 87 x 14
+##    name     height  mass hair_color skin_color eye_color birth_year sex   gender
+##    &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+##  1 Jabba D~    175  1358 &lt;NA&gt;       green-tan~ orange         600   herm~ mascu~
+##  2 Grievous    216   159 none       brown, wh~ green, y~       NA   male  mascu~
+##  3 IG-88       200   140 none       metal      red             15   none  mascu~
+##  4 Darth V~    202   136 none       white      yellow          41.9 male  mascu~
+##  5 Tarfful     234   136 brown      brown      blue            NA   male  mascu~
+##  6 Owen La~    178   120 brown, gr~ light      blue            52   male  mascu~
+##  7 Bossk       190   113 none       green      red             53   male  mascu~
+##  8 Chewbac~    228   112 brown      unknown    blue           200   male  mascu~
+##  9 Jek Ton~    180   110 brown      fair       blue            NA   male  mascu~
+## 10 Dexter ~    198   102 none       brown      yellow          NA   male  mascu~
+## # ... with 77 more rows, and 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;,
+## #   films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="lab_2.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Обчислення агрегатів з попереднім групуванням по полю species</span></span>
+<span id="cb60-2"><a href="lab_2.html#cb60-2" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span></span>
+<span id="cb60-3"><a href="lab_2.html#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span></span>
+<span id="cb60-4"><a href="lab_2.html#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb60-5"><a href="lab_2.html#cb60-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb60-6"><a href="lab_2.html#cb60-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mass =</span> <span class="fu">mean</span>(mass, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb60-7"><a href="lab_2.html#cb60-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb60-8"><a href="lab_2.html#cb60-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 9 x 3
+##   species      n  mass
+##   &lt;chr&gt;    &lt;int&gt; &lt;dbl&gt;
+## 1 Droid        6  69.8
+## 2 Gungan       3  74  
+## 3 Human       35  82.8
+## 4 Kaminoan     2  88  
+## 5 Mirialan     2  53.1
+## 6 Twi&#39;lek      2  55  
+## 7 Wookiee      2 124  
+## 8 Zabrak       2  80  
+## 9 &lt;NA&gt;         4  48</code></pre>
+<p>Окрім <code>tidyr</code> і <code>dplyr</code> існує п’ять пакетів (включаючи <a href="https://stringr.tidyverse.org/"><code>stringr</code></a> і <a href="http://forcats.tidyverse.org/"><code>forcats</code></a>), які призначені для роботи з певними типами даних:</p>
+<ul>
+<li><a href="http://lubridate.tidyverse.org/"><code>lubridate</code></a> <span class="citation">(<a href="#ref-R-lubridate" role="doc-biblioref">Spinu, Grolemund, and Wickham 2021</a>)</span> для даних типу “дата” та “дата-час.”</li>
+<li><a href="https://github.com/tidyverse/hms"><code>hms</code></a> <span class="citation">(<a href="#ref-R-hms" role="doc-biblioref">Muller 2021</a>)</span> для даних типу “час доби.”</li>
+<li><a href="https://github.com/tidyverse/blob"><code>blob</code></a> [R-blob] для даних, збережених у двійковому (blob) форматі.</li>
+</ul>
+<p>Більш детальну інформацію див. у так званих <a href="https://cran.r-project.org/web/packages/dplyr/">“віньєтках”</a>, або у <a href="http://biostat-r.blogspot.com/search/label/data_frame">перекладі російською мовою</a> <a href="http://biostat-r.blogspot.com/search/label/data_frame">Андрія Огурцова</a> <span class="citation">(<a href="#ref-Rusdplyr" role="doc-biblioref">Ogurtsov 2022</a>)</span>. Також рекомендується <a href="doc/data-trasformation.pdf">“шпаргалка” по командам <code>dplyr</code></a> від <a href="https://www.rstudio.com/resources/cheatsheets/">RStudio</a>.</p>
+</div>
+</div>
+<div id="приклад-виконання-індівідуального-завдання" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Приклад виконання індівідуального завдання<a href="lab_2.html#приклад-виконання-індівідуального-завдання" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="постановка-задачі-1" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Постановка задачі<a href="lab_2.html#постановка-задачі-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Створити реляційну БД, використовуючи СУБД SQLite. Виконати експорт даних у БД зі стандартного набору <code>nycflights13</code> щодо авіаперевезень аеропорту Нью-Йорк за 2013 рік.</p>
+<p>Налаштувати індекси: (“year,” “month,” “day”), “carrier,” “tailnum,” “dest.”<br />
+Підготувати RMarkdown-документ, який би давав можливість генерувати електронний звіт з результатами виконання наступних задач:</p>
+<ul>
+<li>вибрати поля <code>year:day</code>, <code>dep_delay</code>, <code>arr_delay</code> з таблиці <code>flights</code>.</li>
+<li>вибрати всі рейси з часом затримки (dep_delay) більше ніж 240 хв.</li>
+<li>Обчислити середній час затримки вильоту (dep_time) з попереднім групуванням по відстані авіамаршруту (dest).</li>
+<li>Обчислити для кожного бортового номеру літака з кількістю рейсів більше 100 середній час затримки прибуття та кількість рейсів; дані впорядкувати за убуванням часу затримки прибуття.</li>
+<li>розділити набір даних по літаках і розрахувати кількість вильотів і середню дальність польоту і затримку прибуття; побудувати графік залежності середньої затримки від середньої дальності польоту (за допомогою <code>ggplot2</code>).</li>
+<li>знайти кількість літаків і кількість вильотів в усі можливі пункти призначення.</li>
+</ul>
+</div>
+<div id="виконання-завдання-1" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Виконання завдання<a href="lab_2.html#виконання-завдання-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li>Створюємо реляційну БД, використовуючи СУБД SQLite.</li>
+</ol>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="lab_2.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># my_db &lt;- src_sqlite(&quot;data/my_db.sqlite3&quot;, create = T)</span></span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Під’єднуємось до БД. Виконуємо експорт даних у БД зі стандартного набору <code>nycflights13</code> щодо авіаперевезень аеропорту Нью-Йорк за 2013 рік. Налаштовуємо індекси: (“year,” “month,” “day”), “carrier,” “tailnum,” “dest.”</li>
+</ol>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="lab_2.html#cb63-1" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="at">path =</span> <span class="st">&quot;data/my_db.sqlite3&quot;</span>)</span>
+<span id="cb63-2"><a href="lab_2.html#cb63-2" aria-hidden="true" tabindex="-1"></a>flights_sqlite <span class="ot">&lt;-</span> <span class="fu">copy_to</span>(con, nycflights13<span class="sc">::</span>flights, <span class="st">&quot;flights&quot;</span>,</span>
+<span id="cb63-3"><a href="lab_2.html#cb63-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">temporary =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb63-4"><a href="lab_2.html#cb63-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">indexes =</span> <span class="fu">list</span>(</span>
+<span id="cb63-5"><a href="lab_2.html#cb63-5" aria-hidden="true" tabindex="-1"></a>          <span class="fu">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;month&quot;</span>, <span class="st">&quot;day&quot;</span>), </span>
+<span id="cb63-6"><a href="lab_2.html#cb63-6" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;carrier&quot;</span>, </span>
+<span id="cb63-7"><a href="lab_2.html#cb63-7" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;tailnum&quot;</span>,</span>
+<span id="cb63-8"><a href="lab_2.html#cb63-8" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;dest&quot;</span></span>
+<span id="cb63-9"><a href="lab_2.html#cb63-9" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb63-10"><a href="lab_2.html#cb63-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb63-11"><a href="lab_2.html#cb63-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-12"><a href="lab_2.html#cb63-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(flights_sqlite)</span></code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 19]
+## # Database: sqlite 3.37.2 []
+##    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
+## 1  2013     1     1      517            515         2      830            819
+## 2  2013     1     1      533            529         4      850            830
+## 3  2013     1     1      542            540         2      923            850
+## 4  2013     1     1      544            545        -1     1004           1022
+## 5  2013     1     1      554            600        -6      812            837
+## 6  2013     1     1      554            558        -4      740            728
+## # ... with 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
+## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
+## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dbl&gt;</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Виводимо поля <code>year:day</code>, <code>dep_delay</code>, <code>arr_delay</code> з таблиці <code>flights</code>.</li>
+</ol>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="lab_2.html#cb65-1" aria-hidden="true" tabindex="-1"></a>flights_sqlite <span class="sc">%&gt;%</span> <span class="fu">select</span>(year<span class="sc">:</span>day, dep_delay, arr_delay)</span></code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 5]
+## # Database: sqlite 3.37.2 []
+##     year month   day dep_delay arr_delay
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1  2013     1     1         2        11
+##  2  2013     1     1         4        20
+##  3  2013     1     1         2        33
+##  4  2013     1     1        -1       -18
+##  5  2013     1     1        -6       -25
+##  6  2013     1     1        -4        12
+##  7  2013     1     1        -5        19
+##  8  2013     1     1        -3       -14
+##  9  2013     1     1        -3        -8
+## 10  2013     1     1        -2         8
+## # ... with more rows</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Вибираємо всі рейси з часом затримки (dep_delay) більше ніж 240 хв.</li>
+</ol>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="lab_2.html#cb67-1" aria-hidden="true" tabindex="-1"></a>flights_sqlite <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dep_delay <span class="sc">&gt;</span> <span class="dv">240</span>)</span></code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 19]
+## # Database: sqlite 3.37.2 []
+##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
+##  1  2013     1     1      848           1835       853     1001           1950
+##  2  2013     1     1     1815           1325       290     2120           1542
+##  3  2013     1     1     1842           1422       260     1958           1535
+##  4  2013     1     1     2115           1700       255     2330           1920
+##  5  2013     1     1     2205           1720       285       46           2040
+##  6  2013     1     1     2343           1724       379      314           1938
+##  7  2013     1     2     1332            904       268     1616           1128
+##  8  2013     1     2     1412            838       334     1710           1147
+##  9  2013     1     2     1607           1030       337     2003           1355
+## 10  2013     1     2     2131           1512       379     2340           1741
+## # ... with more rows, and 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;,
+## #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,
+## #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dbl&gt;</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Обчислюємо середній час затримки вильоту (dep_time) з попереднім групуванням по відстані авіамаршруту (dest).</li>
+</ol>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="lab_2.html#cb69-1" aria-hidden="true" tabindex="-1"></a>flights_sqlite <span class="sc">%&gt;%</span> </span>
+<span id="cb69-2"><a href="lab_2.html#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dest) <span class="sc">%&gt;%</span></span>
+<span id="cb69-3"><a href="lab_2.html#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">delay =</span> <span class="fu">mean</span>(dep_time))</span></code></pre></div>
+<pre><code>## Warning: Missing values are always removed in SQL.
+## Use `mean(x, na.rm = TRUE)` to silence this warning
+## This warning is displayed only once per session.</code></pre>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: sqlite 3.37.2 []
+##    dest  delay
+##    &lt;chr&gt; &lt;dbl&gt;
+##  1 ABQ   2006.
+##  2 ACK   1033.
+##  3 ALB   1627.
+##  4 ANC   1635.
+##  5 ATL   1293.
+##  6 AUS   1521.
+##  7 AVL   1175.
+##  8 BDL   1490.
+##  9 BGR   1690.
+## 10 BHM   1944.
+## # ... with more rows</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Обчислюємо для кожного бортового номеру літака з кількістю рейсів більше 100 середній час затримки прибуття та кількість рейсів; дані впорядкувати за убуванням часу затримки прибуття.</li>
+</ol>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="lab_2.html#cb72-1" aria-hidden="true" tabindex="-1"></a>tailnum_delay_sqlite <span class="ot">&lt;-</span> flights_sqlite <span class="sc">%&gt;%</span> </span>
+<span id="cb72-2"><a href="lab_2.html#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(tailnum) <span class="sc">%&gt;%</span></span>
+<span id="cb72-3"><a href="lab_2.html#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb72-4"><a href="lab_2.html#cb72-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">delay =</span> <span class="fu">mean</span>(arr_delay),</span>
+<span id="cb72-5"><a href="lab_2.html#cb72-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
+<span id="cb72-6"><a href="lab_2.html#cb72-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb72-7"><a href="lab_2.html#cb72-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(delay)) <span class="sc">%&gt;%</span></span>
+<span id="cb72-8"><a href="lab_2.html#cb72-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">100</span>)</span></code></pre></div>
+<ol start="7" style="list-style-type: decimal">
+<li>Розділяємо набір даних по літаках і розрахувати кількість вильотів і середню дальність польоту і затримку прибуття; будуємо графік залежності середньої затримки від середньої дальності польоту (за допомогою <code>ggplot2</code>).</li>
+</ol>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="lab_2.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb73-2"><a href="lab_2.html#cb73-2" aria-hidden="true" tabindex="-1"></a>planes <span class="ot">&lt;-</span> <span class="fu">group_by</span>(flights, tailnum)</span>
+<span id="cb73-3"><a href="lab_2.html#cb73-3" aria-hidden="true" tabindex="-1"></a>delay <span class="ot">&lt;-</span> <span class="fu">summarise</span>(planes,</span>
+<span id="cb73-4"><a href="lab_2.html#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">count =</span> <span class="fu">n</span>(),</span>
+<span id="cb73-5"><a href="lab_2.html#cb73-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">dist =</span> <span class="fu">mean</span>(distance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb73-6"><a href="lab_2.html#cb73-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">delay =</span> <span class="fu">mean</span>(arr_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb73-7"><a href="lab_2.html#cb73-7" aria-hidden="true" tabindex="-1"></a>delay <span class="ot">&lt;-</span> <span class="fu">filter</span>(delay, count <span class="sc">&gt;</span> <span class="dv">20</span>, dist <span class="sc">&lt;</span> <span class="dv">2000</span>)</span>
+<span id="cb73-8"><a href="lab_2.html#cb73-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-9"><a href="lab_2.html#cb73-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(delay, <span class="fu">aes</span>(dist, delay)) <span class="sc">+</span></span>
+<span id="cb73-10"><a href="lab_2.html#cb73-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> count), <span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb73-11"><a href="lab_2.html#cb73-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb73-12"><a href="lab_2.html#cb73-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size_area</span>()</span></code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
+<pre><code>## Warning: Removed 1 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<ol start="8" style="list-style-type: decimal">
+<li>Знаходимо кількість літаків і кількість вильотів в усі можливі пункти призначення.</li>
+</ol>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="lab_2.html#cb77-1" aria-hidden="true" tabindex="-1"></a>destinations <span class="ot">&lt;-</span> <span class="fu">group_by</span>(flights, dest)</span>
+<span id="cb77-2"><a href="lab_2.html#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(destinations,</span>
+<span id="cb77-3"><a href="lab_2.html#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">planes =</span> <span class="fu">n_distinct</span>(tailnum),</span>
+<span id="cb77-4"><a href="lab_2.html#cb77-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">flights =</span> <span class="fu">n</span>()</span>
+<span id="cb77-5"><a href="lab_2.html#cb77-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## # A tibble: 105 x 3
+##    dest  planes flights
+##    &lt;chr&gt;  &lt;int&gt;   &lt;int&gt;
+##  1 ABQ      108     254
+##  2 ACK       58     265
+##  3 ALB      172     439
+##  4 ANC        6       8
+##  5 ATL     1180   17215
+##  6 AUS      993    2439
+##  7 AVL      159     275
+##  8 BDL      186     443
+##  9 BGR       46     375
+## 10 BHM       45     297
+## # ... with 95 more rows</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="lab_2.html#cb79-1" aria-hidden="true" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
+</div>
+<div id="індивідуальні-завдання-на-лабораторну-роботу-1" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Індивідуальні завдання на лабораторну роботу<a href="lab_2.html#індивідуальні-завдання-на-лабораторну-роботу-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Видає викладач.</p>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-rio" class="csl-entry">
+Chan, Chung-hong, Geoffrey CH Chan, Thomas J. Leeper, and Jason Becker. 2018. <em>Rio: A Swiss-Army Knife for Data File i/o</em>.
+</div>
+<div id="ref-R-RPostgreSQL" class="csl-entry">
+Conway, Joe, Dirk Eddelbuettel, Tomoaki Nishiyama, Sameer Kumar Prayaga, and Neil Tiffin. 2021. <em>RPostgreSQL: R Interface to the PostgreSQL Database System</em>. <a href="https://CRAN.R-project.org/package=RPostgreSQL">https://CRAN.R-project.org/package=RPostgreSQL</a>.
+</div>
+<div id="ref-R-reader" class="csl-entry">
+Cooper, Nicholas. 2017. <em>Reader: Suite of Functions to Flexibly Read Data from Files</em>. <a href="https://CRAN.R-project.org/package=reader">https://CRAN.R-project.org/package=reader</a>.
+</div>
+<div id="ref-r4ds" class="csl-entry">
+Garrett Grolemund, Hadley Wickham. 2018. <em>R for Data Science</em>. <a href="http://r4ds.had.co.nz/index.html">http://r4ds.had.co.nz/index.html</a>.
+</div>
+<div id="ref-R-purrr" class="csl-entry">
+Henry, Lionel, and Hadley Wickham. 2020. <em>Purrr: Functional Programming Tools</em>. <a href="https://CRAN.R-project.org/package=purrr">https://CRAN.R-project.org/package=purrr</a>.
+</div>
+<div id="ref-R-odbc" class="csl-entry">
+Hester, Jim, and Hadley Wickham. 2021. <em>Odbc: Connect to ODBC Compatible Databases (Using the DBI Interface)</em>. <a href="https://CRAN.R-project.org/package=odbc">https://CRAN.R-project.org/package=odbc</a>.
+</div>
+<div id="ref-R-hms" class="csl-entry">
+Muller, Kirill. 2021. <em>Hms: Pretty Time of Day</em>. <a href="https://CRAN.R-project.org/package=hms">https://CRAN.R-project.org/package=hms</a>.
+</div>
+<div id="ref-R-tibble" class="csl-entry">
+Müller, Kirill, and Hadley Wickham. 2021. <em>Tibble: Simple Data Frames</em>. <a href="https://CRAN.R-project.org/package=tibble">https://CRAN.R-project.org/package=tibble</a>.
+</div>
+<div id="ref-R-RSQLite" class="csl-entry">
+Müller, Kirill, Hadley Wickham, David A. James, and Seth Falcon. 2022. <em>RSQLite: SQLite Interface for r</em>. <a href="https://CRAN.R-project.org/package=RSQLite">https://CRAN.R-project.org/package=RSQLite</a>.
+</div>
+<div id="ref-Rusdplyr" class="csl-entry">
+Ogurtsov, A. 2022. <span>“Blog a. Ogurtsov.”</span> Article. <a href="http://biostat-r.blogspot.com/search/label/data_frame">http://biostat-r.blogspot.com/search/label/data_frame</a>.
+</div>
+<div id="ref-R-RMySQL" class="csl-entry">
+Ooms, Jeroen, David James, Saikat DebRoy, Hadley Wickham, and Jeffrey Horner. 2021. <em>RMySQL: Database Interface and MySQL Driver for r</em>. <a href="https://CRAN.R-project.org/package=RMySQL">https://CRAN.R-project.org/package=RMySQL</a>.
+</div>
+<div id="ref-R-DBI" class="csl-entry">
+R Special Interest Group on Databases (R-SIG-DB), Hadley Wickham, and Kirill Muller. 2021. <em>DBI: R Database Interface</em>. <a href="https://CRAN.R-project.org/package=DBI">https://CRAN.R-project.org/package=DBI</a>.
+</div>
+<div id="ref-R-lubridate" class="csl-entry">
+Spinu, Vitalie, Garrett Grolemund, and Hadley Wickham. 2021. <em>Lubridate: Make Dealing with Dates a Little Easier</em>. <a href="https://CRAN.R-project.org/package=lubridate">https://CRAN.R-project.org/package=lubridate</a>.
+</div>
+<div id="ref-R-nycflights13" class="csl-entry">
+———. 2021a. <em>Nycflights13: Flights That Departed NYC in 2013</em>. <a href="https://github.com/hadley/nycflights13">https://github.com/hadley/nycflights13</a>.
+</div>
+<div id="ref-R-tidyverse" class="csl-entry">
+———. 2021b. <em>Tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
+</div>
+<div id="ref-R-bigrquery" class="csl-entry">
+Wickham, Hadley, and Jennifer Bryan. 2021. <em>Bigrquery: An Interface to Google’s BigQuery ’API’</em>. <a href="https://CRAN.R-project.org/package=bigrquery">https://CRAN.R-project.org/package=bigrquery</a>.
+</div>
+<div id="ref-R-ggplot2" class="csl-entry">
+Wickham, Hadley, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, and Dewey Dunnington. 2021. <em>Ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics</em>. <a href="https://CRAN.R-project.org/package=ggplot2">https://CRAN.R-project.org/package=ggplot2</a>.
+</div>
+<div id="ref-R-dplyr" class="csl-entry">
+Wickham, Hadley, Romain Francois, Lionel Henry, and Kirill Muller. 2022. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.
+</div>
+<div id="ref-R-tidyr" class="csl-entry">
+Wickham, Hadley, and Maximilian Girlich. 2022. <em>Tidyr: Tidy Messy Data</em>. <a href="https://CRAN.R-project.org/package=tidyr">https://CRAN.R-project.org/package=tidyr</a>.
+</div>
+<div id="ref-R-dbplyr" class="csl-entry">
+Wickham, Hadley, Maximilian Girlich, and Edgar Ruiz. 2021. <em>Dbplyr: A Dplyr Back End for Databases</em>. <a href="https://CRAN.R-project.org/package=dbplyr">https://CRAN.R-project.org/package=dbplyr</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="modul1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lab_3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-lab2.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

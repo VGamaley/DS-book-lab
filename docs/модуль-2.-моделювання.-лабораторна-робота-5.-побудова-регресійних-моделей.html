@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Розділ 6 Модуль 2. Моделювання. Лабораторна робота №5. Побудова регресійних моделей | Data Science на R. Лабораторний практикум</title>
+  <meta name="description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Розділ 6 Модуль 2. Моделювання. Лабораторна робота №5. Побудова регресійних моделей | Data Science на R. Лабораторний практикум" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  <meta name="github-repo" content="VGamaley/DS-book-lab" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Розділ 6 Модуль 2. Моделювання. Лабораторна робота №5. Побудова регресійних моделей | Data Science на R. Лабораторний практикум" />
+  
+  <meta name="twitter:description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  
+
+<meta name="author" content="© Сидоренко В. М." />
+
+
+<meta name="date" content="2022-03-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"/>
+
+<script src="libs/header-attrs-2.12/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Вступ<span></span></a></li>
+<li class="chapter" data-level="2" data-path="modul1.html"><a href="modul1.html"><i class="fa fa-check"></i><b>2</b> Модуль 1. Базовий. Лабораторна робота №1. Створення основи типового Data Science-проєкту<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="modul1.html"><a href="modul1.html#що-ви-будете-вміти"><i class="fa fa-check"></i><b>2.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="modul1.html"><a href="modul1.html#короткі-теоретичні-відомості"><i class="fa fa-check"></i><b>2.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="modul1.html"><a href="modul1.html#що-таке-data-science-проект"><i class="fa fa-check"></i><b>2.2.1</b> Що таке Data Science-проект?<span></span></a></li>
+<li class="chapter" data-level="2.2.2" data-path="modul1.html"><a href="modul1.html#концепція-грамотного-програмування"><i class="fa fa-check"></i><b>2.2.2</b> Концепція грамотного програмування<span></span></a></li>
+<li class="chapter" data-level="2.2.3" data-path="modul1.html"><a href="modul1.html#markdown-і-rmarkdown"><i class="fa fa-check"></i><b>2.2.3</b> Markdown і RMarkdown<span></span></a></li>
+<li class="chapter" data-level="2.2.4" data-path="modul1.html"><a href="modul1.html#інсталяція-r"><i class="fa fa-check"></i><b>2.2.4</b> Інсталяція R<span></span></a></li>
+<li class="chapter" data-level="2.2.5" data-path="modul1.html"><a href="modul1.html#інсталяція-rstudio"><i class="fa fa-check"></i><b>2.2.5</b> Інсталяція RStudio<span></span></a></li>
+<li class="chapter" data-level="2.2.6" data-path="modul1.html"><a href="modul1.html#CreateRMarkdown"><i class="fa fa-check"></i><b>2.2.6</b> Створення RMarkdown-документу<span></span></a></li>
+<li class="chapter" data-level="2.2.7" data-path="modul1.html"><a href="modul1.html#генерація-електронного-документу"><i class="fa fa-check"></i><b>2.2.7</b> Генерація електронного документу<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="modul1.html"><a href="modul1.html#приклад-створення-markdown-документу"><i class="fa fa-check"></i><b>2.3</b> Приклад створення Markdown-документу<span></span></a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="modul1.html"><a href="modul1.html#постановка-задачі"><i class="fa fa-check"></i><b>2.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="2.3.2" data-path="modul1.html"><a href="modul1.html#виконання-завдання"><i class="fa fa-check"></i><b>2.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="2.3.3" data-path="modul1.html"><a href="modul1.html#індивідуальні-завдання-на-лабораторну-роботу"><i class="fa fa-check"></i><b>2.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+<li class="chapter" data-level="2.3.4" data-path="modul1.html"><a href="modul1.html#домашнє-завдання"><i class="fa fa-check"></i><b>2.3.4</b> Домашнє завдання<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="lab_2.html"><a href="lab_2.html"><i class="fa fa-check"></i><b>3</b> Лабораторна робота №2. Маніпулювання даними<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="lab_2.html"><a href="lab_2.html#що-ви-будете-вміти-1"><i class="fa fa-check"></i><b>3.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="lab_2.html"><a href="lab_2.html#короткі-теоретичні-відомості-1"><i class="fa fa-check"></i><b>3.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="lab_2.html"><a href="lab_2.html#що-таке-маніпулювання-данними"><i class="fa fa-check"></i><b>3.2.1</b> Що таке маніпулювання данними?<span></span></a></li>
+<li class="chapter" data-level="3.2.2" data-path="lab_2.html"><a href="lab_2.html#імпорт-даних"><i class="fa fa-check"></i><b>3.2.2</b> Імпорт даних<span></span></a></li>
+<li class="chapter" data-level="3.2.3" data-path="lab_2.html"><a href="lab_2.html#приведення-даних-до-охайного-вигляду"><i class="fa fa-check"></i><b>3.2.3</b> Приведення даних до охайного вигляду<span></span></a></li>
+<li class="chapter" data-level="3.2.4" data-path="lab_2.html"><a href="lab_2.html#трансформація"><i class="fa fa-check"></i><b>3.2.4</b> Трансформація<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="lab_2.html"><a href="lab_2.html#приклад-виконання-індівідуального-завдання"><i class="fa fa-check"></i><b>3.3</b> Приклад виконання індівідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="lab_2.html"><a href="lab_2.html#постановка-задачі-1"><i class="fa fa-check"></i><b>3.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="3.3.2" data-path="lab_2.html"><a href="lab_2.html#виконання-завдання-1"><i class="fa fa-check"></i><b>3.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="3.3.3" data-path="lab_2.html"><a href="lab_2.html#індивідуальні-завдання-на-лабораторну-роботу-1"><i class="fa fa-check"></i><b>3.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="lab_3.html"><a href="lab_3.html"><i class="fa fa-check"></i><b>4</b> Лабораторна робота №3. Розвідувальний аналіз даних. Візуалізація<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="lab_3.html"><a href="lab_3.html#що-ви-будете-вміти-2"><i class="fa fa-check"></i><b>4.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="lab_3.html"><a href="lab_3.html#короткі-теоретичні-відомості-2"><i class="fa fa-check"></i><b>4.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="lab_3.html"><a href="lab_3.html#що-таке-розвідувальний-аналіз-даних"><i class="fa fa-check"></i><b>4.2.1</b> Що таке розвідувальний аналіз даних?<span></span></a></li>
+<li class="chapter" data-level="4.2.2" data-path="lab_3.html"><a href="lab_3.html#питання"><i class="fa fa-check"></i><b>4.2.2</b> Питання<span></span></a></li>
+<li class="chapter" data-level="4.2.3" data-path="lab_3.html"><a href="lab_3.html#зниження-розмірності-даних"><i class="fa fa-check"></i><b>4.2.3</b> Зниження розмірності даних<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="lab_3.html"><a href="lab_3.html#приклад-виконання-індивідуального-завдання"><i class="fa fa-check"></i><b>4.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="lab_3.html"><a href="lab_3.html#постановка-задачі-2"><i class="fa fa-check"></i><b>4.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="lab_3.html"><a href="lab_3.html#виконання-завдання-2"><i class="fa fa-check"></i><b>4.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="4.3.3" data-path="lab_3.html"><a href="lab_3.html#індивідуальні-завдання-на-лабораторну-роботу-2"><i class="fa fa-check"></i><b>4.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><i class="fa fa-check"></i><b>5</b> Модуль 2. Моделювання. Лабораторна робота №4. Розгортання моделі<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html#що-ви-будете-вміти-3"><i class="fa fa-check"></i><b>5.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html#короткі-теоретичні-відомості-3"><i class="fa fa-check"></i><b>5.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html#індивідуальні-завдання-на-лабораторну-роботу-3"><i class="fa fa-check"></i><b>5.2.1</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><i class="fa fa-check"></i><b>6</b> Модуль 2. Моделювання. Лабораторна робота №5. Побудова регресійних моделей<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#що-ви-будете-вміти-4"><i class="fa fa-check"></i><b>6.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="6.2" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#короткі-теоретичні-відомості-4"><i class="fa fa-check"></i><b>6.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#що-таке-регресія-і-регресійний-аналіз"><i class="fa fa-check"></i><b>6.2.1</b> Що таке регресія і регресійний аналіз?<span></span></a></li>
+<li class="chapter" data-level="6.2.2" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#формальна-постановка-задачі-регресії"><i class="fa fa-check"></i><b>6.2.2</b> Формальна постановка задачі регресії<span></span></a></li>
+<li class="chapter" data-level="6.2.3" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#статистичний-підхід"><i class="fa fa-check"></i><b>6.2.3</b> Статистичний підхід<span></span></a></li>
+<li class="chapter" data-level="6.2.4" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#підхід-на-основі-машинного-навчання"><i class="fa fa-check"></i><b>6.2.4</b> Підхід на основі машинного навчання<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#ind"><i class="fa fa-check"></i><b>6.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#розуміння-даних"><i class="fa fa-check"></i><b>6.3.1</b> Розуміння даних<span></span></a></li>
+<li class="chapter" data-level="6.3.2" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#підготовка-даних"><i class="fa fa-check"></i><b>6.3.2</b> Підготовка даних<span></span></a></li>
+<li class="chapter" data-level="6.3.3" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#rf"><i class="fa fa-check"></i><b>6.3.3</b> Моделювання<span></span></a></li>
+<li class="chapter" data-level="6.3.4" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#індивідуальні-завдання-на-лабораторну-роботу-4"><i class="fa fa-check"></i><b>6.3.4</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science на R. Лабораторний практикум</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Розділ 6</span> Модуль 2. Моделювання. Лабораторна робота №5. Побудова регресійних моделей<a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Мета:</strong> <em>Засвоєння базових принципів, знайомство з інструментами та набуття навичок побудови моделей регресії</em> <strong>на рівні технології</strong> на основи статистичного підходу та моделей машинного навчання засобами мови програмування R та колекції пакетів <code>dplyr</code>, <code>ggplot2</code>.</p>
+<div id="що-ви-будете-вміти-4" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Що ви будете вміти?<a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#що-ви-будете-вміти-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>будувати моделі парної і багатовимірної лінійної та нелінійної регресії на основі статистичних моделей та моделей машинного навчання засобами мови R у середовищі IDE RStudio.</p></li>
+<li><p>зберігати навчені моделі для подальшого використання.</p></li>
+</ul>
+</div>
+<div id="короткі-теоретичні-відомості-4" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Короткі теоретичні відомості<a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#короткі-теоретичні-відомості-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>У рамках життєвого циклу процесу Data Mining згідно з методологією CRISP DM <span class="citation">(<a href="#ref-CRISP_DM" role="doc-biblioref">wikipedia 2022a</a>)</span>, наступною за фазою “Підготовка даних” (<strong>Data Preparing</strong>) є фаза “Моделювання” (<strong>Modelling</strong>) (рис. 1).</p>
+<p>Фаза моделювання призначена для вибору оптимального методу побудови моделей і налаштування його параметрів для отримання оптимальних рішень. На даній фазі вирішуються наступні задачі:<br />
+- вибір методу моделювання;<br />
+- генерація тестового проекту;<br />
+- створення моделей;<br />
+- оцінка моделей.</p>
+<p>Згідно з класичним розумінням технологія Data Mining передбачає побудову моделей, які можна віднести до одного з п’яти основних класів: <em>кластеризація (сегментація) та аналіз відхилень, регресія, класифікація, пошук асоціативних правил та аналіз послідовних шаблонів</em>.</p>
+<div class="figure">
+<img src="image/data-science-model.png" alt="" />
+<p class="caption"><em>Рис. 1. Задача моделювання у складі Data Science-проекту</em> <span class="citation">(<a href="#ref-r4ds" role="doc-biblioref">Garrett Grolemund 2018</a>)</span></p>
+</div>
+<p>Задача сегментації та аналізу відхилень розглядалася нами як складова розвідувального аналізу даних <a href="lab_3.html#lab_3">лаб. роб. №3</a> у рамках базового модулю.<br />
+У рамках даного модулю буде розглянуто решту моделей. Ця лабораторна робота присвячена регресійному аналізу. Побудова моделей класифікації розглядатиметься у <a href="#lab_6">лабораторній роботі № 6</a>.</p>
+<div id="що-таке-регресія-і-регресійний-аналіз" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Що таке регресія і регресійний аналіз?<a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#що-таке-регресія-і-регресійний-аналіз" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Регресія і класифікація</strong></p>
+<p>Між задачею класифікації і регресії існує багато спільного і в самому загальному вигляді їх можна розглядати як одну. Вона може бути сформульована наступим чином: припустимо, що об’єкт, який нас цікавить, описується вектором <span class="math inline">\(n\)</span> незалежних змінних <span class="math inline">\(X_1, X_2, \dots, X_n\)</span>, які називаються <em>предикторами</em>. Існує деяка величина <span class="math inline">\(Y\)</span>, яка також характеризує досліджуваний об’єкт, але залежить від <span class="math inline">\(X_1, X_2, \dots, X_n\)</span>. Ми маємо колекцію наборів спостережень незалежних змінних у вигляді матриці <span class="math inline">\(X\)</span> та залежної змінної у вигляді вектора відгуків <span class="math inline">\(Y\)</span>:</p>
+<p><span class="math display">\[X=\begin{bmatrix}
+x_{11} &amp; x_{12} &amp; \cdots &amp; x_{1,n} \\
+x_{21} &amp; x_{22} &amp; \cdots &amp; x_{2,n} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \cdots \\
+x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{n,n} \\
+\end{bmatrix},\]</span><br />
+та
+<span class="math display">\[Y=\begin{bmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{bmatrix}.\]</span></p>
+<p>На основі інформації, яку несуть у собі наявні значення <span class="math inline">\(X\)</span> та <span class="math inline">\(Y\)</span> необхідно побудувати модель, яка буде передбачати значення відгуку <span class="math inline">\(y^*\)</span> для будь-якого заданого набору незалежних змінних <span class="math inline">\(x^*_1, x^*_2, \dots, x^*_n\)</span></p>
+<p>Відмінність полягає у наступному (рис. 1): якщо значення відгуку носять дискретний характер, говорять про задачу <em>класифікації</em>, якщо неперервний – має місце задача <em>регресії</em>.</p>
+<div class="figure">
+<img src="image/regression_classification.png" alt="" />
+<p class="caption">Рис. 1. Ілюстрація задач класифікації і регресії <span class="citation">(<a href="#ref-Paklin" role="doc-biblioref">Viacheslav Oreshkov 2012</a>)</span></p>
+</div>
+<p>Таким чином логічно припустити, що і з точки зору математичного апарату та алгоритмів, що його реалізують при розв’язанні задач регресії і класифікації, має бути багато спільного, але, звичайно, мають бути і відмінності.</p>
+<p>У цій лабораторні роботі розглядаються методи і засоби регресійного аналізу.</p>
+</div>
+<div id="формальна-постановка-задачі-регресії" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> Формальна постановка задачі регресії<a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#формальна-постановка-задачі-регресії" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>З точки зору <em>параметричного підходу</em> задача регресії полягає у побудові моделі функціональної залежності математичного сподівання відгуку <span class="math inline">\(Y\)</span> за допомогою невідомої функції регресії <span class="math inline">\(f(\dots)\)</span> з використанням навчальної вибірки:
+<span class="math display">\[E(Y|x_1, x_2, ..., x_n)=f(
+\beta, x_1, x_2, ..., x_n) + \epsilon,\]</span>
+де залишки <span class="math inline">\(\epsilon\)</span> відображають похибку моделі, тобто непояснену випадкову варіацію спостережуваних значень залежної змінної відносно очікуваного середнього значення. Такий підхід називається <em>статистичним</em>.</p>
+<p>Однак далеко не завжди можливо підібрати адекватну функцію регресії за умови великої кількості предикторів та(або) за умови складного характеру самої регресійної залежності. Тому наразі добре вивчені і широко поширені моделі регресії на основі <em>машинного навчання</em>, які дозволяють розв’язувати цю проблему.</p>
+<p>У роботі <span class="citation">(<a href="#ref-Fernandes" role="doc-biblioref">Manuel Fernandez-Delgado 2014</a>)</span> автори дослідили широке коло існуючих моделей класифікації і зробили висновок стосовно чьотирьох класів моделей, які мають найбільшу точність:<br />
+* <strong>Випадковий ліс” (Random Forest)</strong>;<br />
+* <strong>Машини опорних векторів (Support Vector Machines)</strong>;<br />
+* <strong>Штучні нейронні мережі (Artificial Neural Networks)</strong>;<br />
+* <strong>Бустінгові ансамблі моделей (Boosting Ensembles)</strong>.</p>
+<p>Однак <a href="https://ranalytics.github.io/data-mining/01-Data-Mining-Models-in-R.html#section_1_1">автори</a> слушно зауважують, що, “перелічені методи практично непридатні для інтерпретації механізмів явища, яке прогнозується, що викликало ряд критичних зауважень.” На підтвердження даної думки можна навести той <a href="https://r-analytics.blogspot.com/2019/09/enterprise-applications-of-r-language.html">факт</a>, що тема <a href="https://en.wikipedia.org/wiki/Explainable_artificial_intelligence">моделей, які можуть бути пояснені (Explainable artificial intelligence, пояснимі моделі)</a> наразі є найгорячишою темою дискусій у професійному середовищі аналітиків даних.</p>
+<p>Досвід показує, що в тих випадках, коли кількість предикторів є невеликою і залежність є незанадто складною, параметричні методи дозволяють побудувати адекватну модель з високою прогностичною силою, яка одночасно дозволяє і легку інтерпретацію поведінки об’єкта, що вивчається.</p>
+<p>Нижче розглядається статистичний підхід на основі <em>методу найменших кравдратів (МНК)</em> і підхід на основі машинного навчання на прикладі <em>випадкових лісів.</em></p>
+</div>
+<div id="статистичний-підхід" class="section level3 hasAnchor" number="6.2.3">
+<h3><span class="header-section-number">6.2.3</span> Статистичний підхід<a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#статистичний-підхід" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Будемо використовувати матричний підхід.<br />
+Модель лінійної за параметрами регресії у матричній формі має вигляд:</p>
+<p><span class="math display">\[Y=X\beta+\epsilon.\]</span></p>
+<p>На практиці ми шукаємо оцінку цього рівнняння:</p>
+<p><span class="math display">\[\hat{Y}=Xb,\]</span></p>
+<p>де <span class="math inline">\(b=\begin{bmatrix} b_0 \\ b_1 \\ \vdots \\ b_k \end{bmatrix}\)</span>.</p>
+<p>На практиці маємо матрицю спостережень предикторів <span class="math inline">\(X\)</span> та вектор відгуків <span class="math inline">\(Y\)</span>. Введемо вектор залишків <span class="math inline">\(\epsilon\)</span>:</p>
+<p><span class="math display">\[\epsilon=\begin{bmatrix}
+\epsilon_1\\
+\epsilon_2\\
+\vdots \\
+\epsilon_n\\
+\end{bmatrix},\]</span></p>
+<p>де <span class="math display">\[\epsilon=Y - \hat{Y} = Y - Xb.\]</span>
+Відомо, що суть МНК полягає в отриманні оцінок вектора <span class="math inline">\(b\)</span> за умови мінімізації суми квадратів залишків:
+<span class="math display">\[U(b) = \epsilon^T \epsilon = (Y - Xb)^T (Y - Xb) \rightarrow min. \]</span>
+Виконавши диференціювання за параметром <span class="math inline">\(b\)</span> і прирівнявши похідну до нуля, отримаємо нормальні рівння:</p>
+<p><span class="math display">\[X^TXb = X^TY,\]</span></p>
+<p>розв’язок яких відносно параметра <span class="math inline">\(b\)</span> дає нам МНК-оцінку вектора коеффіцієнтів моделі <span class="math inline">\(\beta\)</span>:</p>
+<p><span class="math display">\[b=(X^TX)^{-1}X^TY.\]</span></p>
+<p><strong>Приклад.</strong> Припустимо, що випадкова величина <span class="math inline">\(X\)</span> – зріст дорослої людини (<em>см</em>), а <span class="math inline">\(Y\)</span> – вага її тіла (<em>кг</em>). Ми виконали <span class="math inline">\(n=4\)</span> спостереженнь зросту і ваги випадкових перехожих і хочемо побудувати модель парної лінійної регресії <span class="math inline">\(y=\beta_0 + \beta_1 + \epsilon.\)</span> Для цьго необхідно знайти оцінку рівняння регресії <span class="math inline">\(\hat y = b_0 + b_1x\)</span>, попередньо знайшовши МНК-оцінку вектора коефіцієнтів <span class="math inline">\(b \sim \beta\)</span>. Запишемо наші дані у матричному вигляді:
+<span class="math display">\[X=\begin{bmatrix}
+1 &amp; 155 \\
+1 &amp; 198 \\
+1 &amp; 164 \\
+1 &amp; 178 \\
+\end{bmatrix}, Y=\begin{bmatrix}
+60 \\
+101 \\
+61 \\
+85 \\
+\end{bmatrix}.\]</span></p>
+<p>Важливо зауважити, що для реалізації МНК у матричній формі матриця <span class="math inline">\(X\)</span> має бути модифікована шляхом додавання одиничного стовпчика зліва.</p>
+<p>Підставимо наші дані у формулу МНК-оцінки:
+<span class="math display">\[
+b=(X^TX)^{-1}X^TY= 
+\Bigg( \begin{bmatrix}
+1 &amp; 1 &amp; 1 &amp; 1 \\
+155 &amp; 198 &amp; 164 &amp; 178 \\
+\end{bmatrix}
+\begin{bmatrix}
+1 &amp; 155 \\
+1 &amp; 198 \\
+1 &amp; 164 \\
+1 &amp; 178 \\
+\end{bmatrix}\Bigg )^{-1}
+\begin{bmatrix}
+1 &amp; 1 &amp; 1 &amp; 1 \\
+155 &amp; 198 &amp; 164 &amp; 178 \\
+\end{bmatrix}
+\begin{bmatrix}
+60 \\
+101 \\
+61 \\
+85 \\
+\end{bmatrix} =
+\begin{bmatrix}
+-103.272\\
+1.036
+\end{bmatrix}
+\]</span></p>
+<p>Засобами пакета <code>Matrix</code> можна провести аналогічні обчислення і отримати аналогічний результат.</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(Matrix))</span>
+<span id="cb125-2"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb125-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb125-3"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb125-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">155</span>, <span class="dv">1</span>, <span class="dv">198</span>, <span class="dv">1</span>, <span class="dv">164</span>, <span class="dv">1</span>, <span class="dv">178</span>), <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb125-4"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb125-4" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">101</span>, <span class="dv">61</span>, <span class="dv">85</span>)</span>
+<span id="cb125-5"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb125-5" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">solve</span>((<span class="fu">t</span>(X) <span class="sc">%*%</span> X)) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> Y</span>
+<span id="cb125-6"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb125-6" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div>
+<pre><code>##             [,1]
+## [1,] -103.271669
+## [2,]    1.036096</code></pre>
+<p>Побудуємо лінію регресії, скориставшись стандартними засобами мови R.</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(X[, <span class="dv">2</span>], Y,</span>
+<span id="cb127-2"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb127-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Лінія регресії&quot;</span>,</span>
+<span id="cb127-3"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb127-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;x, см&quot;</span>,</span>
+<span id="cb127-4"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb127-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;y, кг&quot;</span></span>
+<span id="cb127-5"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb127-5" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="cb127-6"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb127-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> b[<span class="dv">1</span>], <span class="at">b =</span> b[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<p>З графіка видно, що лінія регресії адекватно відображає динаміку “хмари” точок. Однак наступним і важливим етапом є перевірка моделі на адекватність. У середовищі R існує велика кількість спеціалізованих засобів, які дозволяють реалізувати різні статистичні методи побудови моделей регресії, зокрема на основі МНК, і перевірити їх адекватність (див. <a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#ind">Приклад виконання індивідуального завдання</a>).</p>
+</div>
+<div id="підхід-на-основі-машинного-навчання" class="section level3 hasAnchor" number="6.2.4">
+<h3><span class="header-section-number">6.2.4</span> Підхід на основі машинного навчання<a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#підхід-на-основі-машинного-навчання" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>В якості прикладу моделі машинного навчання, придатної як для розв’язання як задач регресіє, так і класифікації, розгляном модель на основі випадкових лісів (Random Forest).</p>
+<p>Модель на основі випадкових лісів (Random Forest) <span class="citation">(<a href="#ref-Breiman2001" role="doc-biblioref">Breiman 2001</a>)</span> у модифікації Лео Бреймана та Адель Катлер ґрунтується на процедурі беґґінга у сполученні з методом випадкових підпросторів. При цьому в якості базових класифікаторів використовуються некорельовані дерева, що будуються за алгоритмом CART <span class="citation">(<a href="#ref-cart" role="doc-biblioref">Wikipedia 2020</a>)</span>. Метод випадкових підпросторів дозволяє знизити корельованість між деревами і уникнути перенавчання.</p>
+<p>Алгоритм побудови ансамблю моделей, що використовують метод випадкового підпростору має наступний вигляд:</p>
+<ol style="list-style-type: decimal">
+<li><p>Нехай кількість об’єктів для навчання – <span class="math inline">\(N\)</span>, а кількість ознак – <span class="math inline">\(D\)</span>.</p></li>
+<li><p>Виберемо L як кількість окремих моделей в ансамблі.</p></li>
+<li><p>Для кожної окремої моделі <span class="math inline">\(l\)</span> виберемо <span class="math inline">\(dl (dl&lt;L)\)</span> як кількість ознак для <span class="math inline">\(l\)</span>. Як правило для всіх моделей використовується тільки одне значення <span class="math inline">\(dl\)</span>.</p></li>
+<li><p>Для кожної окремої моделі <span class="math inline">\(l\)</span> створюємо навчальну вибірку, обравши <span class="math inline">\(dl\)</span> ознак з <span class="math inline">\(D\)</span> і навчаємо модель.</p></li>
+<li><p>Для обчислення прогнозного значення для нових даних усереднюємо результати окремих <span class="math inline">\(L\)</span> моделей.</p></li>
+</ol>
+<p>Алгоритм побудови випадкового лісу для N дерев має наступний вигляд:</p>
+<ol style="list-style-type: decimal">
+<li><p>Для кожного <span class="math inline">\(n = 1,..., N\)</span>:</p></li>
+<li><p>Згенерувати вибірку <span class="math inline">\(X_n\)</span> за допомогою бутстрепа.</p></li>
+<li><p>Побудувати дерево <span class="math inline">\(b_n\)</span> за вибіркою <span class="math inline">\(X_n\)</span>:</p></li>
+<li><p>За заданим критерієм обираємо найкращу ознаку, виконуємо розбиття у дереві по ньому і так доти, поки вибірку не буде вичерпано.</p></li>
+<li><p>Дерево будується, доки у кожному листі не більше ніж <span class="math inline">\(n_{min}\)</span>, або доки не досягнемо певної висоти дерева.</p></li>
+<li><p>При кожному розбитті спочатку обирається <span class="math inline">\(m\)</span> випадкових ознак з <span class="math inline">\(n\)</span> початкових, і пошук оптимального поділу вибірки виконується тільки серед них.</p></li>
+<li><p>Підсумковий класифікатор <span class="math inline">\(a(x) = \frac{1}{N}\sum_{i=1}^N b_i (x)\)</span>.</p></li>
+</ol>
+<p>Випадковий ліс має високу точність прогнозу і нечутливий до викидів і неоднорідності початкових даних. Більше того, алгоритм дозволяє оцінити важливість первинних ознак, що буде показано у <a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#rf">прикладі</a> нижче.</p>
+<p>Однак в якості головних недоліків відмітимо складність інтерпретації моделі та великий їх розмір: необхідно <span class="math inline">\(O(NK)\)</span> пам’яті для зберігання моделі, де <span class="math inline">\(K\)</span> –- кількість дерев. Головним чином із-за останнього недоліку в якості гідної альтернативи пропонуються градієнтний бустінг для побудови ансамблю, який за точністю не поступається випадковим лісам, але має менший розмір моделі.</p>
+</div>
+</div>
+<div id="ind" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Приклад виконання індивідуального завдання<a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#ind" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Задача</strong>: оцінити охоплення аудиторії у Facebook за відомими показниками likes/shares/comments</p>
+<p>Покажемоприклад розв’язання, спираючись на стандарт CRISP DM <span class="citation">(<a href="#ref-CRISP_DM" role="doc-biblioref">wikipedia 2022a</a>)</span>.</p>
+<div id="розуміння-даних" class="section level3 hasAnchor" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Розуміння даних<a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#розуміння-даних" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Первиниий збір даних</strong></p>
+<p>Маємо <a href="data/data.xls">набір даних</a>, котрий містить вибірку об’єму <span class="math inline">\(n=99\)</span> статистичних даних залежності охоплення (розміру) аудиторії публічного акаунта і реакціями аудиторії на певні публікації (табл. 1).</p>
+<p><strong>Опис даних</strong></p>
+<p>Таблиця 1. <strong>Структура початкових статистичних даних</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Характеристика</th>
+<th>Позначення, тип</th>
+<th>Кодовое значення</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>номер публікації (первинний ключ)</td>
+<td><span class="math inline">\(№\)</span>, ціле</td>
+<td><code>posts</code></td>
+</tr>
+<tr class="even">
+<td>кількість коментарів до даної публікаії</td>
+<td><span class="math inline">\(x_1\)</span>, ціле</td>
+<td><code>comments</code></td>
+</tr>
+<tr class="odd">
+<td>кількість лайків до даної публікації</td>
+<td><span class="math inline">\(x_2\)</span>, ціле</td>
+<td><code>likes</code></td>
+</tr>
+<tr class="even">
+<td>кількість перепостів даної публікації</td>
+<td><span class="math inline">\(x_3\)</span>, ціле</td>
+<td><code>shares</code></td>
+</tr>
+<tr class="odd">
+<td>сумарна реакція</td>
+<td><span class="math inline">\(x_{123}=\sum_\limits{i=1}^3x_i\)</span>, ціле</td>
+<td><code>all reactions</code></td>
+</tr>
+<tr class="even">
+<td>охоплення аудиторії</td>
+<td><span class="math inline">\(y\)</span>, ціле</td>
+<td><code>reach</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Вивчення і перевірка якості даних</strong></p>
+<table>
+<caption><span id="tab:unnamed-chunk-73">Table 6.1: </span>Таблиця початкових даних</caption>
+<thead>
+<tr class="header">
+<th align="right">posts</th>
+<th align="right">comments</th>
+<th align="right">likes</th>
+<th align="right">shares</th>
+<th align="right">all reactions</th>
+<th align="right">reach</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">35</td>
+<td align="right">6</td>
+<td align="right">41</td>
+<td align="right">3847</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">34</td>
+<td align="right">1</td>
+<td align="right">36</td>
+<td align="right">1775</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">8</td>
+<td align="right">36</td>
+<td align="right">10</td>
+<td align="right">54</td>
+<td align="right">2074</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">69</td>
+<td align="right">19</td>
+<td align="right">91</td>
+<td align="right">2149</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">36</td>
+<td align="right">6</td>
+<td align="right">42</td>
+<td align="right">993</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">49</td>
+<td align="right">11</td>
+<td align="right">60</td>
+<td align="right">1406</td>
+</tr>
+</tbody>
+</table>
+<p>Кількість даних <strong>є малою для побудови адекватної прогнозної моделі</strong>, однак, як буде показано нижче, зважаючи на наявність високої кореляції між предикторами і відгуком може бути запропонований до розгляду ряд моделей,які показують обнадійливі результати і на наявних статистичних даних і в перспективі можуть бути перенавчені на нових даних.</p>
+</div>
+<div id="підготовка-даних" class="section level3 hasAnchor" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> Підготовка даних<a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#підготовка-даних" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Дані комплектні, не вимагають траснформаціі і дозволяють перейти безпосередньо до фази побудови моделі.</p>
+</div>
+<div id="rf" class="section level3 hasAnchor" number="6.3.3">
+<h3><span class="header-section-number">6.3.3</span> Моделювання<a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#rf" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<blockquote>
+<p>“Не следует множить сущее без необходимости” (William of Ockham)</p>
+</blockquote>
+<p><strong>Вибір методу моделювання</strong></p>
+<p>Побудова моделі прогнозування охоплення аудиторії є задачею регресійного аналізу, яку в термінах прийнятих позначень (див. табл. 1) формально можна записати в такий спосіб: необхідно знайти оцінку функції (параметричних або непараметрическим способом) <span class="math inline">\(y = f (x_1, x_2, x_3)\)</span>, що дозволяє прогнозувати значення кількісної змінної <span class="math inline">\(y\)</span> від набору незалежних змінних <span class="math inline">\(x_1, x_2, x_3\)</span>.</p>
+<p>З огляду на те, що незалежні змінні і відгук мають числову природу, доцільно в якості основи параметричного підходу взяти класичну статистичну модель багатовимірної лінійної регресії на основі методу найменших квадратів (МНК). Підстави – легка інтерпретація коефіцієнтів моделі.</p>
+<p>Водночас є підстави припускати, що в перспективі дані можуть мати сегментовану структуру, утворювати гомогенні групи, тому доцільно пошукати альтернативний варіант серед непараметричних моделей на основі машинного навчання. Наприклад, на основі нейромереж або random forest. Для такого роду ситуацій найкращим чином (за даними літературних джерел і, зокрема, особистого досвіду автора <span class="citation">(<a href="#ref-Slab" role="doc-biblioref">Slabchenko Olesia 2016</a>)</span>) підходить модель регресії на основі random forest, яка, на відміну, наприклад, від нейромереж і SVM-моделей добре працює <strong>без попередньої сегментаціі</strong> вибіркових даних.</p>
+<p>З урахуванням вищесказаного і на підставі результатів розвідувального аналізу даних для розв’язання задачі можна запропонувати до розгляду наступні моделі (в першому наближенні):</p>
+<ul>
+<li><p>Модель множинної лінійної регресії (multiple regression) на основі МНК (Ordinary Least Squares, OLS): <span class="math inline">\(y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_3x_3)\)</span>; у разі необхідності зниження розмірності - покрокова регресія або регресія на головні компоненти (Principal Component Regression);</p></li>
+<li><p>Модель парної (Simple regression) лінеарізуемой нелінійної регресії на основі МНК (Squared-Y): <span class="math inline">\(y = \sqrt {\beta_0 + \beta_1x_2}\)</span>;</p></li>
+<li><p>модель парной лінеарзизуємої нелінійної регресії на основі МНК (Squared-Y): <span class="math inline">\(y=\sqrt{\beta_0+\beta_1x_{123}}\)</span>;</p></li>
+<li><p>Модель множинної регресії <span class="math inline">\(y = f (x_1, x_2, x_3)\)</span> на основі випадкового лісу (<span class="math inline">\(random \; forest\)</span>).</p></li>
+</ul>
+<p><strong>Генерація тестового проекту, створення моделей та їх оценка</strong></p>
+<p>Досліджуємо таблицю багатовимірних вибіркових даних, обчисливши оцінку коефіцієнта кореляції Пірсона і побудувавши кореляційні поля (див.нижче).</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb128-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb128-2"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb128-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(comments<span class="sc">:</span>shares, <span class="st">`</span><span class="at">all reactions</span><span class="st">`</span>, reach) <span class="sc">%&gt;%</span> </span>
+<span id="cb128-3"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb128-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb128-4"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb128-4" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Таблиця оцінок коефіцієнтів кореляції&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-74">Table 6.2: </span>Таблиця оцінок коефіцієнтів кореляції</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">comments</th>
+<th align="right">likes</th>
+<th align="right">shares</th>
+<th align="right">all reactions</th>
+<th align="right">reach</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">comments</td>
+<td align="right">1.0000000</td>
+<td align="right">0.5388672</td>
+<td align="right">0.5359562</td>
+<td align="right">0.6134934</td>
+<td align="right">0.3788963</td>
+</tr>
+<tr class="even">
+<td align="left">likes</td>
+<td align="right">0.5388672</td>
+<td align="right">1.0000000</td>
+<td align="right">0.8467100</td>
+<td align="right">0.9864025</td>
+<td align="right">0.6056677</td>
+</tr>
+<tr class="odd">
+<td align="left">shares</td>
+<td align="right">0.5359562</td>
+<td align="right">0.8467100</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9137529</td>
+<td align="right">0.5321415</td>
+</tr>
+<tr class="even">
+<td align="left">all reactions</td>
+<td align="right">0.6134934</td>
+<td align="right">0.9864025</td>
+<td align="right">0.9137529</td>
+<td align="right">1.0000000</td>
+<td align="right">0.6068925</td>
+</tr>
+<tr class="odd">
+<td align="left">reach</td>
+<td align="right">0.3788963</td>
+<td align="right">0.6056677</td>
+<td align="right">0.5321415</td>
+<td align="right">0.6068925</td>
+<td align="right">1.0000000</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb129-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb129-2"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb129-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(comments<span class="sc">:</span>shares, reach) <span class="sc">%&gt;%</span> </span>
+<span id="cb129-3"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb129-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>()</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
+<p>Що ми бачимо?</p>
+<ol style="list-style-type: decimal">
+<li><p>Відгук <code>reach</code> має позитивну кореляцію середньої степені з кожною з трьох вхідних змінних:</p>
+<ul>
+<li><code>comments</code>: 0.3788963<br />
+</li>
+<li><code>likes</code>: 0.6056677</li>
+<li><code>shares</code>: 0.5321415</li>
+</ul></li>
+<li><p>Всі три незалежні змінні мають середню і високу ступінь кореляції між собою, що говорить про наявність мультиколінеарності:</p>
+<ul>
+<li><code>comments</code>-<code>likes</code>: 0.5388672<br />
+</li>
+<li><code>comments</code>-<code>shares</code>: 0.5359562</li>
+<li><code>likes</code>-<code>shares</code>: 0.84671</li>
+</ul></li>
+<li><p>Розподілу незалежних змінних і відгуку мають позитивну асиметрію, про що говорить наявність правого хвоста.</p></li>
+<li><p>Дані мають викиди (outliers), які одночасно є і впливовими точками (influential points), тобто виключення або включення цих точок у модель істотно впливає на її параметри.</p></li>
+</ol>
+<p>Що це означає?</p>
+<ol style="list-style-type: decimal">
+<li><p>Є підстави вважати, що змінні <code>comments</code>,<code>likes</code>, <code>shares</code> впливають на охоплення аудиторії<code>reach</code> і можуть виступати в якості незалежних змінних при побудові прогнозної моделі. (Це добре)</p></li>
+<li><p>Наявність мультиколінеарності говорить про те, що лінійна модель прогнозування <span class="math inline">\(y=f(x_1, x_2, x_3)\)</span> буде неадекватною, при цьому система незалежних змінних надлишкова і вимагає застосування процедур щодо зниження розмірності. (Це не дуже добре)</p></li>
+<li><p>Позитивна асиметрія розподілів змінних викликана наявністю викидів вправо. Це ще один аргумент на сторону припущення щодо неадекватності лінійних моделей. Якщо таке трапиться, то вихід може бути, наприклад, таким - вирівнювання розподілів за допомогою логарифмічних або інших нелінійних функцій з подальшим застосуванням лінійного МНК (лінеаризація моделі). (Це не дуже добре)</p></li>
+<li><p>Наявність впливових точок - серйозна проблема, особливо в нашому випадку - вибірка мала і тому при проведенні семплювання для перевірки стійкості оцінок коефіцієнтів моделей це може створювати проблеми. (Це погано) Тим не менше, є міркування, що деякі впливові точки доцільно включати в модель (див. Нижче).</p></li>
+</ol>
+<p><strong>Модель множинної лінійної регресії (multiple regression) на основі МНК (Ordinary Least Squares, OLS): <span class="math inline">\(y=\beta_0+\beta_1x_1+\beta_2x_2+\beta_3x_3)\)</span> з покроковою процедурою</strong></p>
+<p>Побудуємо модель лінійної регресії дя всіх точок. Видно, що точки з номерами <span class="math inline">\(40\)</span> і <span class="math inline">\(94\)</span> не вписуються в загальну картину, тому ми їх вилучаємо і проводимо повторну оцінку коефіцієнтів моделі.</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb130-1" aria-hidden="true" tabindex="-1"></a>dataNotFilter <span class="ot">&lt;-</span> <span class="fu">select</span>(data, comments<span class="sc">:</span>shares, reach)</span>
+<span id="cb130-2"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb130-2" aria-hidden="true" tabindex="-1"></a>lm.reach <span class="ot">&lt;-</span> <span class="fu">lm</span>(reach <span class="sc">~</span> ., <span class="at">data =</span> dataNotFilter)</span>
+<span id="cb130-3"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb130-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.reach)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = reach ~ ., data = dataNotFilter)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2918.0 -1211.7  -681.9   742.7 22858.1 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept)  799.215    543.557   1.470  0.14477   
+## comments      33.522     48.010   0.698  0.48674   
+## likes         30.974      9.146   3.386  0.00103 **
+## shares         8.243     26.163   0.315  0.75341   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2947 on 95 degrees of freedom
+## Multiple R-squared:  0.3714, Adjusted R-squared:  0.3515 
+## F-statistic: 18.71 on 3 and 95 DF,  p-value: 1.288e-09</code></pre>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm.reach)</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-77-1.png" width="672" /><img src="DS-book-lab_files/figure-html/unnamed-chunk-77-2.png" width="672" /><img src="DS-book-lab_files/figure-html/unnamed-chunk-77-3.png" width="672" /><img src="DS-book-lab_files/figure-html/unnamed-chunk-77-4.png" width="672" /></p>
+<p>Виключаємо викиди та повторно здійснюємо побудову моделі регресії.</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb133-1" aria-hidden="true" tabindex="-1"></a>dataFilter <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb133-2"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb133-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(posts <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">94</span>) <span class="sc">!=</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb133-3"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb133-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(comments<span class="sc">:</span>shares, reach)</span>
+<span id="cb133-4"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb133-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-5"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb133-5" aria-hidden="true" tabindex="-1"></a>lm.reach <span class="ot">&lt;-</span> <span class="fu">lm</span>(reach <span class="sc">~</span> ., <span class="at">data =</span> dataFilter)</span>
+<span id="cb133-6"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb133-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.reach)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = reach ~ ., data = dataFilter)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2723.9  -864.7  -298.1   791.8  4406.8 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  513.996    255.442   2.012   0.0471 *  
+## comments      33.922     22.166   1.530   0.1293    
+## likes         35.854      4.383   8.181 1.42e-12 ***
+## shares       -14.299     12.357  -1.157   0.2502    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1360 on 93 degrees of freedom
+## Multiple R-squared:   0.71,  Adjusted R-squared:  0.7006 
+## F-statistic:  75.9 on 3 and 93 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm.reach)</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-78-1.png" width="672" /><img src="DS-book-lab_files/figure-html/unnamed-chunk-78-2.png" width="672" /><img src="DS-book-lab_files/figure-html/unnamed-chunk-78-3.png" width="672" /><img src="DS-book-lab_files/figure-html/unnamed-chunk-78-4.png" width="672" /></p>
+<p>Результати регресійного аналізу показивають наступне:</p>
+<ol style="list-style-type: decimal">
+<li><p>Регресія має місце з коефіцієнтом детермінації <span class="math inline">\(R^2=\)</span> 0.7100008. Тобто модель здатна пояснити варіативність відгуку на 71.0000847 <span class="math inline">\(\%\)</span>, говорячи простими словами, модель ” є гарною” на стільки ж процентів.</p></li>
+<li><p>Всі коефіцієнти, окрім <code>likes</code> є незначимими, що говорить про наявність мультиколінеарності і про те, що з трьох незалежних змінних саме кількість лайків наибільше корелює з відгуком. Значимість вільного члена (<span class="math inline">\(b_0\)</span>) на межі, що натякає на необхідність спроби побудувати модель без константи.</p></li>
+</ol>
+<p>Вихід – зниження розмірності та повторна побудова моделі.</p>
+<p>Для зниження розмірності моделі і, відповідно, усунення мультиколінеарності, скористаємося покроковою процедурою включення з вилученням слабких предикторів ( <em>Forward Stepwise Selection</em> ).</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb136-1" aria-hidden="true" tabindex="-1"></a>lmStep.reach <span class="ot">&lt;-</span> <span class="fu">step</span>(lm.reach, <span class="at">trace =</span> <span class="dv">0</span>)</span>
+<span id="cb136-2"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb136-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmStep.reach)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = reach ~ likes, data = dataFilter)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2412.1  -939.7  -296.1   964.5  4733.7 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  579.535    249.338   2.324   0.0222 *  
+## likes         33.759      2.267  14.893   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1369 on 95 degrees of freedom
+## Multiple R-squared:  0.7001, Adjusted R-squared:  0.697 
+## F-statistic: 221.8 on 1 and 95 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Видно, що у результаті покрокової регресії ми отримали просту модель парної регресії у вигляді <span class="math inline">\(y=f(x_2)\)</span> практично без зменшення її точності, що і підтверджує порівняльний дисперсійний аналіз двох моделей – <span class="math inline">\(y=b_0+b_1x_1+b_2x_2+b_3x_3\)</span> та <span class="math inline">\(y=b_0+b_1x_2\)</span>:</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm.reach, lmStep.reach)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: reach ~ comments + likes + shares
+## Model 2: reach ~ likes
+##   Res.Df       RSS Df Sum of Sq      F Pr(&gt;F)
+## 1     93 172115572                           
+## 2     95 177969257 -2  -5853685 1.5815 0.2112</code></pre>
+<p>Виконаємо тестування двох моделей з використанням десятикратної перехресної перевірки (cross validation).</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb140-1" aria-hidden="true" tabindex="-1"></a>lm.reach.cv <span class="ot">&lt;-</span> <span class="fu">train</span>(reach <span class="sc">~</span> ., <span class="at">data =</span> dataFilter, <span class="at">method =</span> <span class="st">&#39;lm&#39;</span>, <span class="at">trainControl =</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;cv&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb141-1" aria-hidden="true" tabindex="-1"></a>lmStep.reach.cv <span class="ot">&lt;-</span> <span class="fu">train</span>(reach <span class="sc">~</span> likes, <span class="at">data =</span> dataFilter, <span class="at">method =</span> <span class="st">&#39;lm&#39;</span>, <span class="at">trainControl =</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;cv&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb142-1" aria-hidden="true" tabindex="-1"></a>lm.reach.cv</span></code></pre></div>
+<pre><code>## Linear Regression 
+## 
+## 97 samples
+##  3 predictor
+## 
+## No pre-processing
+## Resampling: Bootstrapped (25 reps) 
+## Summary of sample sizes: 97, 97, 97, 97, 97, 97, ... 
+## Resampling results:
+## 
+##   RMSE      Rsquared   MAE     
+##   1365.303  0.6859251  1111.571
+## 
+## Tuning parameter &#39;intercept&#39; was held constant at a value of TRUE</code></pre>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb144-1" aria-hidden="true" tabindex="-1"></a>lmStep.reach.cv</span></code></pre></div>
+<pre><code>## Linear Regression 
+## 
+## 97 samples
+##  1 predictor
+## 
+## No pre-processing
+## Resampling: Bootstrapped (25 reps) 
+## Summary of sample sizes: 97, 97, 97, 97, 97, 97, ... 
+## Resampling results:
+## 
+##   RMSE      Rsquared   MAE    
+##   1392.839  0.6803168  1142.09
+## 
+## Tuning parameter &#39;intercept&#39; was held constant at a value of TRUE</code></pre>
+<p>Як видно з результатів, проста модель лінійної регресії має меншу похибку (RMSE), ніж модель множинної регресії, хоча спостерігається невелике зниження (на <span class="math inline">\(2%\)</span>) коефіцієнта детермінації у другої моделі. Але, як свідчить проведений вище дисперсійний аналіз, це незначимо. Цю модель можна покращити, вилучивши константу зі специфікації моделі, тобто отримати модель у вигляді <span class="math inline">\(y=b_1x_2\)</span>:</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb146-1" aria-hidden="true" tabindex="-1"></a>lm.MinusConst.reach <span class="ot">&lt;-</span> <span class="fu">lm</span>(reach <span class="sc">~</span> likes <span class="sc">-</span> <span class="dv">1</span>, <span class="at">data =</span> dataFilter)</span>
+<span id="cb146-2"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb146-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.MinusConst.reach)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = reach ~ likes - 1, data = dataFilter)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2342.9  -734.5  -194.9  1198.5  5037.6 
+## 
+## Coefficients:
+##       Estimate Std. Error t value Pr(&gt;|t|)    
+## likes   38.133      1.292   29.51   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1400 on 96 degrees of freedom
+## Multiple R-squared:  0.9007, Adjusted R-squared:  0.8997 
+## F-statistic: 871.1 on 1 and 96 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm.MinusConst.reach)</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-84-1.png" width="672" /><img src="DS-book-lab_files/figure-html/unnamed-chunk-84-2.png" width="672" /><img src="DS-book-lab_files/figure-html/unnamed-chunk-84-3.png" width="672" /><img src="DS-book-lab_files/figure-html/unnamed-chunk-84-4.png" width="672" /></p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dataFilter,</span>
+<span id="cb149-2"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb149-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> likes <span class="sc">-</span> <span class="dv">1</span>, <span class="at">y =</span> reach,</span>
+<span id="cb149-3"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb149-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> comments)) <span class="sc">+</span></span>
+<span id="cb149-4"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb149-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Залежність охоплення аудиторії від кількості лайків&quot;</span>,</span>
+<span id="cb149-5"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb149-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Лінійна регресія з 95% довірчими межами&quot;</span>,</span>
+<span id="cb149-6"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb149-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Без коригування. Кольором виділено кількість коментарів&quot;</span>, </span>
+<span id="cb149-7"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb149-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Кількість лайків&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Охоплення аудиторії, кільк. люд.&quot;</span>) <span class="sc">+</span></span>
+<span id="cb149-8"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb149-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb149-9"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb149-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method=</span>lm, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">fullrange =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+<p>Виходячи з правила “трьох сигм,” для коригування лінійної моделі доцільно видалення ще двох точок (11, 24).</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb151-1" aria-hidden="true" tabindex="-1"></a>dataFilterThreeSigma <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb151-2"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb151-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(posts <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">24</span>, <span class="dv">40</span>, <span class="dv">94</span>) <span class="sc">!=</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="co"># указываем номера точек, которые должны быть исключены</span></span>
+<span id="cb151-3"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb151-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(comments<span class="sc">:</span>shares, reach)</span></code></pre></div>
+<p>Будуємо модель.</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb152-1" aria-hidden="true" tabindex="-1"></a>lm.MinusConstThreeSigma.reach <span class="ot">&lt;-</span> <span class="fu">lm</span>(reach <span class="sc">~</span> likes <span class="sc">-</span> <span class="dv">1</span>, <span class="at">data =</span> dataFilterThreeSigma)</span>
+<span id="cb152-2"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb152-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.MinusConstThreeSigma.reach)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = reach ~ likes - 1, data = dataFilterThreeSigma)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2278.4  -700.1  -191.1  1124.8  2725.0 
+## 
+## Coefficients:
+##       Estimate Std. Error t value Pr(&gt;|t|)    
+## likes   37.679      1.166   32.31   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1259 on 94 degrees of freedom
+## Multiple R-squared:  0.9174, Adjusted R-squared:  0.9165 
+## F-statistic:  1044 on 1 and 94 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(lm.MinusConst.reach)</span></span></code></pre></div>
+<p>Будуємо графік.</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dataFilterThreeSigma,</span>
+<span id="cb155-2"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb155-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> likes <span class="sc">-</span> <span class="dv">1</span>, <span class="at">y =</span> reach,</span>
+<span id="cb155-3"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb155-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> comments)) <span class="sc">+</span></span>
+<span id="cb155-4"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb155-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Залежність охоплення аудиторії від кількості лайків&quot;</span>,</span>
+<span id="cb155-5"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb155-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Лінійна регресія з 95% довірчими межами&quot;</span>,</span>
+<span id="cb155-6"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb155-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;З коригуванням. Кольором виділено кількість коментарів&quot;</span>, </span>
+<span id="cb155-7"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb155-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Кількість лайків&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Охоплення аудиторії, кільк. люд.&quot;</span>) <span class="sc">+</span></span>
+<span id="cb155-8"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb155-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb155-9"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb155-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method=</span>lm, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">fullrange =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
+<p>Що маємо і як з цим працювати?</p>
+<ol style="list-style-type: decimal">
+<li><p>Рівняння моделі: <span class="math inline">\(y=\)</span> 37.6789647 <span class="math inline">\(\cdot x_2\)</span>
+Маємо гранично просту і легко інтерпретовану модель: серед двох публікацій, у однієї з яких лише на один лайк більше, в средньому на 37 переглядів аудиторія більше.</p></li>
+<li><p>Регресія має місце з коефіцієнтом детермінації <span class="math inline">\(R^2=\)</span> 0.9174168. Тобто модель здатна пояснити варіацію відгуку на 91.7416806 <span class="math inline">\(\%\)</span>, кажучи простими словами, модель “хороша” на стільки ж відсотків.</p></li>
+<li><p>Сіра зона на графіку показує надійну зону регресії – нижню та верхню <span class="math inline">\(95\%\)</span>-у межу прогнозу для середньої кількості лайків. Обчислюється вона так:</p></li>
+</ol>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb157-1" aria-hidden="true" tabindex="-1"></a>likesNumber <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">likes=</span><span class="fu">c</span>(<span class="dv">200</span>, <span class="dv">250</span>, <span class="dv">255</span>)) <span class="co"># вказуємо значення likes для обчислення прогнозу по reaches</span></span>
+<span id="cb157-2"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb157-2" aria-hidden="true" tabindex="-1"></a>pre <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm.MinusConstThreeSigma.reach, likesNumber, <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>)</span>
+<span id="cb157-3"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb157-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">cbind</span>(likesNumber, pre),</span>
+<span id="cb157-4"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb157-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Точковий та інтервальний прогноз охоплення аудиторії&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-89">Table 6.3: </span>Точковий та інтервальний прогноз охоплення аудиторії</caption>
+<thead>
+<tr class="header">
+<th align="right">likes</th>
+<th align="right">fit</th>
+<th align="right">lwr</th>
+<th align="right">upr</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">200</td>
+<td align="right">7535.793</td>
+<td align="right">7072.770</td>
+<td align="right">7998.816</td>
+</tr>
+<tr class="even">
+<td align="right">250</td>
+<td align="right">9419.741</td>
+<td align="right">8840.962</td>
+<td align="right">9998.520</td>
+</tr>
+<tr class="odd">
+<td align="right">255</td>
+<td align="right">9608.136</td>
+<td align="right">9017.782</td>
+<td align="right">10198.490</td>
+</tr>
+</tbody>
+</table>
+<p>Наприклад, якщо публікація набрала <span class="math inline">\(200\)</span> лайків, то модель з надійністю не гірше, ніж <span class="math inline">\(95\%\)</span> гарантує, що охоплення аудиторії в середньому 7535, але не менше, ніж 7072, але не більше, ніж 7998.</p>
+<p><strong>Щодо інших альетернативних моделей</strong></p>
+<p>Щодо заявлених на початку альтернативних нелінійних моделей:</p>
+<ul>
+<li><p>модель парної (Simple regression) лінеаризованої нелінійної регресії на основі МНК (Squared-Y): <span class="math inline">\(y=\sqrt{\beta_0+\beta_1x_2}\)</span>;</p></li>
+<li><p>модель парної лінеаризованої нелінійної регресії на основі МНК (Squared-Y): <span class="math inline">\(y=\sqrt{\beta_0+\beta_1x_{123}}\)</span>;</p></li>
+</ul>
+<p>Як показали дослідження, ці моделі несуттєво відрізняються за точністю від запропонованої лінійної моделі з одним предиктором <code>likes</code>, тому немає жодних підстав висувати їх як достойну альтернативу.</p>
+<p>Адекватну прогнозну модель на основі випадкових лісів (<span class="math inline">\(random\; forest\)</span>) навіть у робочому варіанті на малій вибірці менше 100 будувати недоцільно. При збільшенні даних хоча б на порядок і за наявності залежностей, відмінних від лінійної, цей підхід може дати цікаві та непогані результати.</p>
+<p><strong>Висновки</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>На підставі представлених статистичних даних побудований прототип моделі прогнозування охоплення аудиторії на основі кількості лайків <code>likes</code>. Ця залежність адекватно описується простою лінійною залежністю (див. вище) і дозволяє зробити точковий та інтервальний прогноз із надійністю <span class="math inline">\(95\%\)</span> (імовірністю <span class="math inline">\(0,95\)</span>) охоплення аудиторії. Включення двох інших параметрів <code>comments</code> та <code>shares</code> у прогнозну модель недоцільно – якість моделі не покращується, а точність прогнозу погіршується.</p></li>
+<li><p>Ряд запропонованих альтернативних нелінійних моделей не дав суттєвого покращення якості залежності. Хоча є підстави вважати, що залежність охоплення аудиторії носить нелінійний характер від кількості реакції користувачів мережі, зокрема, кількості лайків, що проявляється на великих значеннях незалежної змінної (змінних). Наявні дані не дозволяють ствердно відповісти на це запитання.</p></li>
+<li><p>Доцільно збільшення об’єму вибіркових даних хоча б на порядок для перевірки адекватності та можливого перенавчання отриманої моделі або побудови складніших залежностей.</p></li>
+<li><p>Головний висновок – у будь-якому разі перспективи хороші через сильні кореляції між реакціями користувачів та охопленням аудиторії.</p></li>
+</ol>
+<p>Як додатковий приклад та для дослідження можливого впливу на відгук виключених з розгляду предикторів <code>comments</code> та <code>shares</code> на нових даних до розгляду пропонується дві наступні моделі, що враховують вплив усіх трьох змінних (доцільність виключення констант обґрунтована звіті вище):</p>
+<ul>
+<li><p>Модель з виключеною константою: <span class="math inline">\(y=b_1x_1+b_2x_2+b_3x_3\)</span></p></li>
+<li><p>Узагальнена модель регресії з ефектами взаємодії другого порядку з виключеною константою: <span class="math inline">\(y=b_1x_1+b_2x_2+b_3x_3+b_{12}x_1x_2+b_{13}x_1x_3+b_{23}x_2\)</span> вважається невдалою з точки зору задачі екстраполяції, тобто власне прогнозування.</p></li>
+</ul>
+<p>Будуємо першу модель:</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb158-1" aria-hidden="true" tabindex="-1"></a>lm.reach <span class="ot">&lt;-</span> <span class="fu">lm</span>(reach <span class="sc">~</span> comments <span class="sc">+</span> likes <span class="sc">+</span> shares  <span class="sc">-</span> <span class="dv">1</span>, <span class="at">data =</span> dataFilterThreeSigma)</span>
+<span id="cb158-2"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb158-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.reach)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = reach ~ comments + likes + shares - 1, data = dataFilterThreeSigma)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2659.5  -709.1  -156.7  1012.0  2952.8 
+## 
+## Coefficients:
+##          Estimate Std. Error t value Pr(&gt;|t|)    
+## comments    22.16      20.61   1.075   0.2851    
+## likes       41.43       3.18  13.028   &lt;2e-16 ***
+## shares     -19.58      11.01  -1.778   0.0787 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1248 on 92 degrees of freedom
+## Multiple R-squared:  0.9207, Adjusted R-squared:  0.9181 
+## F-statistic: 355.9 on 3 and 92 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(lm.reach)</span></span></code></pre></div>
+<p>Як аналізувати отриману таблицю щодо нових даних?</p>
+<ol style="list-style-type: decimal">
+<li>Дивимося на <code>Coefficients</code>: якщо бачимо у стовпчику <span class="math inline">\(Pr(&gt;|t|)\)</span> значення <strong>більше, ніж <span class="math inline">\(0,05\)</span></strong>, то коефіцієнт, якому воно відповідає, до моделі <strong>не включається</strong> – такий коефіцієнт є статистично незначимим із заданою наперед надійністю <span class="math inline">\(\alpha=0,05\)</span>. Тобто, <strong>формально</strong> модель має вигляд: <span class="math inline">\(y=\)</span> 22.1566353 <span class="math inline">\(\cdot x_1+\)</span> 41.4335882 <span class="math inline">\(\cdot x_2+\)</span> -19.5814839 <span class="math inline">\(\cdot x_3\)</span>, але фактично (у цьому конкретному випадку!): <span class="math inline">\(y=\)</span> 41.4335882 <span class="math inline">\(\cdot x_2\)</span>.</li>
+</ol>
+<p>Для прогнозування чи перевірки якості прогнозу на тестових даних слід брати лише фактичну модель. Незначимі коефіцієнти повинні вважатися рівними нулю та їх включення в модель лише погіршує точність прогнозу, вносячи як випадкову, так і систематичну похибку.</p>
+<ol style="list-style-type: decimal">
+<li>Дивимося оцінку коефіцієнта детермінації: <code>Multiple R-squared</code>, тобто який відсоток варіації відгуку пояснює ця модель.
+У нашому випадку це: <span class="math inline">\(R^2=\)</span> 0.9206595. Тобто модель здатна пояснити варіацію відгуку на 92.0659531 <span class="math inline">\(\%\)</span>, кажучи простими словами, “модель хороша” на стільки ж відсотків.</li>
+</ol>
+<p>Будуємо другу модель.</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb161-1" aria-hidden="true" tabindex="-1"></a>lm.general.reach <span class="ot">&lt;-</span> <span class="fu">lm</span>(reach <span class="sc">~</span> comments <span class="sc">+</span> likes <span class="sc">+</span> shares <span class="sc">+</span> comments<span class="sc">*</span>likes <span class="sc">+</span> comments<span class="sc">*</span>shares <span class="sc">+</span> likes<span class="sc">*</span>shares <span class="sc">-</span> <span class="dv">1</span>, <span class="at">data =</span> dataFilterThreeSigma)</span>
+<span id="cb161-2"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb161-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.general.reach)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = reach ~ comments + likes + shares + comments * likes + 
+##     comments * shares + likes * shares - 1, data = dataFilterThreeSigma)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2489.7  -809.4  -117.0   849.7  2788.9 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)    
+## comments         64.65151   39.07336   1.655    0.102    
+## likes            43.79321    5.09790   8.590 2.64e-13 ***
+## shares          -25.09527   20.59867  -1.218    0.226    
+## comments:likes   -0.66600    0.36319  -1.834    0.070 .  
+## comments:shares   0.68694    1.53120   0.449    0.655    
+## likes:shares      0.04449    0.13098   0.340    0.735    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1225 on 89 degrees of freedom
+## Multiple R-squared:  0.926,  Adjusted R-squared:  0.921 
+## F-statistic: 185.5 on 6 and 89 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(lm.reach)</span></span></code></pre></div>
+<p>Як аналізувати отриману таблицю щодо нових даних?</p>
+<ol style="list-style-type: decimal">
+<li>Дивимось на <code>Coefficients</code>: якщо бачимо у стовпчику <span class="math inline">\(Pr(&gt;|t|)\)</span> значення <strong>більше, ніж <span class="math inline">\(0,05\)</span></strong>, то коефіцієнт, якому воно відповідає, у модель <strong>не включається</strong> – <strong>такий коефіцієнт статистично незначимий</strong> із заданою наперед надійдністю <span class="math inline">\(\alpha=0,05\)</span>. Тобто, <strong>формально</strong> модель має вигляд: <span class="math inline">\(y=\)</span> 64.6515059 <span class="math inline">\(\cdot x_1+\)</span> 43.7932086 <span class="math inline">\(\cdot x_2+\)</span> -25.0952651 <span class="math inline">\(\cdot x_3+\)</span> -0.6659987 <span class="math inline">\(\cdot x_1 x_2+\)</span> 0.6869435 <span class="math inline">\(\cdot x_1 x_3+\)</span> 0.0444853 <span class="math inline">\(\cdot x_2 x_3\)</span>,
+але фактично (в даному конкретному випадку!): <span class="math inline">\(y=\)</span> 43.7932086 <span class="math inline">\(\cdot x_2\)</span></li>
+</ol>
+<p>Для прогнозування чи перевірки якості прогнозу на тестових даних слід брати лише фактичну модель. Незначимі коефіцієнти повинні вважатися рівними нулю та їх включення в модель лише погіршує точність прогнозу, вносячи як випадкову, так і систематичну похибку.</p>
+<ol style="list-style-type: decimal">
+<li>Дивимося оцінку коефіцієнта детермінації: <code>Multiple R-squared</code>, тобто який відсоток варіації відгуку пояснює дана модель.
+У нашому випадку це: <span class="math inline">\(R^2=\)</span> 0.9259555. Тобто модель здатна пояснити варіацію відгуку на 92.5955527 <span class="math inline">\(\%\)</span>, кажучи простими словами, “модель хороша” на стільки ж відсотків.</li>
+</ol>
+<p>У нашому випадку бачимо, що дві дані моделі звелися до отриманої раніше однофакторної моделі залежності охоплення аудиторії виключно від значень <code>likes</code>. При дослідженні нових даних, характер яких відмінний від аналізованих, ситуація може змінитися.</p>
+<p><strong>Побудова моделі <code>random forest</code>.</strong> {#rf}</p>
+<p>Як було зазначено вище, параметрична модель дає можливість легкої інтерепретації. Побудва моделі на основі випадкових лісів для даної задачі не є складною процедурою і за своєю проностичною силою не поступається параметричним, хоча і не дозволяє інтерпретувати якісно-кількісні зв’язки, як це дозволяють праметричні моделі.</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dataFilterThreeSigma)</span></code></pre></div>
+<pre><code>##   comments likes shares reach
+## 1        0    35      6  3847
+## 2        1    34      1  1775
+## 3        8    36     10  2074
+## 4        3    69     19  2149
+## 5        0    36      6   993
+## 6        0    49     11  1406</code></pre>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 80% даних використовуємо для тренування моделі, 20% для тестування</span></span>
+<span id="cb166-2"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb166-2" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">2</span>, <span class="fu">nrow</span>(dataFilterThreeSigma), <span class="at">replace=</span><span class="cn">TRUE</span>, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.2</span>))</span>
+<span id="cb166-3"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb166-3" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> dataFilterThreeSigma[split<span class="sc">==</span><span class="dv">1</span>,]</span>
+<span id="cb166-4"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb166-4" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> dataFilterThreeSigma[split<span class="sc">==</span><span class="dv">2</span>,]</span>
+<span id="cb166-5"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb166-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-6"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb166-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Побудова моделі</span></span>
+<span id="cb166-7"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb166-7" aria-hidden="true" tabindex="-1"></a><span class="co"># rf &lt;- randomForest(reach ~ ., data = train)</span></span>
+<span id="cb166-8"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb166-8" aria-hidden="true" tabindex="-1"></a>rf <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(reach <span class="sc">~</span> ., <span class="at">data =</span> train, <span class="at">scale=</span><span class="cn">FALSE</span>, <span class="at">ntree=</span><span class="dv">500</span>)</span>
+<span id="cb166-9"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb166-9" aria-hidden="true" tabindex="-1"></a>rf</span></code></pre></div>
+<pre><code>## 
+## Call:
+##  randomForest(formula = reach ~ ., data = train, scale = FALSE,      ntree = 500) 
+##                Type of random forest: regression
+##                      Number of trees: 500
+## No. of variables tried at each split: 1
+## 
+##           Mean of squared residuals: 2309317
+##                     % Var explained: 54.03</code></pre>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Побудова прогнозу на тестовій вибірці</span></span>
+<span id="cb168-2"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb168-2" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(rf, test)</span>
+<span id="cb168-3"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb168-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb168-4"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb168-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ПОхибка прогнозу</span></span>
+<span id="cb168-5"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb168-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sqrt</span>(<span class="fu">sum</span>((<span class="fu">as.vector</span>(predictions <span class="sc">-</span> test<span class="sc">$</span>reach))<span class="sc">^</span><span class="dv">2</span>))<span class="sc">/</span><span class="fu">length</span>(predictions))</span></code></pre></div>
+<pre><code>## [1] 336.7012</code></pre>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Графік похибки прогнозу</span></span>
+<span id="cb170-2"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb170-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rf)</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Оцінка важливості предикторів</span></span>
+<span id="cb171-2"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#cb171-2" aria-hidden="true" tabindex="-1"></a><span class="fu">importance</span>(rf)</span></code></pre></div>
+<pre><code>##          IncNodePurity
+## comments      66108005
+## likes        158967943
+## shares        97127977</code></pre>
+<p>Як видно з графіка, значення кількості дерев на рівні <span class="math inline">\(300\)</span> цілком достатньо для мінімізації похибки. Також за результатами оцінки важливості предикторів видно, що <code>likes</code> є найбільш значимим з них.</p>
+</div>
+<div id="індивідуальні-завдання-на-лабораторну-роботу-4" class="section level3 hasAnchor" number="6.3.4">
+<h3><span class="header-section-number">6.3.4</span> Індивідуальні завдання на лабораторну роботу<a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#індивідуальні-завдання-на-лабораторну-роботу-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Видає викладач.</p>
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2022. <em>Rmarkdown: Dynamic Documents for r</em>. <a href="https://CRAN.R-project.org/package=rmarkdown">https://CRAN.R-project.org/package=rmarkdown</a>.
+</div>
+<div class="csl-entry">
+Breiman, Leo. 2001. <span>“Random Forests.”</span> <em>Machine Learning</em> 45 (1).
+</div>
+<div class="csl-entry">
+Casas, Pablo. 2020. <em>funModeling: Exploratory Data Analysis and Data Preparation Tool-Box</em>. <a href="https://livebook.datascienceheroes.com">https://livebook.datascienceheroes.com</a>.
+</div>
+<div class="csl-entry">
+Chan, Chung-hong, Geoffrey CH Chan, Thomas J. Leeper, and Jason Becker. 2018. <em>Rio: A Swiss-Army Knife for Data File i/o</em>.
+</div>
+<div class="csl-entry">
+Chan, Chung-hong, and Thomas J. Leeper. 2021. <em>Rio: A Swiss-Army Knife for Data i/o</em>. <a href="https://github.com/leeper/rio">https://github.com/leeper/rio</a>.
+</div>
+<div class="csl-entry">
+Conway, Joe, Dirk Eddelbuettel, Tomoaki Nishiyama, Sameer Kumar Prayaga, and Neil Tiffin. 2021. <em>RPostgreSQL: R Interface to the PostgreSQL Database System</em>. <a href="https://CRAN.R-project.org/package=RPostgreSQL">https://CRAN.R-project.org/package=RPostgreSQL</a>.
+</div>
+<div class="csl-entry">
+Cooper, Nicholas. 2017. <em>Reader: Suite of Functions to Flexibly Read Data from Files</em>. <a href="https://CRAN.R-project.org/package=reader">https://CRAN.R-project.org/package=reader</a>.
+</div>
+<div class="csl-entry">
+Garrett Grolemund, Hadley Wickham. 2018. <em>R for Data Science</em>. <a href="http://r4ds.had.co.nz/index.html">http://r4ds.had.co.nz/index.html</a>.
+</div>
+<div class="csl-entry">
+Henry, Lionel, and Hadley Wickham. 2020. <em>Purrr: Functional Programming Tools</em>. <a href="https://CRAN.R-project.org/package=purrr">https://CRAN.R-project.org/package=purrr</a>.
+</div>
+<div class="csl-entry">
+Hester, Jim, and Hadley Wickham. 2021. <em>Odbc: Connect to ODBC Compatible Databases (Using the DBI Interface)</em>. <a href="https://CRAN.R-project.org/package=odbc">https://CRAN.R-project.org/package=odbc</a>.
+</div>
+<div class="csl-entry">
+Manuel Fernandez-Delgado, Senen Barro, Eva Cernadas. 2014. <span>“Do We Need Hundreds of Classifiers to Solve Real World Classification Problems?”</span> <a href="https://www.jstatsoft.org/article/view/v059i10">https://www.jstatsoft.org/article/view/v059i10</a>.
+</div>
+<div class="csl-entry">
+Muller, Kirill. 2021. <em>Hms: Pretty Time of Day</em>. <a href="https://CRAN.R-project.org/package=hms">https://CRAN.R-project.org/package=hms</a>.
+</div>
+<div class="csl-entry">
+Müller, Kirill, and Hadley Wickham. 2021. <em>Tibble: Simple Data Frames</em>. <a href="https://CRAN.R-project.org/package=tibble">https://CRAN.R-project.org/package=tibble</a>.
+</div>
+<div class="csl-entry">
+Müller, Kirill, Hadley Wickham, David A. James, and Seth Falcon. 2022. <em>RSQLite: SQLite Interface for r</em>. <a href="https://CRAN.R-project.org/package=RSQLite">https://CRAN.R-project.org/package=RSQLite</a>.
+</div>
+<div class="csl-entry">
+Ogurtsov, A. 2022. <span>“Blog a. Ogurtsov.”</span> Article. <a href="http://biostat-r.blogspot.com/search/label/data_frame">http://biostat-r.blogspot.com/search/label/data_frame</a>.
+</div>
+<div class="csl-entry">
+Ooms, Jeroen, David James, Saikat DebRoy, Hadley Wickham, and Jeffrey Horner. 2021. <em>RMySQL: Database Interface and MySQL Driver for r</em>. <a href="https://CRAN.R-project.org/package=RMySQL">https://CRAN.R-project.org/package=RMySQL</a>.
+</div>
+<div class="csl-entry">
+R Core Team. 2021. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div class="csl-entry">
+R Special Interest Group on Databases (R-SIG-DB), Hadley Wickham, and Kirill Muller. 2021. <em>DBI: R Database Interface</em>. <a href="https://CRAN.R-project.org/package=DBI">https://CRAN.R-project.org/package=DBI</a>.
+</div>
+<div class="csl-entry">
+RStudio Team. 2020. <em>RStudio: Integrated Development Environment for r</em>. Boston, MA: RStudio, PBC. <a href="http://www.rstudio.com/">http://www.rstudio.com/</a>.
+</div>
+<div class="csl-entry">
+sandino. 2013. <span>“Cheat Sheet of Markdown.”</span> Article. <a href="https://github.com/sandino/Markdown-Cheatsheet#emphasis">https://github.com/sandino/Markdown-Cheatsheet#emphasis</a>.
+</div>
+<div class="csl-entry">
+Science, Eberly College of. 2020. <span>“STAT 505: Applied Multivariate Statistical Analysis.”</span> Course materials. <a href="http://belousovv.ru/markdown_syntax#fnref:2">http://belousovv.ru/markdown_syntax#fnref:2</a>.
+</div>
+<div class="csl-entry">
+Slabchenko Olesia, Siebert Xavier, Sydorenko Valeriy. 2016. <span>“Development of Models for Imputation of Data from Social Networks on the Basis of an Extended Matrix of Attributes.”</span> <em>Eastern-European Journal of Enterprise Technologies</em> 4 (2-82): 24–34.
+</div>
+<div class="csl-entry">
+Spinu, Vitalie, Garrett Grolemund, and Hadley Wickham. 2021. <em>Lubridate: Make Dealing with Dates a Little Easier</em>. <a href="https://CRAN.R-project.org/package=lubridate">https://CRAN.R-project.org/package=lubridate</a>.
+</div>
+<div class="csl-entry">
+Viacheslav Oreshkov, Nikolay Paklin. 2012. <em>Business: From Data to Knowlige</em>. Piter. <a href="https://kniga.biz.ua/book-biznes-analitika-ot-dannykh-k-znaniiam-cd-uchebnoe-posobie-2-e-izdanie-ispravlennoe-003514.html">https://kniga.biz.ua/book-biznes-analitika-ot-dannykh-k-znaniiam-cd-uchebnoe-posobie-2-e-izdanie-ispravlennoe-003514.html</a>.
+</div>
+<div class="csl-entry">
+Wickham, Hadley. 2009. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="https://ggplot2-book.org/">https://ggplot2-book.org/</a>.
+</div>
+<div class="csl-entry">
+———. 2021a. <em>Nycflights13: Flights That Departed NYC in 2013</em>. <a href="https://github.com/hadley/nycflights13">https://github.com/hadley/nycflights13</a>.
+</div>
+<div class="csl-entry">
+———. 2021b. <em>Tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
+</div>
+<div class="csl-entry">
+Wickham, Hadley, and Jennifer Bryan. 2021. <em>Bigrquery: An Interface to Google’s BigQuery ’API’</em>. <a href="https://CRAN.R-project.org/package=bigrquery">https://CRAN.R-project.org/package=bigrquery</a>.
+</div>
+<div class="csl-entry">
+Wickham, Hadley, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, and Dewey Dunnington. 2021. <em>Ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics</em>. <a href="https://CRAN.R-project.org/package=ggplot2">https://CRAN.R-project.org/package=ggplot2</a>.
+</div>
+<div class="csl-entry">
+Wickham, Hadley, Romain Francois, Lionel Henry, and Kirill Muller. 2022. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.
+</div>
+<div class="csl-entry">
+Wickham, Hadley, and Maximilian Girlich. 2022. <em>Tidyr: Tidy Messy Data</em>. <a href="https://CRAN.R-project.org/package=tidyr">https://CRAN.R-project.org/package=tidyr</a>.
+</div>
+<div class="csl-entry">
+Wickham, Hadley, Maximilian Girlich, and Edgar Ruiz. 2021. <em>Dbplyr: A Dplyr Back End for Databases</em>. <a href="https://CRAN.R-project.org/package=dbplyr">https://CRAN.R-project.org/package=dbplyr</a>.
+</div>
+<div class="csl-entry">
+wikipedia. 2018. <span>“Exploratory Data Analysis.”</span> Article. <a href="https://en.wikipedia.org/wiki/Exploratory_data_analysis">https://en.wikipedia.org/wiki/Exploratory_data_analysis</a>.
+</div>
+<div class="csl-entry">
+———. 2022a. <span>“Cross-Industry Standard Process for Data Mining.”</span> Article. <a href="https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining">https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining</a>.
+</div>
+<div class="csl-entry">
+———. 2022b. <span>“Principal Component Analysis.”</span> Article. <a href="https://en.wikipedia.org/wiki/Principal_component_analysis">https://en.wikipedia.org/wiki/Principal_component_analysis</a>.
+</div>
+<div class="csl-entry">
+Wikipedia. 2020. <span>“Decision Tree Learning.”</span> Article. <a href="https://en.wikipedia.org/wiki/Decision_tree_learning">https://en.wikipedia.org/wiki/Decision_tree_learning</a>.
+</div>
+<div class="csl-entry">
+Yihui Xie, Garrett Grolemund, J. J. Allaire. 2018. <em>R Markdown: The Definitive Guide</em>. <a href="https://bookdown.org/yihui/rmarkdown/">https://bookdown.org/yihui/rmarkdown/</a>.
+</div>
+</div>
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Breiman2001" class="csl-entry">
+Breiman, Leo. 2001. <span>“Random Forests.”</span> <em>Machine Learning</em> 45 (1).
+</div>
+<div id="ref-r4ds" class="csl-entry">
+Garrett Grolemund, Hadley Wickham. 2018. <em>R for Data Science</em>. <a href="http://r4ds.had.co.nz/index.html">http://r4ds.had.co.nz/index.html</a>.
+</div>
+<div id="ref-Fernandes" class="csl-entry">
+Manuel Fernandez-Delgado, Senen Barro, Eva Cernadas. 2014. <span>“Do We Need Hundreds of Classifiers to Solve Real World Classification Problems?”</span> <a href="https://www.jstatsoft.org/article/view/v059i10">https://www.jstatsoft.org/article/view/v059i10</a>.
+</div>
+<div id="ref-Slab" class="csl-entry">
+Slabchenko Olesia, Siebert Xavier, Sydorenko Valeriy. 2016. <span>“Development of Models for Imputation of Data from Social Networks on the Basis of an Extended Matrix of Attributes.”</span> <em>Eastern-European Journal of Enterprise Technologies</em> 4 (2-82): 24–34.
+</div>
+<div id="ref-Paklin" class="csl-entry">
+Viacheslav Oreshkov, Nikolay Paklin. 2012. <em>Business: From Data to Knowlige</em>. Piter. <a href="https://kniga.biz.ua/book-biznes-analitika-ot-dannykh-k-znaniiam-cd-uchebnoe-posobie-2-e-izdanie-ispravlennoe-003514.html">https://kniga.biz.ua/book-biznes-analitika-ot-dannykh-k-znaniiam-cd-uchebnoe-posobie-2-e-izdanie-ispravlennoe-003514.html</a>.
+</div>
+<div id="ref-CRISP_DM" class="csl-entry">
+———. 2022a. <span>“Cross-Industry Standard Process for Data Mining.”</span> Article. <a href="https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining">https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining</a>.
+</div>
+<div id="ref-cart" class="csl-entry">
+Wikipedia. 2020. <span>“Decision Tree Learning.”</span> Article. <a href="https://en.wikipedia.org/wiki/Decision_tree_learning">https://en.wikipedia.org/wiki/Decision_tree_learning</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/05-lab5.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

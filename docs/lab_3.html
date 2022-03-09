@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Розділ 4 Лабораторна робота №3. Розвідувальний аналіз даних. Візуалізація | Data Science на R. Лабораторний практикум</title>
+  <meta name="description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Розділ 4 Лабораторна робота №3. Розвідувальний аналіз даних. Візуалізація | Data Science на R. Лабораторний практикум" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  <meta name="github-repo" content="VGamaley/DS-book-lab" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Розділ 4 Лабораторна робота №3. Розвідувальний аналіз даних. Візуалізація | Data Science на R. Лабораторний практикум" />
+  
+  <meta name="twitter:description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  
+
+<meta name="author" content="© Сидоренко В. М." />
+
+
+<meta name="date" content="2022-03-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="lab_2.html"/>
+<link rel="next" href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"/>
+<script src="libs/header-attrs-2.12/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Вступ<span></span></a></li>
+<li class="chapter" data-level="2" data-path="modul1.html"><a href="modul1.html"><i class="fa fa-check"></i><b>2</b> Модуль 1. Базовий. Лабораторна робота №1. Створення основи типового Data Science-проєкту<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="modul1.html"><a href="modul1.html#що-ви-будете-вміти"><i class="fa fa-check"></i><b>2.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="modul1.html"><a href="modul1.html#короткі-теоретичні-відомості"><i class="fa fa-check"></i><b>2.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="modul1.html"><a href="modul1.html#що-таке-data-science-проект"><i class="fa fa-check"></i><b>2.2.1</b> Що таке Data Science-проект?<span></span></a></li>
+<li class="chapter" data-level="2.2.2" data-path="modul1.html"><a href="modul1.html#концепція-грамотного-програмування"><i class="fa fa-check"></i><b>2.2.2</b> Концепція грамотного програмування<span></span></a></li>
+<li class="chapter" data-level="2.2.3" data-path="modul1.html"><a href="modul1.html#markdown-і-rmarkdown"><i class="fa fa-check"></i><b>2.2.3</b> Markdown і RMarkdown<span></span></a></li>
+<li class="chapter" data-level="2.2.4" data-path="modul1.html"><a href="modul1.html#інсталяція-r"><i class="fa fa-check"></i><b>2.2.4</b> Інсталяція R<span></span></a></li>
+<li class="chapter" data-level="2.2.5" data-path="modul1.html"><a href="modul1.html#інсталяція-rstudio"><i class="fa fa-check"></i><b>2.2.5</b> Інсталяція RStudio<span></span></a></li>
+<li class="chapter" data-level="2.2.6" data-path="modul1.html"><a href="modul1.html#CreateRMarkdown"><i class="fa fa-check"></i><b>2.2.6</b> Створення RMarkdown-документу<span></span></a></li>
+<li class="chapter" data-level="2.2.7" data-path="modul1.html"><a href="modul1.html#генерація-електронного-документу"><i class="fa fa-check"></i><b>2.2.7</b> Генерація електронного документу<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="modul1.html"><a href="modul1.html#приклад-створення-markdown-документу"><i class="fa fa-check"></i><b>2.3</b> Приклад створення Markdown-документу<span></span></a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="modul1.html"><a href="modul1.html#постановка-задачі"><i class="fa fa-check"></i><b>2.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="2.3.2" data-path="modul1.html"><a href="modul1.html#виконання-завдання"><i class="fa fa-check"></i><b>2.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="2.3.3" data-path="modul1.html"><a href="modul1.html#індивідуальні-завдання-на-лабораторну-роботу"><i class="fa fa-check"></i><b>2.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+<li class="chapter" data-level="2.3.4" data-path="modul1.html"><a href="modul1.html#домашнє-завдання"><i class="fa fa-check"></i><b>2.3.4</b> Домашнє завдання<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="lab_2.html"><a href="lab_2.html"><i class="fa fa-check"></i><b>3</b> Лабораторна робота №2. Маніпулювання даними<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="lab_2.html"><a href="lab_2.html#що-ви-будете-вміти-1"><i class="fa fa-check"></i><b>3.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="lab_2.html"><a href="lab_2.html#короткі-теоретичні-відомості-1"><i class="fa fa-check"></i><b>3.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="lab_2.html"><a href="lab_2.html#що-таке-маніпулювання-данними"><i class="fa fa-check"></i><b>3.2.1</b> Що таке маніпулювання данними?<span></span></a></li>
+<li class="chapter" data-level="3.2.2" data-path="lab_2.html"><a href="lab_2.html#імпорт-даних"><i class="fa fa-check"></i><b>3.2.2</b> Імпорт даних<span></span></a></li>
+<li class="chapter" data-level="3.2.3" data-path="lab_2.html"><a href="lab_2.html#приведення-даних-до-охайного-вигляду"><i class="fa fa-check"></i><b>3.2.3</b> Приведення даних до охайного вигляду<span></span></a></li>
+<li class="chapter" data-level="3.2.4" data-path="lab_2.html"><a href="lab_2.html#трансформація"><i class="fa fa-check"></i><b>3.2.4</b> Трансформація<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="lab_2.html"><a href="lab_2.html#приклад-виконання-індівідуального-завдання"><i class="fa fa-check"></i><b>3.3</b> Приклад виконання індівідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="lab_2.html"><a href="lab_2.html#постановка-задачі-1"><i class="fa fa-check"></i><b>3.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="3.3.2" data-path="lab_2.html"><a href="lab_2.html#виконання-завдання-1"><i class="fa fa-check"></i><b>3.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="3.3.3" data-path="lab_2.html"><a href="lab_2.html#індивідуальні-завдання-на-лабораторну-роботу-1"><i class="fa fa-check"></i><b>3.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="lab_3.html"><a href="lab_3.html"><i class="fa fa-check"></i><b>4</b> Лабораторна робота №3. Розвідувальний аналіз даних. Візуалізація<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="lab_3.html"><a href="lab_3.html#що-ви-будете-вміти-2"><i class="fa fa-check"></i><b>4.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="lab_3.html"><a href="lab_3.html#короткі-теоретичні-відомості-2"><i class="fa fa-check"></i><b>4.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="lab_3.html"><a href="lab_3.html#що-таке-розвідувальний-аналіз-даних"><i class="fa fa-check"></i><b>4.2.1</b> Що таке розвідувальний аналіз даних?<span></span></a></li>
+<li class="chapter" data-level="4.2.2" data-path="lab_3.html"><a href="lab_3.html#питання"><i class="fa fa-check"></i><b>4.2.2</b> Питання<span></span></a></li>
+<li class="chapter" data-level="4.2.3" data-path="lab_3.html"><a href="lab_3.html#зниження-розмірності-даних"><i class="fa fa-check"></i><b>4.2.3</b> Зниження розмірності даних<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="lab_3.html"><a href="lab_3.html#приклад-виконання-індивідуального-завдання"><i class="fa fa-check"></i><b>4.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="lab_3.html"><a href="lab_3.html#постановка-задачі-2"><i class="fa fa-check"></i><b>4.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="lab_3.html"><a href="lab_3.html#виконання-завдання-2"><i class="fa fa-check"></i><b>4.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="4.3.3" data-path="lab_3.html"><a href="lab_3.html#індивідуальні-завдання-на-лабораторну-роботу-2"><i class="fa fa-check"></i><b>4.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><i class="fa fa-check"></i><b>5</b> Модуль 2. Моделювання. Лабораторна робота №4. Розгортання моделі<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html#що-ви-будете-вміти-3"><i class="fa fa-check"></i><b>5.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html#короткі-теоретичні-відомості-3"><i class="fa fa-check"></i><b>5.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html#індивідуальні-завдання-на-лабораторну-роботу-3"><i class="fa fa-check"></i><b>5.2.1</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><i class="fa fa-check"></i><b>6</b> Модуль 2. Моделювання. Лабораторна робота №5. Побудова регресійних моделей<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#що-ви-будете-вміти-4"><i class="fa fa-check"></i><b>6.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="6.2" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#короткі-теоретичні-відомості-4"><i class="fa fa-check"></i><b>6.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#що-таке-регресія-і-регресійний-аналіз"><i class="fa fa-check"></i><b>6.2.1</b> Що таке регресія і регресійний аналіз?<span></span></a></li>
+<li class="chapter" data-level="6.2.2" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#формальна-постановка-задачі-регресії"><i class="fa fa-check"></i><b>6.2.2</b> Формальна постановка задачі регресії<span></span></a></li>
+<li class="chapter" data-level="6.2.3" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#статистичний-підхід"><i class="fa fa-check"></i><b>6.2.3</b> Статистичний підхід<span></span></a></li>
+<li class="chapter" data-level="6.2.4" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#підхід-на-основі-машинного-навчання"><i class="fa fa-check"></i><b>6.2.4</b> Підхід на основі машинного навчання<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#ind"><i class="fa fa-check"></i><b>6.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#розуміння-даних"><i class="fa fa-check"></i><b>6.3.1</b> Розуміння даних<span></span></a></li>
+<li class="chapter" data-level="6.3.2" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#підготовка-даних"><i class="fa fa-check"></i><b>6.3.2</b> Підготовка даних<span></span></a></li>
+<li class="chapter" data-level="6.3.3" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#rf"><i class="fa fa-check"></i><b>6.3.3</b> Моделювання<span></span></a></li>
+<li class="chapter" data-level="6.3.4" data-path="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html"><a href="модуль-2.-моделювання.-лабораторна-робота-5.-побудова-регресійних-моделей.html#індивідуальні-завдання-на-лабораторну-роботу-4"><i class="fa fa-check"></i><b>6.3.4</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science на R. Лабораторний практикум</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="lab_3" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Розділ 4</span> Лабораторна робота №3. Розвідувальний аналіз даних. Візуалізація<a href="lab_3.html#lab_3" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Мета:</strong> <em>Засвоєння принципів, знайомство з інструментами та набуття навичок експлораторного (розвідувального) аналізу даних засобами мови програмування R та колекції пакетів <code>dplyr</code>, <code>ggplot2</code>, <code>desctable</code>, <code>"GGally", "corrplot", "PerformanceAnalytics", "FactoMineR", "factoextra"</code>, <code>"funModeling", "desctable", "ade4", "psych", "smacof", "WVPlots", "caret", "car"</code>.</em></p>
+<div id="що-ви-будете-вміти-2" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Що ви будете вміти?<a href="lab_3.html#що-ви-будете-вміти-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>розв’язувати задачі розвідувального аналізу даних засобами мови R у середовищі IDE RStudio.</li>
+<li>візуалізувати результати аналізу.</li>
+</ul>
+</div>
+<div id="короткі-теоретичні-відомості-2" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Короткі теоретичні відомості<a href="lab_3.html#короткі-теоретичні-відомості-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="що-таке-розвідувальний-аналіз-даних" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Що таке розвідувальний аналіз даних?<a href="lab_3.html#що-таке-розвідувальний-аналіз-даних" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>У рамках життєвого циклу процесу Data Mining згідно з методологією CRISP DM <span class="citation">(<a href="#ref-CRISP_DM" role="doc-biblioref">wikipedia 2022a</a>)</span>, першою фазою аналізу даних є “Розуміння даних” (<strong>Understanding</strong>) (рис. 1). До цієї фази входять розглянуті у попередніх лабораторних роботах задачі збору та різного роду трасформації. Наступною важливою задачею даної фази є вивчення даних, що складає основу так званого <a href="https://en.wikipedia.org/wiki/Exploratory_data_analysis"><em>розвідувального аналізу даних</em></a> (Exploratory data analysis, EDA).</p>
+<p><strong>Розвідувальний аналіз даних</strong> – аналіз основних властивостей даних, виявлення в них загальних закономірностей, розподілів та аномалій, побудова початкових моделей шляхом їх перетворення та/або представлення у зручному вигляді: графічному, табличному, схем, діаграм і т.ін. <span class="citation">(<a href="#ref-EDA" role="doc-biblioref">wikipedia 2018</a>)</span></p>
+<div class="figure">
+<img src="image/wrangling.png" alt="" />
+<p class="caption"><em>Рис. 1. Структура задачі розуміння даних у складі Data Science-проекту</em> <span class="citation">(<a href="#ref-r4ds" role="doc-biblioref">Garrett Grolemund 2018</a>)</span></p>
+</div>
+<p>Термін EDA був введений математиком Джоном Тьюкі, який сформулював цілі РАД таким чином:</p>
+<ul>
+<li>максимальне “проникнення” в дані</li>
+<li>виявлення основних структур</li>
+<li>вибір найважливіших змінних</li>
+<li>виявлення відхилень та аномалій</li>
+<li>перевірка основних гіпотез</li>
+<li>розробка початкових моделей</li>
+</ul>
+<p>До основних інструментів РАД відносятся:</p>
+<ul>
+<li>аналіз ймовірностних розподілів змінних</li>
+<li>побудова та аналіз кореляційних матриць</li>
+<li>методи зниження розмірності даних: факторний аналіз, дискримінантний аналіз, багатовимірне шкалювання та ін.</li>
+</ul>
+<p>РАД – це ітеративна процедура, в результаті якої ми:</p>
+<ul>
+<li>формулюємо запитання щодо наших даних</li>
+<li>шукаємо відповідь за допомогою візуалізації, трасформації та моделювання наявних даних</li>
+<li>аналізуємо те, що отримано в результаті аналізу та формулюємо нові запитання.</li>
+</ul>
+<p>“РАД є важливою частиною будь-якого аналізу даних, навіть якщо питання надається вам на блюді, тому що вам завжди потрібно вивчити якість ваших даних. Очищення даних – це лише одне застосування РАД: ви задаєте питання про те, чи відповідають ваші дані вашим очікуванням чи ні.” <span class="citation">(<a href="#ref-r4ds" role="doc-biblioref">Garrett Grolemund 2018</a>)</span>.<br />
+Для очищення даних нам потрібно буде розгорнути всі інструменти РАД: візуалізацію, перетворення та моделювання.</p>
+</div>
+<div id="питання" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Питання<a href="lab_3.html#питання" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Не існує правил, яким ми могли би керуватися, в частині того, які питання нам слід задавати в процесі своїх досліджень. Проте два типи питань завжди будуть корисними для того, щоб робити відкриття у наших даних. У самій довільній формі ці питання можна сформулювати так <span class="citation">(<a href="#ref-r4ds" role="doc-biblioref">Garrett Grolemund 2018</a>)</span>:</p>
+<ul>
+<li>Який тип варіації має місце в моїх змінних?</li>
+<li>Який тип коваріації має місце між моїми змінними?</li>
+</ul>
+<div id="варіація" class="section level4 hasAnchor" number="4.2.2.1">
+<h4><span class="header-section-number">4.2.2.1</span> Варіація<a href="lab_3.html#варіація" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Варіація (Variation)</strong> – це тенденція до змін значення змінної від вимірювання до вимірювання. Ми можете легко помітити варіації в реальному житті; якщо ми двічі вимірюємо постійну змінну, ми отримаємо два різні результати.<br />
+Категоричні змінні також можуть відрізнятися, якщо виміри робити для різних суб’єктів (наприклад, кольори очей різних людей) або у різні моменти часу (наприклад, енергетичні рівні електрона в різні моменти). Кожна змінна має свій власний паттерн у варіації, який може виявити цікаву інформацію. Найкращий спосіб зрозуміти цю закономірність – візуалізувати розподіл значень змінної.</p>
+<div id="візуалізація-розподілу" class="section level5 hasAnchor" number="4.2.2.1.1">
+<h5><span class="header-section-number">4.2.2.1.1</span> Візуалізація розподілу<a href="lab_3.html#візуалізація-розподілу" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Нижче наведено приклад розподілу категоріальної змінної.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="lab_3.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb80-2"><a href="lab_3.html#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb80-3"><a href="lab_3.html#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
+<span id="cb80-4"><a href="lab_3.html#cb80-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut))</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<p>Частоту для кожного значення категоріальної змінної можна обчислита, наприклад, так:</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="lab_3.html#cb81-1" aria-hidden="true" tabindex="-1"></a>diamonds <span class="sc">%&gt;%</span> </span>
+<span id="cb81-2"><a href="lab_3.html#cb81-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(cut)</span></code></pre></div>
+<pre><code>## # A tibble: 5 x 2
+##   cut           n
+##   &lt;ord&gt;     &lt;int&gt;
+## 1 Fair       1610
+## 2 Good       4906
+## 3 Very Good 12082
+## 4 Premium   13791
+## 5 Ideal     21551</code></pre>
+<p>Для неперервної змінної доцільно побудувати гістограму:</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="lab_3.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
+<span id="cb83-2"><a href="lab_3.html#cb83-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carat), <span class="at">binwidth =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p>Інтервальна таблиця частот, що відповідає гістограмі, може бути обчислена так:</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="lab_3.html#cb84-1" aria-hidden="true" tabindex="-1"></a>diamonds <span class="sc">%&gt;%</span> </span>
+<span id="cb84-2"><a href="lab_3.html#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(<span class="fu">cut_width</span>(carat, <span class="fl">0.5</span>)) </span></code></pre></div>
+<pre><code>## # A tibble: 11 x 2
+##    `cut_width(carat, 0.5)`     n
+##    &lt;fct&gt;                   &lt;int&gt;
+##  1 [-0.25,0.25]              785
+##  2 (0.25,0.75]             29498
+##  3 (0.75,1.25]             15977
+##  4 (1.25,1.75]              5313
+##  5 (1.75,2.25]              2002
+##  6 (2.25,2.75]               322
+##  7 (2.75,3.25]                32
+##  8 (3.25,3.75]                 5
+##  9 (3.75,4.25]                 4
+## 10 (4.25,4.75]                 1
+## 11 (4.75,5.25]                 1</code></pre>
+<p>Можна побудувати шістограму для певної долі значень:</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="lab_3.html#cb86-1" aria-hidden="true" tabindex="-1"></a>smaller <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> </span>
+<span id="cb86-2"><a href="lab_3.html#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(carat <span class="sc">&lt;</span> <span class="dv">3</span>)</span>
+<span id="cb86-3"><a href="lab_3.html#cb86-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb86-4"><a href="lab_3.html#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> smaller, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carat)) <span class="sc">+</span></span>
+<span id="cb86-5"><a href="lab_3.html#cb86-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.1</span>)</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p>Часто буває доцільно поудвати серія гістограм для різних груп спостережень:</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="lab_3.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> smaller, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">colour =</span> cut)) <span class="sc">+</span></span>
+<span id="cb87-2"><a href="lab_3.html#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_freqpoly</span>(<span class="at">binwidth =</span> <span class="fl">0.1</span>)</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p>Після того, як ми виконали візуалізацію, що ми маємо знайти на цих графіках? Яка може бути послідовність запитань на наступному етапі?</p>
+<p>*Типові запитання з урахуванням специфіка даної задачі можуть виглядати так:</p>
+<ul>
+<li>Які значення є найбільш поширеними? Чому?</li>
+<li>Які значення є рідкісними? Чому? Це відповідає нашим очікуванням?</li>
+<li>Чи бачемо ми якісь незвичайні закономірності? Що може їх пояснити?</li>
+</ul>
+<p>Як приклад, гістограма нижче наводить кілька цікавих питань:</p>
+<ul>
+<li>Чому там більше діамантів праворуч від кожного піка, ніж трохи ліворуч від кожного піка?</li>
+<li>Чому немає діамантів більше 3 каратів?</li>
+</ul>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="lab_3.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> smaller, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carat)) <span class="sc">+</span></span>
+<span id="cb88-2"><a href="lab_3.html#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.01</span>)</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+</div>
+<div id="незвичайні-значення" class="section level5 hasAnchor" number="4.2.2.1.2">
+<h5><span class="header-section-number">4.2.2.1.2</span> Незвичайні значення<a href="lab_3.html#незвичайні-значення" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Як правило у вибіркових даних зустірчаються викиди (outliers) – такі значення свідчать або про похибку вимірювання, або про якість надзвичайні причини, що потребують уважного вивчення.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="lab_3.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds) <span class="sc">+</span> </span>
+<span id="cb89-2"><a href="lab_3.html#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> y), <span class="at">binwidth =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p>Для того, щоб їх побачити, необхідно певним чином масштабувати гістограму:</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="lab_3.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds) <span class="sc">+</span> </span>
+<span id="cb90-2"><a href="lab_3.html#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> y), <span class="at">binwidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb90-3"><a href="lab_3.html#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>))</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<p>Якщо приймається рішення їх видалити, то це можна зроити наступним чином:</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="lab_3.html#cb91-1" aria-hidden="true" tabindex="-1"></a>unusual <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> </span>
+<span id="cb91-2"><a href="lab_3.html#cb91-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(y <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">|</span> y <span class="sc">&gt;</span> <span class="dv">20</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb91-3"><a href="lab_3.html#cb91-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(price, x, y, z) <span class="sc">%&gt;%</span></span>
+<span id="cb91-4"><a href="lab_3.html#cb91-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(y)</span>
+<span id="cb91-5"><a href="lab_3.html#cb91-5" aria-hidden="true" tabindex="-1"></a>unusual</span></code></pre></div>
+<pre><code>## # A tibble: 9 x 4
+##   price     x     y     z
+##   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  5139  0      0    0   
+## 2  6381  0      0    0   
+## 3 12800  0      0    0   
+## 4 15686  0      0    0   
+## 5 18034  0      0    0   
+## 6  2130  0      0    0   
+## 7  2130  0      0    0   
+## 8  2075  5.15  31.8  5.12
+## 9 12210  8.09  58.9  8.06</code></pre>
+</div>
+<div id="пропущені-значення-missing-values" class="section level5 hasAnchor" number="4.2.2.1.3">
+<h5><span class="header-section-number">4.2.2.1.3</span> Пропущені значення (Missing values)<a href="lab_3.html#пропущені-значення-missing-values" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Часто на практиці дані виявляються некомплектними – мають місце пропущенні дані (<code>NA</code>). У таких випадках відомі два виходи з систуації:</p>
+<ul>
+<li>видалити некомплектні спостереження</li>
+<li>виконати імпутацію пропущених значень – замінити пропущені значення певними у відповідності з якимось алгоритмом.</li>
+</ul>
+<p>Пакет <code>ggplot2</code> автоматично видаляє некмоплектні дані:</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="lab_3.html#cb93-1" aria-hidden="true" tabindex="-1"></a>diamonds</span></code></pre></div>
+<pre><code>## # A tibble: 53,940 x 10
+##    carat cut       color clarity depth table price     x     y     z
+##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1  0.23 Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43
+##  2  0.21 Premium   E     SI1      59.8    61   326  3.89  3.84  2.31
+##  3  0.23 Good      E     VS1      56.9    65   327  4.05  4.07  2.31
+##  4  0.29 Premium   I     VS2      62.4    58   334  4.2   4.23  2.63
+##  5  0.31 Good      J     SI2      63.3    58   335  4.34  4.35  2.75
+##  6  0.24 Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48
+##  7  0.24 Very Good I     VVS1     62.3    57   336  3.95  3.98  2.47
+##  8  0.26 Very Good H     SI1      61.9    55   337  4.07  4.11  2.53
+##  9  0.22 Fair      E     VS2      65.1    61   337  3.87  3.78  2.49
+## 10  0.23 Very Good H     VS1      59.4    61   338  4     4.05  2.39
+## # ... with 53,930 more rows</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="lab_3.html#cb95-1" aria-hidden="true" tabindex="-1"></a>diamonds2 <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> </span>
+<span id="cb95-2"><a href="lab_3.html#cb95-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">ifelse</span>(y <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">|</span> y <span class="sc">&gt;</span> <span class="dv">20</span>, <span class="cn">NA</span>, y))</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="lab_3.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> </span>
+<span id="cb96-2"><a href="lab_3.html#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<pre><code>## Warning: Removed 9 rows containing missing values (geom_point).</code></pre>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<p>Інколи ми хочемо зрозуміти, що робить спостереження з відсутніми значеннями, відмінними від спостережень із записаними значеннями. Наприклад, у <code>nycflights13::flights</code>, відсутні значення в змінній <code>dep_time</code> (час вильоту) показують, що рейс був скасований. Тому, можливо, нам потрібно буде порівняти заплановані терміни вильоту для скасованих та не скасованих часів. Ми можемо зробити це, зробивши нову змінну з <code>is.na()</code>:</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="lab_3.html#cb98-1" aria-hidden="true" tabindex="-1"></a>nycflights13<span class="sc">::</span>flights <span class="sc">%&gt;%</span> </span>
+<span id="cb98-2"><a href="lab_3.html#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb98-3"><a href="lab_3.html#cb98-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cancelled =</span> <span class="fu">is.na</span>(dep_time),</span>
+<span id="cb98-4"><a href="lab_3.html#cb98-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">sched_hour =</span> sched_dep_time <span class="sc">%/%</span> <span class="dv">100</span>,</span>
+<span id="cb98-5"><a href="lab_3.html#cb98-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sched_min =</span> sched_dep_time <span class="sc">%%</span> <span class="dv">100</span>,</span>
+<span id="cb98-6"><a href="lab_3.html#cb98-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">sched_dep_time =</span> sched_hour <span class="sc">+</span> sched_min <span class="sc">/</span> <span class="dv">60</span></span>
+<span id="cb98-7"><a href="lab_3.html#cb98-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb98-8"><a href="lab_3.html#cb98-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(sched_dep_time)) <span class="sc">+</span> </span>
+<span id="cb98-9"><a href="lab_3.html#cb98-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_freqpoly</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">colour =</span> cancelled), <span class="at">binwidth =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>)</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+</div>
+</div>
+<div id="коваріація" class="section level4 hasAnchor" number="4.2.2.2">
+<h4><span class="header-section-number">4.2.2.2</span> Коваріація<a href="lab_3.html#коваріація" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Якщо варіація описує поведінку в межах змінної, коваріація описує поведінку між змінними.<br />
+<strong>Коваріація (Covariation)</strong> – це схильність значень двох чи більше змінних змінюватися разом. Найкращим способом виявлення коваріації є візуалізація відносин між двома чи більше змінних.</p>
+<div id="категоріальні-та-неперервні-змінні" class="section level5 hasAnchor" number="4.2.2.2.1">
+<h5><span class="header-section-number">4.2.2.2.1</span> Категоріальні та неперервні змінні<a href="lab_3.html#категоріальні-та-неперервні-змінні" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Природнім є рішення щодо вивчення розподілу неперервної змінної, розбивши її на групи у відповідності до значень категоріальної змінної, як у попередньому багатокутнику частот. Поява за замовчуванням <code>geom_freqpoly()</code> не є таким корисним для подібного порівняння, оскільки його висоту визначає кількість. Це означає, що якщо одна з груп є набагато меншою, ніж інші, важко побачити відмінності у формі. Наприклад, давайте розглянемо, як ціна діамантів змінюється залежно від його якості:</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="lab_3.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> price)) <span class="sc">+</span> </span>
+<span id="cb99-2"><a href="lab_3.html#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_freqpoly</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">colour =</span> cut), <span class="at">binwidth =</span> <span class="dv">500</span>)</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<p>Важко побачити різницю в розподілах, оскільки кількість вибіркових значень у кожній групі суттєво відрізняється:</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="lab_3.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds) <span class="sc">+</span> </span>
+<span id="cb100-2"><a href="lab_3.html#cb100-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut))</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<p>Для полегшення порівняння нам потрібно поміняти те, що відображається на осі <code>Y</code>. Замість того, щоб відображати частоту, ми покажемо відносну частоту, яка є нормованою величиною.</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="lab_3.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> price, <span class="at">y =</span> ..density..)) <span class="sc">+</span> </span>
+<span id="cb101-2"><a href="lab_3.html#cb101-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_freqpoly</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">colour =</span> cut), <span class="at">binwidth =</span> <span class="dv">500</span>)</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<p>В результаті можна побачити, що найвищу середню ціну мають посередні діаманти (fair). Але аналіз щільностей розпоілів є не зовсім зручним. Альтернативним варіантом представлення аналогічної інформації є п’ятиквантильний графік (boxplot, box and wiskers plot), відомий як “боксплот,” або “ящик з вусами.” Боксплот акумулює в собі всі найважливіші інтегральні харакетристики стосовно мір центральної тенденції, розсіювання та форми розподілу (рис. 3).</p>
+<div class="figure">
+<img src="image/boxplot.png" alt="" />
+<p class="caption"><em>Рис. 3. Структура боксплота</em> <span class="citation">(<a href="#ref-r4ds" role="doc-biblioref">Garrett Grolemund 2018</a>)</span></p>
+</div>
+<p>Тоді для нашого випадку застосування боксплотів дасть такий результат:</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="lab_3.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb102-2"><a href="lab_3.html#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+</div>
+<div id="дві-категоріальні-змінні" class="section level5 hasAnchor" number="4.2.2.2.2">
+<h5><span class="header-section-number">4.2.2.2.2</span> Дві категоріальні змінні<a href="lab_3.html#дві-категоріальні-змінні" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Для візуалізації коваріації між категоріальними змінними неохідно візуалізувати частоти: у вигляді таблиці, або певного графічного візуалізатора. Наприклад:</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="lab_3.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
+<span id="cb103-2"><a href="lab_3.html#cb103-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_count</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> color))</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<p>З результатів видно, що існує певна залежність між кольором діаманта, та якістю його ограненості.</p>
+</div>
+</div>
+<div id="пакет-funmodelling" class="section level4 hasAnchor" number="4.2.2.3">
+<h4><span class="header-section-number">4.2.2.3</span> Пакет <code>FunModelling</code><a href="lab_3.html#пакет-funmodelling" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Відносно недавно з’явився пакет під назвою <code>FunModelling</code> <span class="citation">(<a href="#ref-R-funModeling" role="doc-biblioref">Casas 2020</a>)</span>, в арсеналі якого є набір корисних інструментів, що суттєво спрощують деякі процедури розвідувального аналізу, особливо на самому початку, коли вивчається структура даних. Зокрема</p>
+<ul>
+<li><code>df_status()</code> : структура набору даних для профілювання</li>
+<li><code>describe()</code> : чисельне та категоріальне профілювання (кількісне)</li>
+<li><code>freq()</code>: категоріальне профілювання (кількісне та графік).</li>
+<li><code>profileing_num()</code>: профілювання для числових змінних (кількісний)</li>
+<li><code>plot_num (дані)</code> : профілювання для числових змінних (графіки)</li>
+</ul>
+</div>
+</div>
+<div id="зниження-розмірності-даних" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Зниження розмірності даних<a href="lab_3.html#зниження-розмірності-даних" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong><a href="https://en.wikipedia.org/wiki/Dimensionality_reduction">Зниження розмірності (Dimensionality reduction)</a></strong> – процесс скорочення кількості випадкових змінних шляхом отримання гооловних змінних. Цей процес можно поділити <em>обирання ознак</em> та <em>виділяння ознак</em>.<br />
+<em>Обирання ознак</em> – це процес пошуку первісних змінних (факторів), що починаються в рамках фази розуміння даних із залученням експертів предметної галузі і з залученням всього арсеналу інстурментів маніпулювання даними, про що йшлося вище. (Маніпулятивні методики).<br />
+<em>Проектування ознак</em> – це перетворення даних з багатовимірного простору у простір простір невеликої кількості вимірів. (Математичні методики). (Далі під зниженням розмірнонсті будем мати на увазі саме проектування ознак). Існує велика кількість лінійних і нелінійних методик зниження розмірності.<br />
+Що дає зниження розмірності на практиці? В першу чергу спрощення представлення багатовимірних даних, їх візуалізацію, вирішення задач класифікації та регресії і, власне, краще розуміння процесів, що моделюються.<br />
+Одним з фундаментальних лінійних методів зниження розмірності, що широко викорстовується на практиці, є <a href="https://en.wikipedia.org/wiki/Principal_component_analysis">PCA</a> <span class="citation">(<a href="#ref-PCA" role="doc-biblioref">wikipedia 2022b</a>)</span>.</p>
+<div id="постановка-задачі-аналізу-методом-главних-компонент-pca" class="section level4 hasAnchor" number="4.2.3.1">
+<h4><span class="header-section-number">4.2.3.1</span> Постановка задачі аналізу методом главних компонент (PCA)<a href="lab_3.html#постановка-задачі-аналізу-методом-главних-компонент-pca" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Припустимо <span class="citation">(<a href="#ref-PCA" role="doc-biblioref">wikipedia 2022b</a>)</span>, що ми маємо випадковий вектор <span class="math inline">\(X\)</span>:
+<span class="math display">\[
+X=\begin{pmatrix}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n
+\end{pmatrix}
+\]</span></p>
+<p>З коваріаційною матрицею:<br />
+<span class="math display">\[
+var(X) = \Sigma = 
+\begin{pmatrix}
+\sigma_{1}^2 &amp; \sigma_{12} &amp; \ldots &amp; \sigma_{1p}\\
+\sigma_{21} &amp; \sigma_{2}^2 &amp; \ldots &amp; \sigma_{2p}\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+\sigma_{p1} &amp; \sigma_{p2} &amp; \ldots &amp; \sigma_{p}^2
+\end{pmatrix}
+\]</span></p>
+<p>Мета <a href="https://en.wikipedia.org/wiki/Principal_component_analysis">PCA</a> <span class="citation">(<a href="#ref-PCA_b" role="doc-biblioref">Science 2020</a>)</span> полягає в пошуку <span class="math inline">\(k\)</span> лінійних комбінацій <span class="math inline">\(p\)</span> змінних <span class="math inline">\(X\)</span>, що містять найбільшу дисперсію. Лінійна комбінація має насупний вигляд:</p>
+<p><span class="math inline">\(Y_1 = a_{11} X_1 + a_{12} X_2 + \cdots + a_{1p} X_p\)</span></p>
+<p><span class="math inline">\(Y_2 = a_{21} X_1 + a_{22} X_2 + \cdots + a_{2p} X_p\)</span></p>
+<p><span class="math inline">\(\vdots\)</span></p>
+<p><span class="math inline">\(Y_k = a_{k1} X_1 + a_{k2} X_2 + \cdots + a_{kp} X_p\)</span></p>
+<p>При цьому <span class="math inline">\(\sum\limits_{i=1}^pa_{1i}^2=1\)</span> і т. д.</p>
+<p>Дисперсия першої главної компоненти <span class="math inline">\(var(Y_1)=a_1&#39;\Sigma a_1\)</span>, де <span class="math inline">\(\Sigma\)</span> – ковариаційна матриця.</p>
+<p>Аналогічно обчислюється дисперсія другої і т. д. головних компонент.</p>
+<p>У даній моделі вектори <span class="math inline">\(a_i&#39;=(a_{i1}, a_{i2},...,a_{ip})&#39;,\;i=\overline{1,p}\)</span> представляють <em>власні вектори</em> ковариаційної матриці <span class="math inline">\(\Sigma\)</span>, тоді як дисперсія <span class="math inline">\(i\)</span>-ої головної компоненти дорівнює <em>власному значенню</em> матриці ковариацій:</p>
+<p><span class="math inline">\(var(Y_i)=\lambda_i\)</span>.</p>
+<p><em>Загальна дисперсія</em> вибірки дорівнює <span class="math inline">\(\sum\limits_{i=1}^p\lambda_{i}.\)</span><br />
+Метод головних компонент (PCA) вирішуючи задачу зниження розмірності дозволяє одночасно вирішити задачу сегементації (кластеризації) – тобто з’ясувати, чи є досліджувані дані однорідними, чи сегментовані на групи зі схожими ознаками. Відповідь на це питання є однією з головних задач експлораторного аналізу, що передує етапу побуви більш складних моделей класифікації, регресії чи моделей на основі асоціативних правил.</p>
+<p>В арсеналі R існує багато інструментів для реалізації зниження розмірності, зокрема PCA.</p>
+</div>
+</div>
+</div>
+<div id="приклад-виконання-індивідуального-завдання" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Приклад виконання індивідуального завдання<a href="lab_3.html#приклад-виконання-індивідуального-завдання" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="постановка-задачі-2" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Постановка задачі<a href="lab_3.html#постановка-задачі-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Дано стандартний багатовимірний набір даних <a href="https://en.wikipedia.org/wiki/Iris_flower_data_set">Іриси Фішера (англ. Iris flower data set)</a>.<br />
+Іриси Фішера складаються з даних про 150 вимірювань ірисів з трьох видів —- Iris setosa, Iris virginica і Iris versicolor, по 50 вимірювань на вид. Для кожного екземпляра вимірювалися чотири характеристики (в сантиметрах):</p>
+<ul>
+<li>Довжина зовнішньої частки оцвітини (англ. sepal length);</li>
+<li>Ширина зовнішньої частки оцвітини (англ. sepal width);</li>
+<li>Довжина внутрішньої частки оцвітини (англ. petal length);</li>
+<li>Ширина внутрішньої частки оцвітини (англ. petal width).</li>
+</ul>
+<p>Для даного набору виконати розвідувальний аналіз даних.<br />
+Необхідно дати відповідь на такі питання:</p>
+<ul>
+<li>чи є дані комплектними? з’ясувати характер розподілу змінних.</li>
+<li>чи пов’язані між собою характеристики? якщо пов’язані, то які і як?</li>
+<li>чи існує проста структура, яка дозволяє описати дані об’єкти в просторі розмірністю менш ніж <code>4</code>? якщо існує – побудувати таку модель.</li>
+<li>чи є всі три види ірисів однорідними у даному просторі ознак? якщо ні, то виконати сегментацію – знайти групи з однорідними ознаками.<br />
+Результати представити із застосуванням простих і зрозумілих візуалізаторів.</li>
+</ul>
+<!-- Іриси Фішера (англ. Iris flower data set) — це багатовимірний набір даних для задачі класифікації, на прикладі якого англійський статистик та біолог Рональд Фішер в 1936 році продемонстрував роботу розробленого ним методу дискримінантного аналізу. Іноді його також називають ірисами Андерсона — через те, що дані були зібрані американським ботаніком Едгаром Андерсоном. Цей набір даних став класичним і часто використовується в літературі для ілюстрації роботи різних статистичних алгоритмів. -->
+</div>
+<div id="виконання-завдання-2" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Виконання завдання<a href="lab_3.html#виконання-завдання-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Дані з досліджуваного набору мають наступний вигляд:</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="lab_3.html#cb104-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb104-2"><a href="lab_3.html#cb104-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="lab_3.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co"># iris %&gt;%</span></span>
+<span id="cb106-2"><a href="lab_3.html#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   desctable()</span></span></code></pre></div>
+<p>Обчислимо і дослідимо сумарні статистики.</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="lab_3.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Сводные выборочные характеристики</span></span>
+<span id="cb107-2"><a href="lab_3.html#cb107-2" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb107-3"><a href="lab_3.html#cb107-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">df_status</span>() </span></code></pre></div>
+<pre><code>##       variable q_zeros p_zeros q_na p_na q_inf p_inf    type unique
+## 1 Sepal.Length       0       0    0    0     0     0 numeric     35
+## 2  Sepal.Width       0       0    0    0     0     0 numeric     23
+## 3 Petal.Length       0       0    0    0     0     0 numeric     43
+## 4  Petal.Width       0       0    0    0     0     0 numeric     22
+## 5      Species       0       0    0    0     0     0  factor      3</code></pre>
+<p>Що ми бачимо?</p>
+<ul>
+<li>всі дані мають числову природу</li>
+<li>дані комплектні: відстуні пропущені значення</li>
+<li>відсутні нульові значення – це знімає можливі проблеми при трансформації</li>
+<li>відсутні надвелики значення – надвелики значення кожен раз потребують серйозної уваги і аналізу можливих причин, що їх викликали</li>
+<li>по всіх змінних дані мають варіацію по унікальним значенням одного порядку.</li>
+</ul>
+<p>Дослідимо закони розподілу кожної з чотирьох змінних.</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="lab_3.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Гистограмм по всем переменным</span></span>
+<span id="cb109-2"><a href="lab_3.html#cb109-2" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb109-3"><a href="lab_3.html#cb109-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_num</span>()</span></code></pre></div>
+<pre><code>## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
+## &quot;none&quot;)` instead.</code></pre>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="lab_3.html#cb111-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb111-2"><a href="lab_3.html#cb111-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">profiling_num</span>()</span></code></pre></div>
+<pre><code>##       variable     mean   std_dev variation_coef  p_01  p_05 p_25 p_50 p_75
+## 1 Sepal.Length 5.843333 0.8280661      0.1417113 4.400 4.600  5.1 5.80  6.4
+## 2  Sepal.Width 3.057333 0.4358663      0.1425642 2.200 2.345  2.8 3.00  3.3
+## 3 Petal.Length 3.758000 1.7652982      0.4697441 1.149 1.300  1.6 4.35  5.1
+## 4  Petal.Width 1.199333 0.7622377      0.6355511 0.100 0.200  0.3 1.30  1.8
+##    p_95  p_99   skewness kurtosis iqr     range_98    range_80
+## 1 7.255 7.700  0.3117531 2.426432 1.3   [4.4, 7.7]  [4.8, 6.9]
+## 2 3.800 4.151  0.3157671 3.180976 0.5 [2.2, 4.151] [2.5, 3.61]
+## 3 6.100 6.700 -0.2721277 1.604464 3.5 [1.149, 6.7]  [1.4, 5.8]
+## 4 2.300 2.500 -0.1019342 1.663933 1.5   [0.1, 2.5]  [0.2, 2.2]</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="lab_3.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dimnames(iris)</span></span></code></pre></div>
+<p>Що ми бачимо?</p>
+<ul>
+<li>статистичні розподіли змінних <code>"Sepal.Length"</code>, <code>"Sepal.Width"</code> мають дзвоноподібну форму, наближену до нормального. Враховуючи, що значення оцінок асимметрії та ексцесу несуттєво відрізняються від нуля, в першому наближенні можна вважати дані розподіли нормальними. Про що це говорить і що це дає? По-перше, це говорить про те, що доля малих і великих даних врівноважують одна одну, по-друге, нормальність законів розподілу досліджуваних величин, або, принаймні, “натяк” на нормальність <strong>завжди добре</strong>, тому що класичними передумовами для коректної побудови великої кількості різного роду моделей вимагає від даних нормального закону розподілу, чи, принаймні, симетричності закону розподілу. В нашому випадку це є передумовою однорідного розподілу спостережень у просторі інформативних ознак, що є позитивним моментом при вирішенні задачі сегментації.<br />
+</li>
+<li>статистичні розподіли змінних <code>"Petal.Length"</code>, <code>"Petal.Width"</code> на відміну від двох інших, мають чітку бімодальну структуру, що гооврить про явно виражену неоднорідність даних і про те, що саме ці дві змінні є дискримінуючими у просторі досліджуваних ознак; це важливо для побудови задачі сегментації</li>
+</ul>
+<p>Для відповіді на питання, чи пов’язані між собою змінні, застосуємо кореляційний аналіз. З урахуванням числової природи даних, для оцінки кореляції скористаємося коефіцієнтом кореляції Пірсона. Враховуючі багатомірний аналіз початкових даних, важливо вдало підібрати візуалізатор. Нижче запропоновано два з найбільш відомих і поширених.</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="lab_3.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Кореляція Пірсона</span></span>
+<span id="cb114-2"><a href="lab_3.html#cb114-2" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb114-3"><a href="lab_3.html#cb114-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Species) <span class="sc">%&gt;%</span></span>
+<span id="cb114-4"><a href="lab_3.html#cb114-4" aria-hidden="true" tabindex="-1"></a>     <span class="fu">cor</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb114-5"><a href="lab_3.html#cb114-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">corrplot</span>(<span class="at">order =</span> <span class="st">&quot;hclust&quot;</span>, <span class="at">tl.col=</span><span class="st">&#39;black&#39;</span>, <span class="at">tl.cex=</span>.<span class="dv">75</span>) </span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="lab_3.html#cb115-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># chart.Correlation(histogram=TRUE, pch=19)</span></span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="lab_3.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pairs(iris[1:4], main=&quot;Edgar Anderson&#39;s Iris Data&quot;, font.main=4, pch=19)</span></span>
+<span id="cb116-2"><a href="lab_3.html#cb116-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-3"><a href="lab_3.html#cb116-3" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb116-4"><a href="lab_3.html#cb116-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Species) <span class="sc">%&gt;%</span> </span>
+<span id="cb116-5"><a href="lab_3.html#cb116-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairs</span>( <span class="at">main=</span><span class="st">&quot;Edgar Anderson&#39;s Iris Data&quot;</span>, <span class="at">font.main =</span> <span class="dv">4</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> iris<span class="sc">$</span>Species)</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="lab_3.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pairs(iris[1:4], main=&quot;Edgar Anderson&#39;s Iris Data&quot;, font.main = 4, pch = 19, col = iris$Species)</span></span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="lab_3.html#cb118-1" aria-hidden="true" tabindex="-1"></a>df_iris <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span> </span>
+<span id="cb118-2"><a href="lab_3.html#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Species)</span>
+<span id="cb118-3"><a href="lab_3.html#cb118-3" aria-hidden="true" tabindex="-1"></a> <span class="co"># df_iris %&gt;%</span></span>
+<span id="cb118-4"><a href="lab_3.html#cb118-4" aria-hidden="true" tabindex="-1"></a> <span class="co">#   correlation_table(&quot;&quot;)</span></span>
+<span id="cb118-5"><a href="lab_3.html#cb118-5" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb118-6"><a href="lab_3.html#cb118-6" aria-hidden="true" tabindex="-1"></a>df_iris <span class="sc">%&gt;%</span></span>
+<span id="cb118-7"><a href="lab_3.html#cb118-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cor</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb118-8"><a href="lab_3.html#cb118-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># head(11)</span></span>
+<span id="cb118-9"><a href="lab_3.html#cb118-9" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Таблица оценок коэффициентов корреляции&quot;</span>) </span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-62">Table 4.1: </span>Таблица оценок коэффициентов корреляции</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Sepal.Length</th>
+<th align="right">Sepal.Width</th>
+<th align="right">Petal.Length</th>
+<th align="right">Petal.Width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Sepal.Length</td>
+<td align="right">1.0000000</td>
+<td align="right">-0.1175698</td>
+<td align="right">0.8717538</td>
+<td align="right">0.8179411</td>
+</tr>
+<tr class="even">
+<td align="left">Sepal.Width</td>
+<td align="right">-0.1175698</td>
+<td align="right">1.0000000</td>
+<td align="right">-0.4284401</td>
+<td align="right">-0.3661259</td>
+</tr>
+<tr class="odd">
+<td align="left">Petal.Length</td>
+<td align="right">0.8717538</td>
+<td align="right">-0.4284401</td>
+<td align="right">1.0000000</td>
+<td align="right">0.9628654</td>
+</tr>
+<tr class="even">
+<td align="left">Petal.Width</td>
+<td align="right">0.8179411</td>
+<td align="right">-0.3661259</td>
+<td align="right">0.9628654</td>
+<td align="right">1.0000000</td>
+</tr>
+</tbody>
+</table>
+<p>Що ми бачимо?</p>
+<ul>
+<li>має місце сильний позитивний кореляційний зв’язок між змінною <code>Sepal.Length</code> та змінними <code>Petal.Length</code>, <code>Petal.Width</code>; на кореляційних полях чітко видно наявність даної кореляції</li>
+<li>на кореляційних полях чітко видно наявність неоднородності даних – дані чітко поділяються на гомогенні групи за змінною <code>Species</code></li>
+<li>має місце слабкий від’ємний кореляційний зв’язок <code>Petal.Length</code> і <code>Sepal.Width</code>; дана кореляція є уявною в силу сегментованості даних по змінній <code>Species</code>: якщо уважно дослідити форму кореляційних полів для кожного значення данної змінної, то можна побачити, що всередині кожного сегменту має місце позитивна кореляція</li>
+</ul>
+<p>Що це нам дає?</p>
+<ul>
+<li>наявність високого ступеня кореляції дає можливість знизити розмірність даних і знайти просту структуру у просторі меншої розмірності</li>
+<li>у просторі меншої розмірності можна можна виконати сегментацію даних.</li>
+</ul>
+<p>Для зниження розмірності і одночасно сегментації даних скористаємося методом головних компонент (PCA).</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="lab_3.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA </span></span>
+<span id="cb119-2"><a href="lab_3.html#cb119-2" aria-hidden="true" tabindex="-1"></a>resPCA <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span> </span>
+<span id="cb119-3"><a href="lab_3.html#cb119-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Species) <span class="sc">%&gt;%</span></span>
+<span id="cb119-4"><a href="lab_3.html#cb119-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">PCA</span>(<span class="at">ncp =</span> <span class="dv">8</span>, <span class="at">graph =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="lab_3.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="co"># власні значення та кумулятивний процент</span></span>
+<span id="cb120-2"><a href="lab_3.html#cb120-2" aria-hidden="true" tabindex="-1"></a>eigenvalues <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(resPCA<span class="sc">$</span>eig)</span>
+<span id="cb120-3"><a href="lab_3.html#cb120-3" aria-hidden="true" tabindex="-1"></a>cumVar <span class="ot">&lt;-</span> <span class="fu">round</span>(eigenvalues<span class="sc">$</span><span class="st">`</span><span class="at">cumulative percentage of variance</span><span class="st">`</span>[<span class="fu">length</span>(eigenvalues<span class="sc">$</span>eigenvalue[eigenvalues<span class="sc">$</span>eigenvalue <span class="sc">&gt;=</span> <span class="fl">0.9</span>])], <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="lab_3.html#cb121-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb121-2"><a href="lab_3.html#cb121-2" aria-hidden="true" tabindex="-1"></a>  eigenvalues, </span>
+<span id="cb121-3"><a href="lab_3.html#cb121-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Власні значення (eigenvalues) і сумарний процент поясненої дисперсії&quot;</span></span>
+<span id="cb121-4"><a href="lab_3.html#cb121-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-65">Table 4.2: </span>Власні значення (eigenvalues) і сумарний процент поясненої дисперсії</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">eigenvalue</th>
+<th align="right">percentage of variance</th>
+<th align="right">cumulative percentage of variance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">comp 1</td>
+<td align="right">2.9184978</td>
+<td align="right">72.9624454</td>
+<td align="right">72.96245</td>
+</tr>
+<tr class="even">
+<td align="left">comp 2</td>
+<td align="right">0.9140305</td>
+<td align="right">22.8507618</td>
+<td align="right">95.81321</td>
+</tr>
+<tr class="odd">
+<td align="left">comp 3</td>
+<td align="right">0.1467569</td>
+<td align="right">3.6689219</td>
+<td align="right">99.48213</td>
+</tr>
+<tr class="even">
+<td align="left">comp 4</td>
+<td align="right">0.0207148</td>
+<td align="right">0.5178709</td>
+<td align="right">100.00000</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="lab_3.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb122-2"><a href="lab_3.html#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_screeplot</span>(resPCA, <span class="at">addlabels =</span> <span class="cn">TRUE</span>,  <span class="at">ncp=</span><span class="dv">10</span>)</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
+<p>Чщо ми бачимо?<br />
+Ми маємо <span class="math inline">\(p=\)</span> 2 головних компонент, які пояснюють 95.81 % дисперсії. Це значить, що м маємо всього дві нові компоненти замість чотирьох і практично без втрати інформації можемо представити всі спостереження в системі двох координат на площині: перша компонента по осі <code>Х</code>, друга – по осі Y (див. рис.).<br />
+Проаналізуємо детально структуру двох перших компонент, виключивши решту незначимих (див. табл. і рис.).</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="lab_3.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Навантаження для двох перших головних компонент</span></span>
+<span id="cb123-2"><a href="lab_3.html#cb123-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb123-3"><a href="lab_3.html#cb123-3" aria-hidden="true" tabindex="-1"></a>  resPCA<span class="sc">$</span>var<span class="sc">$</span>coord[ ,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], </span>
+<span id="cb123-4"><a href="lab_3.html#cb123-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Таблиця навантажень&quot;</span></span>
+<span id="cb123-5"><a href="lab_3.html#cb123-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<table>
+<caption><span id="tab:unnamed-chunk-67">Table 4.3: </span>Таблиця навантажень</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Dim.1</th>
+<th align="right">Dim.2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Sepal.Length</td>
+<td align="right">0.8901688</td>
+<td align="right">0.3608299</td>
+</tr>
+<tr class="even">
+<td align="left">Sepal.Width</td>
+<td align="right">-0.4601427</td>
+<td align="right">0.8827163</td>
+</tr>
+<tr class="odd">
+<td align="left">Petal.Length</td>
+<td align="right">0.9915552</td>
+<td align="right">0.0234152</td>
+</tr>
+<tr class="even">
+<td align="left">Petal.Width</td>
+<td align="right">0.9649790</td>
+<td align="right">0.0639998</td>
+</tr>
+</tbody>
+</table>
+<p>Що ми бачимо?</p>
+<ul>
+<li>Структуру першої компоненти головним чином складають три початкові змінні: <code>Sepal.Length</code>, <code>Petal.Length</code>, <code>Petal.Width</code>; як і прогнозувалося раніше, саме за цією компонентою відбувається дискримінація (розрізнення) трьох різних сегментів трьох типів ірисів</li>
+<li>основне навантаження на другу компоненту складає змінна <code>Sepal.Width</code> – всі три види ірисів можуть мати досить велику варіацію за цим параметром.</li>
+</ul>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="lab_3.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Biplot of individuals and variables</span></span>
+<span id="cb124-2"><a href="lab_3.html#cb124-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_biplot</span>(resPCA,</span>
+<span id="cb124-3"><a href="lab_3.html#cb124-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">geom =</span> <span class="fu">c</span>(<span class="st">&quot;point&quot;</span>),</span>
+<span id="cb124-4"><a href="lab_3.html#cb124-4" aria-hidden="true" tabindex="-1"></a>                <span class="co"># label = &quot;none&quot;, # hide individual labels</span></span>
+<span id="cb124-5"><a href="lab_3.html#cb124-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">habillage =</span> <span class="fu">as.factor</span>(iris<span class="sc">$</span>Species), <span class="co"># color by groups</span></span>
+<span id="cb124-6"><a href="lab_3.html#cb124-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">axes =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb124-7"><a href="lab_3.html#cb124-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">repel =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb124-8"><a href="lab_3.html#cb124-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">label =</span> <span class="fu">c</span>(<span class="st">&quot;ind&quot;</span>, <span class="st">&quot;ind.sup&quot;</span>, <span class="st">&quot;quali&quot;</span>, <span class="st">&quot;var&quot;</span>, <span class="st">&quot;quanti.sup&quot;</span>),</span>
+<span id="cb124-9"><a href="lab_3.html#cb124-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">select.var =</span> <span class="fu">list</span>(<span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Sepal.Length&quot;</span>, <span class="st">&quot;Sepal.Width&quot;</span>, <span class="st">&quot;Petal.Length&quot;</span>, <span class="st">&quot;Petal.Width&quot;</span>)),</span>
+<span id="cb124-10"><a href="lab_3.html#cb124-10" aria-hidden="true" tabindex="-1"></a>             <span class="co"># select.var = list(contrib = 8),</span></span>
+<span id="cb124-11"><a href="lab_3.html#cb124-11" aria-hidden="true" tabindex="-1"></a>             <span class="co"># label = c(&quot;ind.sup&quot;),</span></span>
+<span id="cb124-12"><a href="lab_3.html#cb124-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;#00AFBB&quot;</span>, <span class="st">&quot;#E7B800&quot;</span>, <span class="st">&quot;#FC4E07&quot;</span>, <span class="st">&quot;#00AFBB&quot;</span>, <span class="st">&quot;#E7B800&quot;</span>, <span class="st">&quot;#FC4E07&quot;</span>),</span>
+<span id="cb124-13"><a href="lab_3.html#cb124-13" aria-hidden="true" tabindex="-1"></a>             <span class="co"># alpha.var = c(&quot;contrib&quot;),</span></span>
+<span id="cb124-14"><a href="lab_3.html#cb124-14" aria-hidden="true" tabindex="-1"></a>             <span class="co"># col.ind = c(&quot;contrib&quot;),</span></span>
+<span id="cb124-15"><a href="lab_3.html#cb124-15" aria-hidden="true" tabindex="-1"></a>             <span class="co"># col.ind.sup = c(&quot;contrib&quot;),</span></span>
+<span id="cb124-16"><a href="lab_3.html#cb124-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">addEllipses =</span> <span class="cn">TRUE</span> <span class="co"># Concentration ellipses</span></span>
+<span id="cb124-17"><a href="lab_3.html#cb124-17" aria-hidden="true" tabindex="-1"></a>             ) <span class="sc">+</span></span>
+<span id="cb124-18"><a href="lab_3.html#cb124-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="DS-book-lab_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+<p>Таким чином, з’ясовано, шо початкові дані не є однорідними. Три типи ірисів різняться за довжинами внутрішніх часток оцвітини (petal length) та шириною внутрішньої частки оцвітини (petal width). Завдяки наявності кореляцій у початкових змінних, спостереження вдалося добре описати у просторі двох інтегральних показників. Знайдені кластери характерні для трьох типів ірисів і у майбутньому можуть бути використані для написання класифікатора з метою розпізнавання нових об’єктів.</p>
+</div>
+<div id="індивідуальні-завдання-на-лабораторну-роботу-2" class="section level3 hasAnchor" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Індивідуальні завдання на лабораторну роботу<a href="lab_3.html#індивідуальні-завдання-на-лабораторну-роботу-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Видає викладач.</p>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-R-funModeling" class="csl-entry">
+Casas, Pablo. 2020. <em>funModeling: Exploratory Data Analysis and Data Preparation Tool-Box</em>. <a href="https://livebook.datascienceheroes.com">https://livebook.datascienceheroes.com</a>.
+</div>
+<div id="ref-r4ds" class="csl-entry">
+Garrett Grolemund, Hadley Wickham. 2018. <em>R for Data Science</em>. <a href="http://r4ds.had.co.nz/index.html">http://r4ds.had.co.nz/index.html</a>.
+</div>
+<div id="ref-PCA_b" class="csl-entry">
+Science, Eberly College of. 2020. <span>“STAT 505: Applied Multivariate Statistical Analysis.”</span> Course materials. <a href="http://belousovv.ru/markdown_syntax#fnref:2">http://belousovv.ru/markdown_syntax#fnref:2</a>.
+</div>
+<div id="ref-EDA" class="csl-entry">
+wikipedia. 2018. <span>“Exploratory Data Analysis.”</span> Article. <a href="https://en.wikipedia.org/wiki/Exploratory_data_analysis">https://en.wikipedia.org/wiki/Exploratory_data_analysis</a>.
+</div>
+<div id="ref-CRISP_DM" class="csl-entry">
+———. 2022a. <span>“Cross-Industry Standard Process for Data Mining.”</span> Article. <a href="https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining">https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining</a>.
+</div>
+<div id="ref-PCA" class="csl-entry">
+———. 2022b. <span>“Principal Component Analysis.”</span> Article. <a href="https://en.wikipedia.org/wiki/Principal_component_analysis">https://en.wikipedia.org/wiki/Principal_component_analysis</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="lab_2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-lab3.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
