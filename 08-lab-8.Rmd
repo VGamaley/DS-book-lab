@@ -1,0 +1,207 @@
+# Лабораторна робота № 8. Побудова ARIMA-моделі часового ряду і прогнозування на її основі (short version) {#lab_8}
+
+__Мета:__ Подубова ARIMA-моделей та прогнозування на їх основі засобами мови програмування R. 
+
+
+## Що ви будете вміти?
+
+* виконувати візуалізацію  часових рядів (ЧР).
+* перевіряти ЧР на стаціонарність і зводити його до стаціонаного у разі його не стаціонарності.
+* виконувати структурну і параметричну ідентифікацію ARIMA-моделі ЧР.
+* будувати короткострокові прогнози на основі побудованої ARIMA-моделі.
+
+
+
+При підготовці використано [@statsoft], [@kantor], [@box], [@Hyndman2], [@Hyndman3].
+
+## ts-об'єкт
+
+Для роботи з ЧР будемо використовувати функцію `ts()`, яка створює об'єкт типу ЧР з вектора чи дата фрейма. 
+
+Деталі див. [тут](https://otexts.com/fpp2/ts-objects.html)
+
+
+```{r include=FALSE}
+packages <- c("ggplot2", "fpp", "fpp2", "fpp3")
+lapply(packages, library, character.only=TRUE)
+```
+
+
+```{r}
+ts_examples <- ts(c(123,39,78,52,110), start=2017)
+
+autoplot(ts_examples) +
+  ggtitle("Time series example") +
+  ylab("$ million") +
+  xlab("Year")
+
+```
+
+Далі будемо працювати виключно з ЧР у даному форматі.
+
+
+## Візуалізація ЧР
+
+Для візуалізації ЧР будемо використовувати генерік-функцію `autoplot()`, яка, згідно з принципом поліморфизму, буде виконувати візуалізацію об'єкта, даного їй в якості аргументу, в залежності від його типу. Таким чином, отримавши на вхід об'єкт класу `ts`, його буде розпізнано як ЧР і відповідним чином візуалізовано.  
+
+Для візуалізації будемо використовувати набір даних `melsyd`, що входить до складу пакету `fpp2` [@Hyndman2].  
+
+Нижче наведено приклади візуалізації часових рядів з цього датасета.
+
+```{r}
+
+data(melsyd)
+
+
+autoplot(melsyd[,"Economy.Class"]) +
+  ggtitle("Economy class passengers: Melbourne-Sydney") +
+  xlab("Year") +
+  ylab("Thousands")
+
+autoplot(a10) +
+  ggtitle("Antidiabetic drug sales") +
+  ylab("$ million") +
+  xlab("Year")
+
+
+# Приклад з третьої редакції
+# melsyd_economy <- ansett %>%
+#   filter(Airports == "MEL-SYD", Class == "Economy") %>%
+#   mutate(Passengers = Passengers/1000)
+# 
+# autoplot(melsyd_economy, Passengers) +
+#   labs(title = "Ansett airlines economy class",
+#        subtitle = "Melbourne-Sydney",
+#        y = "Passengers ('000)")
+
+
+
+```
+
+При аналізі ЧР особливо важливим є розуміння абстракції "білого шуму" і його характеристик.  
+
+```{r}
+set.seed(30)
+y <- ts(rnorm(50))
+
+y %>% 
+  autoplot() + ggtitle("Білий шум")
+```
+
+Оцінка АКФ білого шуму має вигляд.  
+
+```{r}
+y %>% 
+  ggAcf()
+
+y %>% 
+  ggPacf()
+```
+
+Видно, що оцінки АКФ та ЧАКФ білого шуму не мають жодного значимого лага.  
+
+
+## Стаціонарність і диференціювання
+
+
+Нижче наведені приклади різних типів нестацінарностей у ЧР.
+
+![Which of these series are stationary? (a) Google stock price for 200 consecutive days; (b) Daily change in the Google stock price for 200 consecutive days; (c) Annual number of strikes in the US; (d) Monthly sales of new one-family houses sold in the US; (e) Annual price of a dozen eggs in the US (constant dollars); (f) Monthly total of pigs slaughtered in Victoria, Australia; (g) Annual total of lynx trapped in the McKenzie River district of north-west Canada; (h) Monthly Australian beer production; (i) Monthly Australian electricity production. [@Hyndman2] ](image/stationary-1.png)
+
+Нестаціонарності у вигляді тренду можна позбутися шляхом диференціювання ЧР. 
+
+```{r}
+goog200 %>% 
+  autoplot() + 
+  ggtitle("Ціна акцій Google протягом 200 днів") +
+  ylab("goog200") +
+  xlab("Day")
+
+```
+
+
+Оцінка АКФ має вигляд.
+
+```{r}
+goog200 %>% 
+  ggAcf()
+```
+
+Оцінка АКФ має вигляд характерний для нестаціонарності у вигляді тренду, який легко усувається шляхом диференціювання.
+
+```{r}
+goog200 %>% 
+  diff() %>% 
+  autoplot()+ 
+  ggtitle("Ціна акцій Google протягом 200 днів") +
+  ylab("diff(goog200)") +
+  xlab("Day")
+
+```
+
+Тепер оцінка АКФ має вигляд оцінки АКФ "білого шуму", що підтверджується результатами теста Бокса-Люнга.
+
+```{r}
+goog200 %>% 
+  diff() %>% 
+  ggAcf()
+```
+
+З надійністю 95% можна сказати, що автокреляція відстуня, так як Q-статистика має р-значення = 0,355 (для h=10). Це свідчить про те, що щоденна зміна ціни акцій Google - це, по суті, випадкова величина, яка не корелює із значеннями у попередні дні.
+
+```{r}
+
+goog200 %>% 
+  diff() %>% 
+  Box.test(lag=10, type="Ljung-Box")
+```
+
+
+## Приклад побудови не сезонної ARIMA-моделі {#example}
+
+У якості прикладу [@Hyndman2] розглянемо динаміку щоквартальних процентних змін у споживчих витратах США. Хоча це щоквартальна серія, сезонний зразок, схоже, не існує, тому ми відштовхуватимемося від несезонної моделі ARIMA. 
+
+```{r}
+autoplot(uschange[,"Consumption"]) +
+  xlab("Year") + ylab("Quarterly percentage change")
+```
+
+Нижче наведено  код R, який дозволяє автоматично вибрати модель.  
+
+```{r}
+fit <- auto.arima(uschange[,"Consumption"], seasonal=FALSE)
+
+```
+
+
+Маємо наступну оцінку моделі: $$y_t = c + 0.589 y_{t-1} - 0.353 \epsilon_{t-1} + 0.0846 \epsilon_{t-2} + 0.174 \epsilon_{t-3} + \epsilon_t, $$
+
+де $c = 0.745 × (1 − 0.589) = 0.307$, де $\epsilon_t$ ' білий шум зі стандартним відхиленням $\sigma = 0.592 = \sqrt{0.350}$.
+
+Модель прогнозу має наступний вигляд.
+
+```{r}
+fit %>% 
+  forecast(h=10) %>% 
+  autoplot(include=80)
+```
+
+ 
+Дану модель можна побудувати "в ручному" режимі, задавши явно специфікацію моделі.  
+
+```{r}
+(fit2 <- Arima(uschange[,"Consumption"], order=c(1,0,3)))
+(fit3 <- Arima(uschange[,"Consumption"], order=c(3,0,3)))
+(fit4 <- Arima(uschange[,"Consumption"], order=c(3,0,0)))
+
+```
+
+
+## Завдання на лабораторну роботу
+
+* Для [прикладу](#example), розглянутого вище, знайти оцінки АКФ і ЧАКФ. Запропонувати і дослідити альтернативні моделі і обґрунтувати специфікацію моделі, знайдену автоматичною процедурою.
+* Отримати варіант завдання у викладача з даними ЧР і виконати структурну і параметричну ідентифікацію ARIMA-моделі, дослідити альтернативні моделі, знайти оцінку короткострокового прогнозу на величину $h$ наступних моментів ряду. Візуалізувати прогноз.
+* Створити звіт у вигляді .Rmd-документа у форматі RNotebook.
+
+
+

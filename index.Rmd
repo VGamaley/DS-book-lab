@@ -1,11 +1,11 @@
 --- 
-title: "Data Science на R. Лабораторний практикум"
+title: "Data Science на R. Лабораторний практикум (draft version)"
 author: "&copy; [Сидоренко В. М.](https://www.linkedin.com/in/valeriy-sydorenko-6782279a/)"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
-bibliography: [book.bib, packages.bib]
+bibliography: [book.bib, packages.bib, references_lab.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: VGamaley/DS-book-lab
@@ -32,6 +32,6 @@ description: "Лабораторні роботи з дисципліни 'Ін�
 ```{r include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'rio', 'dbplyr', 'dplyr', 'RSQLite', 'tidyverse', 'tidyr', 'RMySQL', 'RPostgreSQL', 'odbc', 'bigrquery', 'nycflights13', 'DBI', 'ggplot2', 'stringr', 'lubridate', 'hms', 'blob', 'reader', 'tibble', 'purrr', 'desctable', 'GGally', 'corrplot', 'PerformanceAnalytics', 'FactoMineR', 'factoextra', 'funModeling', 'desctable', 'ade4', 'psych', 'smacof', 'WVPlots', 'caret', 'car', 'randomForest'
+  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'rio', 'dbplyr', 'dplyr', 'RSQLite', 'tidyverse', 'tidyr', 'RMySQL', 'RPostgreSQL', 'odbc', 'bigrquery', 'nycflights13', 'DBI', 'ggplot2', 'stringr', 'lubridate', 'hms', 'blob', 'reader', 'tibble', 'purrr', 'desctable', 'GGally', 'corrplot', 'PerformanceAnalytics', 'FactoMineR', 'factoextra', 'funModeling', 'desctable', 'ade4', 'psych', 'smacof', 'WVPlots', 'caret', 'car', 'randomForest', 'caret', 'arules', 'arulesViz', 'fpp', 'fpp2', 'fpp3'
 ), 'packages.bib')
 ```

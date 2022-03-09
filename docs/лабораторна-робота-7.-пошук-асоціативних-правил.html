@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Розділ 8 Лабораторна робота №7. Пошук асоціативних правил | Data Science на R. Лабораторний практикум (draft version)</title>
+  <meta name="description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Розділ 8 Лабораторна робота №7. Пошук асоціативних правил | Data Science на R. Лабораторний практикум (draft version)" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  <meta name="github-repo" content="VGamaley/DS-book-lab" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Розділ 8 Лабораторна робота №7. Пошук асоціативних правил | Data Science на R. Лабораторний практикум (draft version)" />
+  
+  <meta name="twitter:description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  
+
+<meta name="author" content="© Сидоренко В. М." />
+
+
+<meta name="date" content="2022-03-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="lab_6.html"/>
+<link rel="next" href="lab_8.html"/>
+<script src="libs/header-attrs-2.12/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Вступ<span></span></a></li>
+<li class="chapter" data-level="2" data-path="modul1.html"><a href="modul1.html"><i class="fa fa-check"></i><b>2</b> Модуль 1. Базовий. Лабораторна робота №1. Створення основи типового Data Science-проєкту<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="modul1.html"><a href="modul1.html#що-ви-будете-вміти"><i class="fa fa-check"></i><b>2.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="modul1.html"><a href="modul1.html#короткі-теоретичні-відомості"><i class="fa fa-check"></i><b>2.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="modul1.html"><a href="modul1.html#що-таке-data-science-проект"><i class="fa fa-check"></i><b>2.2.1</b> Що таке Data Science-проект?<span></span></a></li>
+<li class="chapter" data-level="2.2.2" data-path="modul1.html"><a href="modul1.html#концепція-грамотного-програмування"><i class="fa fa-check"></i><b>2.2.2</b> Концепція грамотного програмування<span></span></a></li>
+<li class="chapter" data-level="2.2.3" data-path="modul1.html"><a href="modul1.html#markdown-і-rmarkdown"><i class="fa fa-check"></i><b>2.2.3</b> Markdown і RMarkdown<span></span></a></li>
+<li class="chapter" data-level="2.2.4" data-path="modul1.html"><a href="modul1.html#інсталяція-r"><i class="fa fa-check"></i><b>2.2.4</b> Інсталяція R<span></span></a></li>
+<li class="chapter" data-level="2.2.5" data-path="modul1.html"><a href="modul1.html#інсталяція-rstudio"><i class="fa fa-check"></i><b>2.2.5</b> Інсталяція RStudio<span></span></a></li>
+<li class="chapter" data-level="2.2.6" data-path="modul1.html"><a href="modul1.html#CreateRMarkdown"><i class="fa fa-check"></i><b>2.2.6</b> Створення RMarkdown-документу<span></span></a></li>
+<li class="chapter" data-level="2.2.7" data-path="modul1.html"><a href="modul1.html#генерація-електронного-документу"><i class="fa fa-check"></i><b>2.2.7</b> Генерація електронного документу<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="modul1.html"><a href="modul1.html#приклад-створення-markdown-документу"><i class="fa fa-check"></i><b>2.3</b> Приклад створення Markdown-документу<span></span></a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="modul1.html"><a href="modul1.html#постановка-задачі"><i class="fa fa-check"></i><b>2.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="2.3.2" data-path="modul1.html"><a href="modul1.html#виконання-завдання"><i class="fa fa-check"></i><b>2.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="2.3.3" data-path="modul1.html"><a href="modul1.html#індивідуальні-завдання-на-лабораторну-роботу"><i class="fa fa-check"></i><b>2.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+<li class="chapter" data-level="2.3.4" data-path="modul1.html"><a href="modul1.html#домашнє-завдання"><i class="fa fa-check"></i><b>2.3.4</b> Домашнє завдання<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="lab_2.html"><a href="lab_2.html"><i class="fa fa-check"></i><b>3</b> Лабораторна робота №2. Маніпулювання даними<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="lab_2.html"><a href="lab_2.html#що-ви-будете-вміти-1"><i class="fa fa-check"></i><b>3.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="lab_2.html"><a href="lab_2.html#короткі-теоретичні-відомості-1"><i class="fa fa-check"></i><b>3.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="lab_2.html"><a href="lab_2.html#що-таке-маніпулювання-данними"><i class="fa fa-check"></i><b>3.2.1</b> Що таке маніпулювання данними?<span></span></a></li>
+<li class="chapter" data-level="3.2.2" data-path="lab_2.html"><a href="lab_2.html#імпорт-даних"><i class="fa fa-check"></i><b>3.2.2</b> Імпорт даних<span></span></a></li>
+<li class="chapter" data-level="3.2.3" data-path="lab_2.html"><a href="lab_2.html#приведення-даних-до-охайного-вигляду"><i class="fa fa-check"></i><b>3.2.3</b> Приведення даних до охайного вигляду<span></span></a></li>
+<li class="chapter" data-level="3.2.4" data-path="lab_2.html"><a href="lab_2.html#трансформація"><i class="fa fa-check"></i><b>3.2.4</b> Трансформація<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="lab_2.html"><a href="lab_2.html#приклад-виконання-індівідуального-завдання"><i class="fa fa-check"></i><b>3.3</b> Приклад виконання індівідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="lab_2.html"><a href="lab_2.html#постановка-задачі-1"><i class="fa fa-check"></i><b>3.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="3.3.2" data-path="lab_2.html"><a href="lab_2.html#виконання-завдання-1"><i class="fa fa-check"></i><b>3.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="3.3.3" data-path="lab_2.html"><a href="lab_2.html#індивідуальні-завдання-на-лабораторну-роботу-1"><i class="fa fa-check"></i><b>3.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="lab_3.html"><a href="lab_3.html"><i class="fa fa-check"></i><b>4</b> Лабораторна робота №3. Розвідувальний аналіз даних. Візуалізація<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="lab_3.html"><a href="lab_3.html#що-ви-будете-вміти-2"><i class="fa fa-check"></i><b>4.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="lab_3.html"><a href="lab_3.html#короткі-теоретичні-відомості-2"><i class="fa fa-check"></i><b>4.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="lab_3.html"><a href="lab_3.html#що-таке-розвідувальний-аналіз-даних"><i class="fa fa-check"></i><b>4.2.1</b> Що таке розвідувальний аналіз даних?<span></span></a></li>
+<li class="chapter" data-level="4.2.2" data-path="lab_3.html"><a href="lab_3.html#питання"><i class="fa fa-check"></i><b>4.2.2</b> Питання<span></span></a></li>
+<li class="chapter" data-level="4.2.3" data-path="lab_3.html"><a href="lab_3.html#зниження-розмірності-даних"><i class="fa fa-check"></i><b>4.2.3</b> Зниження розмірності даних<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="lab_3.html"><a href="lab_3.html#приклад-виконання-індивідуального-завдання"><i class="fa fa-check"></i><b>4.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="lab_3.html"><a href="lab_3.html#постановка-задачі-2"><i class="fa fa-check"></i><b>4.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="lab_3.html"><a href="lab_3.html#виконання-завдання-2"><i class="fa fa-check"></i><b>4.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="4.3.3" data-path="lab_3.html"><a href="lab_3.html#індивідуальні-завдання-на-лабораторну-роботу-2"><i class="fa fa-check"></i><b>4.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><i class="fa fa-check"></i><b>5</b> Модуль 2. Моделювання. Лабораторна робота №4. Розгортання моделі<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html#що-ви-будете-вміти-3"><i class="fa fa-check"></i><b>5.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html#короткі-теоретичні-відомості-3"><i class="fa fa-check"></i><b>5.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html#індивідуальні-завдання-на-лабораторну-роботу-3"><i class="fa fa-check"></i><b>5.2.1</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="lab_5.html"><a href="lab_5.html"><i class="fa fa-check"></i><b>6</b> Модуль 2. Моделювання. Лабораторна робота №5. Побудова регресійних моделей<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="lab_5.html"><a href="lab_5.html#що-ви-будете-вміти-4"><i class="fa fa-check"></i><b>6.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="6.2" data-path="lab_5.html"><a href="lab_5.html#короткі-теоретичні-відомості-4"><i class="fa fa-check"></i><b>6.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="lab_5.html"><a href="lab_5.html#що-таке-регресія-і-регресійний-аналіз"><i class="fa fa-check"></i><b>6.2.1</b> Що таке регресія і регресійний аналіз?<span></span></a></li>
+<li class="chapter" data-level="6.2.2" data-path="lab_5.html"><a href="lab_5.html#формальна-постановка-задачі-регресії"><i class="fa fa-check"></i><b>6.2.2</b> Формальна постановка задачі регресії<span></span></a></li>
+<li class="chapter" data-level="6.2.3" data-path="lab_5.html"><a href="lab_5.html#статистичний-підхід"><i class="fa fa-check"></i><b>6.2.3</b> Статистичний підхід<span></span></a></li>
+<li class="chapter" data-level="6.2.4" data-path="lab_5.html"><a href="lab_5.html#підхід-на-основі-машинного-навчання"><i class="fa fa-check"></i><b>6.2.4</b> Підхід на основі машинного навчання<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="lab_5.html"><a href="lab_5.html#ind"><i class="fa fa-check"></i><b>6.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="lab_5.html"><a href="lab_5.html#розуміння-даних"><i class="fa fa-check"></i><b>6.3.1</b> Розуміння даних<span></span></a></li>
+<li class="chapter" data-level="6.3.2" data-path="lab_5.html"><a href="lab_5.html#підготовка-даних"><i class="fa fa-check"></i><b>6.3.2</b> Підготовка даних<span></span></a></li>
+<li class="chapter" data-level="6.3.3" data-path="lab_5.html"><a href="lab_5.html#rf"><i class="fa fa-check"></i><b>6.3.3</b> Моделювання<span></span></a></li>
+<li class="chapter" data-level="6.3.4" data-path="lab_5.html"><a href="lab_5.html#індивідуальні-завдання-на-лабораторну-роботу-4"><i class="fa fa-check"></i><b>6.3.4</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="lab_6.html"><a href="lab_6.html"><i class="fa fa-check"></i><b>7</b> Лабораторна робота №6. Побудова моделей класифікації<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="lab_6.html"><a href="lab_6.html#що-ви-будете-вміти-5"><i class="fa fa-check"></i><b>7.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="7.2" data-path="lab_6.html"><a href="lab_6.html#короткі-теоретичні-відомості-5"><i class="fa fa-check"></i><b>7.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="lab_6.html"><a href="lab_6.html#у-чому-полягає-задача-класифікації"><i class="fa fa-check"></i><b>7.2.1</b> У чому полягає задача класифікації?<span></span></a></li>
+<li class="chapter" data-level="7.2.2" data-path="lab_6.html"><a href="lab_6.html#формальна-постановка-задачі-класифікації"><i class="fa fa-check"></i><b>7.2.2</b> Формальна постановка задачі класифікації<span></span></a></li>
+<li class="chapter" data-level="7.2.3" data-path="lab_6.html"><a href="lab_6.html#пакет-caret"><i class="fa fa-check"></i><b>7.2.3</b> Пакет <code>caret</code><span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="lab_6.html"><a href="lab_6.html#приклад-виконання-індивідуального-завдання-1"><i class="fa fa-check"></i><b>7.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="lab_6.html"><a href="lab_6.html#навчання-моделі"><i class="fa fa-check"></i><b>7.3.1</b> Навчання моделі<span></span></a></li>
+<li class="chapter" data-level="7.3.2" data-path="lab_6.html"><a href="lab_6.html#експорт-моделі-до-бд"><i class="fa fa-check"></i><b>7.3.2</b> Експорт моделі до БД<span></span></a></li>
+<li class="chapter" data-level="7.3.3" data-path="lab_6.html"><a href="lab_6.html#імпорт-моделі-і-работа-з-нею"><i class="fa fa-check"></i><b>7.3.3</b> Імпорт моделі і работа з нею<span></span></a></li>
+<li class="chapter" data-level="7.3.4" data-path="lab_6.html"><a href="lab_6.html#індивідуальні-завдання-на-лабораторну-роботу-5"><i class="fa fa-check"></i><b>7.3.4</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html"><i class="fa fa-check"></i><b>8</b> Лабораторна робота №7. Пошук асоціативних правил<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#що-ви-будете-вміти-6"><i class="fa fa-check"></i><b>8.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="8.2" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#короткі-теоретичні-відомості-6"><i class="fa fa-check"></i><b>8.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#у-чому-полягає-задача-пошуку-асоціативних-правил"><i class="fa fa-check"></i><b>8.2.1</b> У чому полягає задача пошуку асоціативних правил?<span></span></a></li>
+<li class="chapter" data-level="8.2.2" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#формальна-постановка-задачі-класифікації-1"><i class="fa fa-check"></i><b>8.2.2</b> Формальна постановка задачі класифікації<span></span></a></li>
+<li class="chapter" data-level="8.2.3" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#основні-міри-цікавості-асоціативних-правил"><i class="fa fa-check"></i><b>8.2.3</b> Основні міри “цікавості” асоціативних правил<span></span></a></li>
+<li class="chapter" data-level="8.2.4" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#пакети-arules-та-arulesviz"><i class="fa fa-check"></i><b>8.2.4</b> Пакети <code>arules</code> та <code>arulesViz</code><span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="lab_5.html"><a href="lab_5.html#ind"><i class="fa fa-check"></i><b>8.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#індивідуальні-завдання-на-лабораторну-роботу-6"><i class="fa fa-check"></i><b>8.3.1</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="lab_8.html"><a href="lab_8.html"><i class="fa fa-check"></i><b>9</b> Лабораторна робота № 8. Побудова ARIMA-моделі часового ряду і прогнозування на її основі (short version)<span></span></a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="lab_8.html"><a href="lab_8.html#що-ви-будете-вміти-7"><i class="fa fa-check"></i><b>9.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="9.2" data-path="lab_8.html"><a href="lab_8.html#ts-обєкт"><i class="fa fa-check"></i><b>9.2</b> ts-об’єкт<span></span></a></li>
+<li class="chapter" data-level="9.3" data-path="lab_8.html"><a href="lab_8.html#візуалізація-чр"><i class="fa fa-check"></i><b>9.3</b> Візуалізація ЧР<span></span></a></li>
+<li class="chapter" data-level="9.4" data-path="lab_8.html"><a href="lab_8.html#стаціонарність-і-диференціювання"><i class="fa fa-check"></i><b>9.4</b> Стаціонарність і диференціювання<span></span></a></li>
+<li class="chapter" data-level="9.5" data-path="lab_8.html"><a href="lab_8.html#example"><i class="fa fa-check"></i><b>9.5</b> Приклад побудови не сезонної ARIMA-моделі<span></span></a></li>
+<li class="chapter" data-level="9.6" data-path="lab_8.html"><a href="lab_8.html#завдання-на-лабораторну-роботу"><i class="fa fa-check"></i><b>9.6</b> Завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science на R. Лабораторний практикум (draft version)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="лабораторна-робота-7.-пошук-асоціативних-правил" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Розділ 8</span> Лабораторна робота №7. Пошук асоціативних правил<a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#лабораторна-робота-7.-пошук-асоціативних-правил" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Мета:</strong> Засвоєння базових принципів, знайомство з інструментами та набуття навичок <strong>побудови моделей на основі асоціативних правил на рівні технології</strong> засобами мови програмування R та за допомогою пакетів <code>arules</code> <span class="citation">(<a href="#ref-R-arules" role="doc-biblioref">Hahsler et al. 2022</a>)</span> та <code>arulesViz</code> <span class="citation">(<a href="#ref-R-arulesViz" role="doc-biblioref">Hahsler 2021</a>)</span>.</p>
+<div id="що-ви-будете-вміти-6" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Що ви будете вміти?<a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#що-ви-будете-вміти-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>будувати моделі пошуку асоціативних правил засобами мови R і пакету <code>arules</code> у середовищі IDE RStudio.</li>
+<li>виконувати візуалізацію асоціативних правил та їх параметрів засобами пакета <code>arulesViz</code>.</li>
+</ul>
+</div>
+<div id="короткі-теоретичні-відомості-6" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Короткі теоретичні відомості<a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#короткі-теоретичні-відомості-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>У рамках життєвого циклу процесу Data Mining згідно з методологією CRISP DM <span class="citation">(<a href="#ref-CRISP_DM" role="doc-biblioref">wikipedia 2018a</a>)</span>, наступною за фазою “Підготовка даних” (<strong>Data Preparing</strong>) є фаза “Моделювання” (<strong>Modelling</strong>) (рис. 1).<br />
+Фаза моделювання призначена для вибору оптимального методу побудови моделей і настроювання його параметрів для отримання оптимальних рішень. На даній фазі вирішуються наступні задачі:</p>
+<ul>
+<li>вибір методу моделювання;<br />
+</li>
+<li>генерація тестового проекту;<br />
+</li>
+<li><strong>створення моделей;</strong><br />
+</li>
+<li>оцінка моделей.</li>
+</ul>
+<p>Згідно з класичним розумінням технологія Data Mining передбачає побудову моделей, які можна віднести до одного з п’яти основних класів: <em>кластеризація (сегментація) та аналіз відхилень, регресія, класифікація, пошук асоціативних правил та аналіз послідовних шаблонів(секвенціальний аналіз)</em>.</p>
+<div class="figure">
+<img src="image/data-science-model.png" alt="" />
+<p class="caption"><em>Рис. 1. Задача моделювання у складі Data Science-проекту</em></p>
+</div>
+<p>Задача сегментації та аналізу відхилень розглядалася нами як складова розвідувального аналізу даних <a href="lab_3.html#lab_3"><strong>лаб. роб. №3</strong></a> у рамках базового модулю.<br />
+У рамках даного модулю буде розглянуто решту моделей.</p>
+<p>Задачі моделей регресії та класифікації розглядались у <a href="lab_5.html#lab_5"><strong>лаб. роб. №5</strong></a> та <a href="lab_6.html#lab_6"><strong>лаб. роб. №6</strong></a> відповідно.</p>
+<p>Ця лабораторна робота присвячена побудові моделей на основі асоціативних правил.</p>
+<div id="у-чому-полягає-задача-пошуку-асоціативних-правил" class="section level3 hasAnchor" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> У чому полягає задача пошуку асоціативних правил?<a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#у-чому-полягає-задача-пошуку-асоціативних-правил" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Пошук асоціативних правил є одним з найпопулярніших застосувань Data Mining. Суть задачі полягає у визначенні наборів об’єктів, що часто зустрічаються у великий колекціях таких наборів. Дане завдання є окремим випадком задачі класифікації. Спочатку вона вирішувалася при аналізі тенденцій у поведінці покупців у супермаркетах. Аналізу піддавалися дані про здійснені ними покупки, які покупці складають до кошика.</p>
+<p>При аналізі цих даних інтерес перш за все викликає інформація про те, які товари купуються разом, в якій послідовності, які категорії споживачів які товари купують краще, в які періоди часу і т. п. Така інформація дозволяє ефективніше планувати закупівлю товарів, проведення рекламної кампанії і т. д. Наприклад, з набору покупок, що здійснюються в магазині, можна виділити наступні набори товарів, які купуються разом: <span class="math inline">\(\{чіпси, пиво\}; \{вода, горіхи\}\)</span>. Отже, можна зробити висновок, що якщо купуються чіпси або горіхи, то, як правило, купуються і пиво або вода відповідно. Маючи такі знання, можна розмістити ці товари поруч, об’єднати їх в один пакет зі знижкою або вжити інших заходів, що стимулюють покупця придбати товар.</p>
+<p>Задача пошуку асоціативних правил є актуальною не тільки в сфері торгівлі. Наприклад, у сфері обслуговування інтерес представляє інформація про те, якими послугами клієнти бажають користуватися в сукупності. Для отримання цієї інформації завдання вирішується стосовно до даних про послуги, якими користується один клієнт протягом певного часу (місяці, роки). Це допомагає визначити, наприклад, як найбільш вигідно скласти пакети послуг, що можуть бути запропоновані клієнту.</p>
+<p>У медицині аналізу можуть піддаватися симптоми і хвороби, які спостерігаються у пацієнтів. У цьому випадку знання про те, які поєднання хвороб і симптомів зустрічаються найбільш часто, допомагають в майбутньому правильно ставити діагноз <span class="citation">(<a href="#ref-Barsegjan" role="doc-biblioref">Barsegjan 2007</a>)</span>.</p>
+</div>
+<div id="формальна-постановка-задачі-класифікації-1" class="section level3 hasAnchor" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> Формальна постановка задачі класифікації<a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#формальна-постановка-задачі-класифікації-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Опишемо цю задачу в узагальненому вигляді <span class="citation">(<a href="#ref-Barsegjan" role="doc-biblioref">Barsegjan 2007</a>)</span>. Для цього позначимо об’єкти, що становлять досліджувані набори (itemsets), наступною множиною:</p>
+<p><span class="math display">\[I = \{ i_1, i_2,..., i_j,...,i_n \},\]</span>
+де <span class="math inline">\(i_j\)</span> – об’єкти, що входять до наборів, котрі підлягають аналізу; <span class="math inline">\(n\)</span> – загальна кількість об’єктів. У сфері торгівлі, наприклад, такими об’єктами є товари, представлені в прайс-листі.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-97">Table 8.1: </span>Прайс-лист</caption>
+<thead>
+<tr class="header">
+<th align="right">Ідентифікатор</th>
+<th align="left">Найменування.товару</th>
+<th align="right">Ціни</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">Шоколад</td>
+<td align="right">30</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">Чіпси</td>
+<td align="right">12</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">Кокоси</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="left">Вода</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="left">Пиво</td>
+<td align="right">14</td>
+</tr>
+<tr class="even">
+<td align="right">5</td>
+<td align="left">Горіхи</td>
+<td align="right">15</td>
+</tr>
+</tbody>
+</table>
+<p>Вони відповідають наступній множині об’єктів:</p>
+<p><span class="math display">\[I = \{шоколад, чіпси, кокоси, вода, пиво, горіхи \}.\]</span>
+Набори об’єктів з множині <span class="math inline">\(I\)</span>, що зберігаються в БД і піддаються аналізу, називаються <em>транзакціями</em>. Опишемо транзакцію як підмножину множини <span class="math inline">\(I\)</span>:</p>
+<p><span class="math display">\[T = \{i_j | i_j \in I \}. \]</span></p>
+<p>Такі транзакції в магазині відповідають наборам товарів, що купуються споживачем і зберігаються в БД у вигляді товарного чека або накладної. У них перераховуються придбані покупцем товари, їх ціна, кількість тощо. Наприклад, такі транзакції відповідають покупкам, що здійснюються споживачами в супермаркеті:</p>
+<p><span class="math display">\[
+T_1 = \{ чіпси, вода, пиво \}; \\ 
+T_2 = \{кокоси, вода, горіхи \}.
+\]</span></p>
+<p>Набір транзакцій, інформація про які доступна для аналізу, позначимо наступною множиною:</p>
+<p><span class="math display">\[D = \{ T_1, ..., T_2,..., T_r,..., T_m \},\]</span>
+де <span class="math inline">\(m\)</span> – кількість доступних для аналізу транзакцій.</p>
+<p>Наприклад, у магазині такою множиною буде:</p>
+<p><span class="math display">\[D = \{ \{чіпси, вода, пиво \}, \{кокоси, вода, горіхи \}, \\ \{горіхи, кокоси, чіпси, кокоси, вода \}, \\
+\{кокоси, горіхи, кокоси \} \}.\]</span></p>
+<p>Для використання методів Data Mining множину D може бути представлено у вигляді табл. 2.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-98">Table 8.2: </span>Прайс-лист</caption>
+<thead>
+<tr class="header">
+<th align="right">Номер.транзакції</th>
+<th align="right">Номер.товара</th>
+<th align="left">Найменування.товару</th>
+<th align="right">Ціни</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">Чіпси</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="left">Вода</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="left">Пиво</td>
+<td align="right">14</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="left">Кокоси</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="left">Вода</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="left">Горіхи</td>
+<td align="right">15</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="left">Горіхи</td>
+<td align="right">15</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="left">Кокоси</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="left">Чіпси</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="left">Кокоси</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="left">Вода</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="left">Кокоси</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">5</td>
+<td align="left">Горіхи</td>
+<td align="right">15</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="left">Кокоси</td>
+<td align="right">10</td>
+</tr>
+</tbody>
+</table>
+<p>Множину транзакцій, до яких входить об’єкт <span class="math inline">\(j_i\)</span>, позначимо в такий спосіб:</p>
+<p><span class="math display">\[D_{i_j} = \{ T_r | i_j \in T_r; j = 1..n; r = 1..m \} \subseteq D.\]</span></p>
+<p>У даному прикладі множиною транзакцій, що містять об’єкт <code>вода</code>, є наступна множина:</p>
+<p><span class="math display">\[Dвода = \{ \{чіпси, вода, пиво\},\\ \{кокоси, вода, горіхи \}, \\ \{ горіхи, кокоси, чіпси, кокоси, вода \}\}.\]</span>
+Деякий довільний набір об’єктів (itemset) позначимо в такий спосіб:
+<span class="math display">\[F = \{ i_j | i_j \in I; j = 1..n \}.\]</span></p>
+<p>Наприклад, <span class="math display">\[F = \{ кокоси, вода \}.\]</span>
+Набір, що складається з <span class="math inline">\(k\)</span> об’єктів, називається <span class="math inline">\(k\)</span>-елементним набором (в даному прикладі це 2-елементний набір).<br />
+Множина транзакцій, в які входить набір <span class="math inline">\(F\)</span>, позначимо в такий спосіб:</p>
+<p><span class="math display">\[D_F = \{ T_r | F \subseteq T_r; r = 1..m \} \subseteq D.\]</span></p>
+<p>У даному прикладі:</p>
+<p><span class="math display">\[D \{ кокоси, вода \} = \{ \{кокоси, вода, горіхи \}, \{ горіхи, кокоси, чіпси, кокоси, вода \} \}.\]</span>
+Відношення кількості транзакцій, до якого входить набір <span class="math inline">\(F\)</span>, до загальної кількості транзакцій називається <em>підтримкою (support)</em> набору <span class="math inline">\(F\)</span> і позначається <span class="math inline">\(S(F)\)</span>:
+<span class="math display">\[S(F) = \frac{|D_F|}{D}.\]</span></p>
+<p>Для набору <span class="math inline">\(\{кокоси, вода\}\)</span> підтримка буде дорівнює <span class="math inline">\(0,5\)</span>, так як даний набір входить до двох транзакцій (з номерами <span class="math inline">\(1\)</span> і <span class="math inline">\(2\)</span>), а всього транзакцій <span class="math inline">\(4\)</span>. При пошуку аналітик може вказати мінімальне значення підтримки цікавих йому наборів <span class="math inline">\(S_{min}\)</span>. Набір називається частим (large itemset), якщо значення його підтримки більше мінімального значення підтримки, заданого користувачем:</p>
+<p><span class="math display">\[S(F) &gt; S_{min}.\]</span></p>
+<p>Таким чином, при пошуку асоціативних правил потрібно знайти множину всіх частих наборів:</p>
+<p><span class="math display">\[L = \{ F | S(F) &gt; S_{min} \}.\]</span>
+У даному прикладі частими наборами при <span class="math inline">\(S_{min} = 0,5\)</span> є наступні:</p>
+<p><span class="math display">\[\{Чіпси\} \; S_{min} = 0,5; \\
+\{Чіпси, вода \} \; S_{min} = 0,5; \\
+\{Кокоси\} \; S_{min} = 0,75; \\
+\{Кокоси, вода\} \; S_{min} = 0,5;\\
+\{Кокоси, вода, горіхи\} \; S_{min} = 0,5; \\
+\{Кокоси, горіхи\} \; S_{min} = 0,75;\\
+\{Вода\} \; S_{min} = 0,75; \\
+\{Вода, горіхи\} \; S_{min} = 0,5; \\
+\{Горіхи\} \; S_{min} = 0,75.\]</span></p>
+<p>Результати, одержані при розв’язку цього завдання, прийнято представляти у вигляді <em>асоціативних правил</em>. У зв’язку з цим при їх пошуку виділяють два основних етапи:</p>
+<ul>
+<li>знаходження всіх частих наборів об’єктів;</li>
+<li>генерація асоціативних правил із знайдених частих наборів об’єктів.</li>
+</ul>
+<p>Асоціативні правила мають такий вигляд:
+<code>якщо (умова) то (результат)</code></p>
+<p>де <code>умова</code> – зазвичай не логічний вираз (як у класифікаційних правилах), а набір об’єктів з множини <span class="math inline">\(I\)</span>, з якими пов’язані (асоційовані) об’єкти, включені до результату даного правила. Наприклад, асоціативне правило:
+<span class="math display">\[якщо \; (кокоси, вода) \; то \; (горіхи)\]</span>
+означає, що якщо споживач купує кокоси і воду, то він купує і горіхи. Як уже зазначалося, в асоціативних правилах умова і результат є об’єктами множини <span class="math inline">\(I\)</span>:</p>
+<p><span class="math display">\[якщо \; X \; то \; Y,\]</span>
+де <span class="math inline">\(X \in I, Y \in I, X \cup Y = \phi.\)</span><br />
+Асоціативне правило можна представити як імплікацію (зв’язок) над множиною <span class="math inline">\(X \Rightarrow Y\)</span>, де <span class="math inline">\(X \in I, Y \in I, X \cup Y = \phi.\)</span></p>
+</div>
+<div id="основні-міри-цікавості-асоціативних-правил" class="section level3 hasAnchor" number="8.2.3">
+<h3><span class="header-section-number">8.2.3</span> Основні міри “цікавості” асоціативних правил<a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#основні-міри-цікавості-асоціативних-правил" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Основною перевагою асоціативних правил є їх легке сприйняття людиною і проста інтерпретація мовами програмування. Однак вони не завжди корисні. Виділяють три види правил:</p>
+<ul>
+<li><p><em>корисні правила</em> – містять дійсну інформацію, яка раніше була невідома, але має логічне пояснення. Такі правила можуть бути використані для прийняття рішень, що приносять вигоду;</p></li>
+<li><p><em>тривіальні правила</em> – містять дійсну та легко зрозумілу інформацію, яка вже відома. Такі правила, хоча і можна пояснити, але не можуть принести будь-якої користі, так як відображають або відомі закони в досліджуваній області, або результати минулої діяльності. Іноді такі правила можуть використовуватися для перевірки виконання рішень, прийнятих на підставі попереднього аналізу;</p></li>
+<li><p><em>незрозумілі правила</em> – містять інформацію, яка не може бути пояснена. Такі правила можуть бути отримані або на основі аномальних значень, або глибоко прихованих знань. Безпосередньо такі правила не можна використовувати для прийняття рішень, так як їх нез’ясовність може привести до непередбачуваних результатів. Для кращого розуміння потрібен додатковий аналіз. Однак саме такі правила дають можливість знайти корисні для бізнесу нетривіальни правила, які, власне, і є сенсом Data Mining.</p></li>
+</ul>
+<p>Кількість асоціативних правил може бути дуже великим і не всі з них несуть корисну інформацію. Тому на практиці відбирають найбільш корисні з них. Для оцінки їх корисності використовують певні міри. Наведемо основні з них.</p>
+<p>Аосціативні правила представляють по суті кореляцію між наборами. Для оцінки ступеня цієї кореляції, яка виражає їх “цікавість” або “корисність” викорстовують головним чином наступні <span class="citation"><a href="#ref-arulsPackageVignet" role="doc-biblioref">Hahsler, Gruen, and Hornik</a> (<a href="#ref-arulsPackageVignet" role="doc-biblioref">2005</a>)</span>.</p>
+<ul>
+<li><em>Підтримка (<strong>support</strong>)</em> – ймовірність події <span class="math inline">\(X \cap Y\)</span>; показує, який відсоток транзакцій підтримує дане правило і дорівнює підтримці набору <span class="math inline">\(F\)</span>, які складають <span class="math inline">\(X\)</span> та <span class="math inline">\(Y\)</span>:</li>
+</ul>
+<p><span class="math display">\[ S(X \Rightarrow Y) = P(X \cap Y) = S_F =  \frac{|D_{F=X \cup Y}|}{|D|}. \]</span>
+<em>Приклад</em>. <span class="math display">\[S_{якщо \; (вода, \; кокоси) \; то \; (горіхи)} = S_{(вода, \; кокоси, \; горіхи)} = \frac{2}{4}.\]</span></p>
+<ul>
+<li><em>Достовірність (<strong>confidence</strong>)</em> – умовна ймовірність події <span class="math inline">\(Y\)</span> за умови, що мала місце подія <span class="math inline">\(X\)</span>; тобто показує ймовіврність того, що з наявності в транзакції набору <span class="math inline">\(X\)</span> слідує наявність в ній набору <span class="math inline">\(Y\)</span>. Оцінюється як відношення кількості транзакцій, які містять набори <span class="math inline">\(X\)</span> та <span class="math inline">\(Y\)</span>, до кількості транзакцій, що містять набор <span class="math inline">\(X\)</span>:</li>
+</ul>
+<p><span class="math display">\[ C(X \Rightarrow Y) = P(Y|X) = \frac{P(X \cap Y)}{P(X)} = \frac{|D_{F=X \cup Y}|}{|D_X|} = \frac{S_{X \cup Y}}{S_Y}. \]</span>
+<em>Приклад</em>. <span class="math display">\[С_{якщо \; (вода, \;  то \; (горіхи)} = \frac{2}{3}.\]</span></p>
+<p>Чим більше достовірність, тим правило краще. Однак достовірність де дозволяє оцінити корисність правила. Для цього викоритовуєься <em>ліфт</em>.</p>
+<ul>
+<li><em>Ліфт (<strong>lift</strong>)</em> – відношення умовної ймовірності <span class="math inline">\(Y|X\)</span> до безумовної <span class="math inline">\(Y\)</span>, тобто він показує, чи є кориснішим правило випадкового угадування:</li>
+</ul>
+<p><span class="math display">\[ L(X \Rightarrow Y) = \frac{P(Y|X)}{P(Y)} = \frac{P(X \cap Y)}{P(X)P(Y)} = \frac{|D_{F=X \cup Y}|}{|D_X| |D_Y|} = \frac{S_{X \cup Y}}{S_Y S_X}. \]</span></p>
+<p>Очевидно, що ліфт більше за одиницю, то правило є корисним, тобто за допомогою правила передбачити наявність набору <span class="math inline">\(Y\)</span>, ніж випадкове угадування.<br />
+<em>Приклад</em>. <span class="math display">\[L_{якщо \; (вода, \;  то \; (горіхи)} = \frac{0,5}{0,5 \cdot 0,5} = 2.\]</span></p>
+<p>Одним з найпоширеніших алгоритмів пошуку асоціативних правил є алгоритм <code>Apriori</code>, описаний Срикантом Рамакришнаном і Ракешом Агравалом у 1994 р.<br />
+Нижче наведно псевдокод згідно з <span class="citation">(<a href="#ref-Barsegjan" role="doc-biblioref">Barsegjan 2007</a>)</span>.<br />
+<img src="image/apriori.jpg" /></p>
+<p>( Також, детально можна подивится <a href="https://habr.com/ru/company/ods/blog/353502/">тут</a>)</p>
+</div>
+<div id="пакети-arules-та-arulesviz" class="section level3 hasAnchor" number="8.2.4">
+<h3><span class="header-section-number">8.2.4</span> Пакети <code>arules</code> та <code>arulesViz</code><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#пакети-arules-та-arulesviz" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>(under construction)</p>
+</div>
+</div>
+<div id="ind" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Приклад виконання індивідуального завдання<a href="lab_5.html#ind" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Задача</strong>. Використовуючи стандартний набір даних <code>titanic</code>:</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Завантажуємо стандартний набір і трансформуємо його необхідним чином</span></span>
+<span id="cb182-2"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb182-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(Titanic)</span>
+<span id="cb182-3"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb182-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div>
+<pre><code>##   Class    Sex   Age Survived Freq
+## 1   1st   Male Child       No    0
+## 2   2nd   Male Child       No    0
+## 3   3rd   Male Child       No   35
+## 4  Crew   Male Child       No    0
+## 5   1st Female Child       No    0
+## 6   2nd Female Child       No    0</code></pre>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb184-1" aria-hidden="true" tabindex="-1"></a>titanic.raw <span class="ot">&lt;-</span> <span class="cn">NULL</span> </span>
+<span id="cb184-2"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb184-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>) {</span>
+<span id="cb184-3"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb184-3" aria-hidden="true" tabindex="-1"></a>  titanic.raw <span class="ot">&lt;-</span> <span class="fu">cbind</span>(titanic.raw,</span>
+<span id="cb184-4"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb184-4" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">rep</span>(<span class="fu">as.character</span>(df[,i]), <span class="co"># ????????? ??? ??????</span></span>
+<span id="cb184-5"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb184-5" aria-hidden="true" tabindex="-1"></a>                           df<span class="sc">$</span>Freq))             <span class="co"># ??????? ???</span></span>
+<span id="cb184-6"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb184-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb184-7"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb184-7" aria-hidden="true" tabindex="-1"></a>titanic.raw <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(titanic.raw)</span>
+<span id="cb184-8"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb184-8" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(titanic.raw) <span class="ot">&lt;-</span> <span class="fu">names</span>(df)[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb184-9"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb184-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(titanic.raw)</span></code></pre></div>
+<pre><code>## [1] 2201    4</code></pre>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb186-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(titanic.raw)</span></code></pre></div>
+<pre><code>##   Class  Sex   Age Survived
+## 1   3rd Male Child       No
+## 2   3rd Male Child       No
+## 3   3rd Male Child       No
+## 4   3rd Male Child       No
+## 5   3rd Male Child       No
+## 6   3rd Male Child       No</code></pre>
+<p>Далі скористаємося методом <code>apriori()</code> з бібліотеки <code>arules</code>. За замовчанням маємо такі зачення параметрів функції:</p>
+<p>minimum support: supp=0.1<br />
+minimum conﬁdence: conf=0.8<br />
+maximum length of rules: maxlen=10</p>
+<p>Встановлюємо необхідні бібліотеки і за допомогою методу <code>apriori</code> знаходимо асоціативні правила і значення оцінок підтримки, достовірності та діфта для кожного правила.</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arules)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;arules&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:car&#39;:
+## 
+##     recode</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     recode</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     abbreviate, write</code></pre>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb193-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arulesViz)</span>
+<span id="cb193-2"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb193-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb193-3"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb193-3" aria-hidden="true" tabindex="-1"></a>rules.all <span class="ot">&lt;-</span> titanic.raw <span class="sc">%&gt;%</span> </span>
+<span id="cb193-4"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb193-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">apriori</span>() <span class="do">## run the APRIORI algorithm </span></span></code></pre></div>
+<pre><code>## Warning: Column(s) 1, 2, 3, 4 not logical or factor. Applying default
+## discretization (see &#39;? discretizeDF&#39;).</code></pre>
+<pre><code>## Apriori
+## 
+## Parameter specification:
+##  confidence minval smax arem  aval originalSupport maxtime support minlen
+##         0.8    0.1    1 none FALSE            TRUE       5     0.1      1
+##  maxlen target  ext
+##      10  rules TRUE
+## 
+## Algorithmic control:
+##  filter tree heap memopt load sort verbose
+##     0.1 TRUE TRUE  FALSE TRUE    2    TRUE
+## 
+## Absolute minimum support count: 220 
+## 
+## set item appearances ...[0 item(s)] done [0.00s].
+## set transactions ...[10 item(s), 2201 transaction(s)] done [0.00s].
+## sorting and recoding items ... [9 item(s)] done [0.00s].
+## creating transaction tree ... done [0.00s].
+## checking subsets of size 1 2 3 4 done [0.00s].
+## writing ... [27 rule(s)] done [0.00s].
+## creating S4 object  ... done [0.00s].</code></pre>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb196-1" aria-hidden="true" tabindex="-1"></a>rules.all <span class="sc">%&gt;%</span></span>
+<span id="cb196-2"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb196-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>() <span class="do">## number of rules discovered ## [1] 27</span></span></code></pre></div>
+<pre><code>## [1] 27</code></pre>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb198-1" aria-hidden="true" tabindex="-1"></a>rules.all <span class="sc">%&gt;%</span></span>
+<span id="cb198-2"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb198-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># as.data.frame() %&gt;% </span></span>
+<span id="cb198-3"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb198-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inspect</span>() <span class="sc">%&gt;%</span> <span class="do">## print all rules</span></span>
+<span id="cb198-4"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb198-4" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>() </span></code></pre></div>
+<pre><code>##      lhs                                     rhs           support   confidence
+## [1]  {}                                   =&gt; {Age=Adult}   0.9504771 0.9504771 
+## [2]  {Class=2nd}                          =&gt; {Age=Adult}   0.1185825 0.9157895 
+## [3]  {Class=1st}                          =&gt; {Age=Adult}   0.1449341 0.9815385 
+## [4]  {Sex=Female}                         =&gt; {Age=Adult}   0.1930940 0.9042553 
+## [5]  {Class=3rd}                          =&gt; {Age=Adult}   0.2848705 0.8881020 
+## [6]  {Survived=Yes}                       =&gt; {Age=Adult}   0.2971377 0.9198312 
+## [7]  {Class=Crew}                         =&gt; {Sex=Male}    0.3916402 0.9740113 
+## [8]  {Class=Crew}                         =&gt; {Age=Adult}   0.4020900 1.0000000 
+## [9]  {Survived=No}                        =&gt; {Sex=Male}    0.6197183 0.9154362 
+## [10] {Survived=No}                        =&gt; {Age=Adult}   0.6533394 0.9651007 
+## [11] {Sex=Male}                           =&gt; {Age=Adult}   0.7573830 0.9630272 
+## [12] {Sex=Female, Survived=Yes}           =&gt; {Age=Adult}   0.1435711 0.9186047 
+## [13] {Class=3rd, Sex=Male}                =&gt; {Survived=No} 0.1917310 0.8274510 
+## [14] {Class=3rd, Survived=No}             =&gt; {Age=Adult}   0.2162653 0.9015152 
+## [15] {Class=3rd, Sex=Male}                =&gt; {Age=Adult}   0.2099046 0.9058824 
+## [16] {Sex=Male, Survived=Yes}             =&gt; {Age=Adult}   0.1535666 0.9209809 
+## [17] {Class=Crew, Survived=No}            =&gt; {Sex=Male}    0.3044071 0.9955423 
+## [18] {Class=Crew, Survived=No}            =&gt; {Age=Adult}   0.3057701 1.0000000 
+## [19] {Class=Crew, Sex=Male}               =&gt; {Age=Adult}   0.3916402 1.0000000 
+## [20] {Class=Crew, Age=Adult}              =&gt; {Sex=Male}    0.3916402 0.9740113 
+## [21] {Sex=Male, Survived=No}              =&gt; {Age=Adult}   0.6038164 0.9743402 
+## [22] {Age=Adult, Survived=No}             =&gt; {Sex=Male}    0.6038164 0.9242003 
+## [23] {Class=3rd, Sex=Male, Survived=No}   =&gt; {Age=Adult}   0.1758292 0.9170616 
+## [24] {Class=3rd, Age=Adult, Survived=No}  =&gt; {Sex=Male}    0.1758292 0.8130252 
+## [25] {Class=3rd, Sex=Male, Age=Adult}     =&gt; {Survived=No} 0.1758292 0.8376623 
+## [26] {Class=Crew, Sex=Male, Survived=No}  =&gt; {Age=Adult}   0.3044071 1.0000000 
+## [27] {Class=Crew, Age=Adult, Survived=No} =&gt; {Sex=Male}    0.3044071 0.9955423 
+##      coverage  lift      count
+## [1]  1.0000000 1.0000000 2092 
+## [2]  0.1294866 0.9635051  261 
+## [3]  0.1476602 1.0326798  319 
+## [4]  0.2135393 0.9513700  425 
+## [5]  0.3207633 0.9343750  627 
+## [6]  0.3230350 0.9677574  654 
+## [7]  0.4020900 1.2384742  862 
+## [8]  0.4020900 1.0521033  885 
+## [9]  0.6769650 1.1639949 1364 
+## [10] 0.6769650 1.0153856 1438 
+## [11] 0.7864607 1.0132040 1667 
+## [12] 0.1562926 0.9664669  316 
+## [13] 0.2317129 1.2222950  422 
+## [14] 0.2398910 0.9484870  476 
+## [15] 0.2317129 0.9530818  462 
+## [16] 0.1667424 0.9689670  338 
+## [17] 0.3057701 1.2658514  670 
+## [18] 0.3057701 1.0521033  673 
+## [19] 0.3916402 1.0521033  862 
+## [20] 0.4020900 1.2384742  862 
+## [21] 0.6197183 1.0251065 1329 
+## [22] 0.6533394 1.1751385 1329 
+## [23] 0.1917310 0.9648435  387 
+## [24] 0.2162653 1.0337773  387 
+## [25] 0.2099046 1.2373791  387 
+## [26] 0.3044071 1.0521033  670 
+## [27] 0.3057701 1.2658514  670</code></pre>
+<table style="width:100%;">
+<colgroup>
+<col width="4%" />
+<col width="34%" />
+<col width="2%" />
+<col width="13%" />
+<col width="9%" />
+<col width="10%" />
+<col width="9%" />
+<col width="9%" />
+<col width="5%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">lhs</th>
+<th align="left"></th>
+<th align="left">rhs</th>
+<th align="right">support</th>
+<th align="right">confidence</th>
+<th align="right">coverage</th>
+<th align="right">lift</th>
+<th align="right">count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">[1]</td>
+<td align="left">{}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Age=Adult}</td>
+<td align="right">0.9504771</td>
+<td align="right">0.9504771</td>
+<td align="right">1.0000000</td>
+<td align="right">1.0000000</td>
+<td align="right">2092</td>
+</tr>
+<tr class="even">
+<td align="left">[2]</td>
+<td align="left">{Class=2nd}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Age=Adult}</td>
+<td align="right">0.1185825</td>
+<td align="right">0.9157895</td>
+<td align="right">0.1294866</td>
+<td align="right">0.9635051</td>
+<td align="right">261</td>
+</tr>
+<tr class="odd">
+<td align="left">[3]</td>
+<td align="left">{Class=1st}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Age=Adult}</td>
+<td align="right">0.1449341</td>
+<td align="right">0.9815385</td>
+<td align="right">0.1476602</td>
+<td align="right">1.0326798</td>
+<td align="right">319</td>
+</tr>
+<tr class="even">
+<td align="left">[4]</td>
+<td align="left">{Sex=Female}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Age=Adult}</td>
+<td align="right">0.1930940</td>
+<td align="right">0.9042553</td>
+<td align="right">0.2135393</td>
+<td align="right">0.9513700</td>
+<td align="right">425</td>
+</tr>
+<tr class="odd">
+<td align="left">[5]</td>
+<td align="left">{Class=3rd}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Age=Adult}</td>
+<td align="right">0.2848705</td>
+<td align="right">0.8881020</td>
+<td align="right">0.3207633</td>
+<td align="right">0.9343750</td>
+<td align="right">627</td>
+</tr>
+<tr class="even">
+<td align="left">[6]</td>
+<td align="left">{Survived=Yes}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Age=Adult}</td>
+<td align="right">0.2971377</td>
+<td align="right">0.9198312</td>
+<td align="right">0.3230350</td>
+<td align="right">0.9677574</td>
+<td align="right">654</td>
+</tr>
+<tr class="odd">
+<td align="left">[7]</td>
+<td align="left">{Class=Crew}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Sex=Male}</td>
+<td align="right">0.3916402</td>
+<td align="right">0.9740113</td>
+<td align="right">0.4020900</td>
+<td align="right">1.2384742</td>
+<td align="right">862</td>
+</tr>
+<tr class="even">
+<td align="left">[8]</td>
+<td align="left">{Class=Crew}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Age=Adult}</td>
+<td align="right">0.4020900</td>
+<td align="right">1.0000000</td>
+<td align="right">0.4020900</td>
+<td align="right">1.0521033</td>
+<td align="right">885</td>
+</tr>
+<tr class="odd">
+<td align="left">[9]</td>
+<td align="left">{Survived=No}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Sex=Male}</td>
+<td align="right">0.6197183</td>
+<td align="right">0.9154362</td>
+<td align="right">0.6769650</td>
+<td align="right">1.1639949</td>
+<td align="right">1364</td>
+</tr>
+<tr class="even">
+<td align="left">[10]</td>
+<td align="left">{Survived=No}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Age=Adult}</td>
+<td align="right">0.6533394</td>
+<td align="right">0.9651007</td>
+<td align="right">0.6769650</td>
+<td align="right">1.0153856</td>
+<td align="right">1438</td>
+</tr>
+<tr class="odd">
+<td align="left">[11]</td>
+<td align="left">{Sex=Male}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Age=Adult}</td>
+<td align="right">0.7573830</td>
+<td align="right">0.9630272</td>
+<td align="right">0.7864607</td>
+<td align="right">1.0132040</td>
+<td align="right">1667</td>
+</tr>
+<tr class="even">
+<td align="left">[12]</td>
+<td align="left">{Sex=Female, Survived=Yes}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Age=Adult}</td>
+<td align="right">0.1435711</td>
+<td align="right">0.9186047</td>
+<td align="right">0.1562926</td>
+<td align="right">0.9664669</td>
+<td align="right">316</td>
+</tr>
+<tr class="odd">
+<td align="left">[13]</td>
+<td align="left">{Class=3rd, Sex=Male}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Survived=No}</td>
+<td align="right">0.1917310</td>
+<td align="right">0.8274510</td>
+<td align="right">0.2317129</td>
+<td align="right">1.2222950</td>
+<td align="right">422</td>
+</tr>
+<tr class="even">
+<td align="left">[14]</td>
+<td align="left">{Class=3rd, Survived=No}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Age=Adult}</td>
+<td align="right">0.2162653</td>
+<td align="right">0.9015152</td>
+<td align="right">0.2398910</td>
+<td align="right">0.9484870</td>
+<td align="right">476</td>
+</tr>
+<tr class="odd">
+<td align="left">[15]</td>
+<td align="left">{Class=3rd, Sex=Male}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Age=Adult}</td>
+<td align="right">0.2099046</td>
+<td align="right">0.9058824</td>
+<td align="right">0.2317129</td>
+<td align="right">0.9530818</td>
+<td align="right">462</td>
+</tr>
+<tr class="even">
+<td align="left">[16]</td>
+<td align="left">{Sex=Male, Survived=Yes}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Age=Adult}</td>
+<td align="right">0.1535666</td>
+<td align="right">0.9209809</td>
+<td align="right">0.1667424</td>
+<td align="right">0.9689670</td>
+<td align="right">338</td>
+</tr>
+<tr class="odd">
+<td align="left">[17]</td>
+<td align="left">{Class=Crew, Survived=No}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Sex=Male}</td>
+<td align="right">0.3044071</td>
+<td align="right">0.9955423</td>
+<td align="right">0.3057701</td>
+<td align="right">1.2658514</td>
+<td align="right">670</td>
+</tr>
+<tr class="even">
+<td align="left">[18]</td>
+<td align="left">{Class=Crew, Survived=No}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Age=Adult}</td>
+<td align="right">0.3057701</td>
+<td align="right">1.0000000</td>
+<td align="right">0.3057701</td>
+<td align="right">1.0521033</td>
+<td align="right">673</td>
+</tr>
+<tr class="odd">
+<td align="left">[19]</td>
+<td align="left">{Class=Crew, Sex=Male}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Age=Adult}</td>
+<td align="right">0.3916402</td>
+<td align="right">1.0000000</td>
+<td align="right">0.3916402</td>
+<td align="right">1.0521033</td>
+<td align="right">862</td>
+</tr>
+<tr class="even">
+<td align="left">[20]</td>
+<td align="left">{Class=Crew, Age=Adult}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Sex=Male}</td>
+<td align="right">0.3916402</td>
+<td align="right">0.9740113</td>
+<td align="right">0.4020900</td>
+<td align="right">1.2384742</td>
+<td align="right">862</td>
+</tr>
+<tr class="odd">
+<td align="left">[21]</td>
+<td align="left">{Sex=Male, Survived=No}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Age=Adult}</td>
+<td align="right">0.6038164</td>
+<td align="right">0.9743402</td>
+<td align="right">0.6197183</td>
+<td align="right">1.0251065</td>
+<td align="right">1329</td>
+</tr>
+<tr class="even">
+<td align="left">[22]</td>
+<td align="left">{Age=Adult, Survived=No}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Sex=Male}</td>
+<td align="right">0.6038164</td>
+<td align="right">0.9242003</td>
+<td align="right">0.6533394</td>
+<td align="right">1.1751385</td>
+<td align="right">1329</td>
+</tr>
+<tr class="odd">
+<td align="left">[23]</td>
+<td align="left">{Class=3rd, Sex=Male, Survived=No}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Age=Adult}</td>
+<td align="right">0.1758292</td>
+<td align="right">0.9170616</td>
+<td align="right">0.1917310</td>
+<td align="right">0.9648435</td>
+<td align="right">387</td>
+</tr>
+<tr class="even">
+<td align="left">[24]</td>
+<td align="left">{Class=3rd, Age=Adult, Survived=No}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Sex=Male}</td>
+<td align="right">0.1758292</td>
+<td align="right">0.8130252</td>
+<td align="right">0.2162653</td>
+<td align="right">1.0337773</td>
+<td align="right">387</td>
+</tr>
+<tr class="odd">
+<td align="left">[25]</td>
+<td align="left">{Class=3rd, Sex=Male, Age=Adult}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Survived=No}</td>
+<td align="right">0.1758292</td>
+<td align="right">0.8376623</td>
+<td align="right">0.2099046</td>
+<td align="right">1.2373791</td>
+<td align="right">387</td>
+</tr>
+<tr class="even">
+<td align="left">[26]</td>
+<td align="left">{Class=Crew, Sex=Male, Survived=No}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Age=Adult}</td>
+<td align="right">0.3044071</td>
+<td align="right">1.0000000</td>
+<td align="right">0.3044071</td>
+<td align="right">1.0521033</td>
+<td align="right">670</td>
+</tr>
+<tr class="odd">
+<td align="left">[27]</td>
+<td align="left">{Class=Crew, Age=Adult, Survived=No}</td>
+<td align="left">=&gt;</td>
+<td align="left">{Sex=Male}</td>
+<td align="right">0.3044071</td>
+<td align="right">0.9955423</td>
+<td align="right">0.3057701</td>
+<td align="right">1.2658514</td>
+<td align="right">670</td>
+</tr>
+</tbody>
+</table>
+<p>Для знаходження паттернів для тих, хто вижив і не вижив в аварії Титаніка встановимо відповідну умову для фільтрації виходів моделі, залишивши за замовчанням умови фільтрації лівих частин асоціативних правил. При цьому нас цікавлять правила з довжиною не менше двох в умові правила.</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb200-1" aria-hidden="true" tabindex="-1"></a>rules.surv <span class="ot">&lt;-</span> titanic.raw <span class="sc">%&gt;%</span></span>
+<span id="cb200-2"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb200-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">apriori</span>( <span class="at">control =</span> <span class="fu">list</span>(<span class="at">verbose=</span>F),</span>
+<span id="cb200-3"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb200-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">parameter =</span> <span class="fu">list</span>(<span class="at">minlen=</span><span class="dv">2</span>, <span class="at">supp=</span><span class="fl">0.005</span>, <span class="at">conf=</span><span class="fl">0.8</span>),</span>
+<span id="cb200-4"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb200-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">appearance =</span> <span class="fu">list</span>(<span class="at">rhs=</span><span class="fu">c</span>(<span class="st">&quot;Survived=No&quot;</span>, <span class="st">&quot;Survived=Yes&quot;</span>),</span>
+<span id="cb200-5"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb200-5" aria-hidden="true" tabindex="-1"></a>                             <span class="at">default=</span><span class="st">&quot;lhs&quot;</span>)) </span></code></pre></div>
+<pre><code>## Warning: Column(s) 1, 2, 3, 4 not logical or factor. Applying default
+## discretization (see &#39;? discretizeDF&#39;).</code></pre>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb202-1" aria-hidden="true" tabindex="-1"></a><span class="do">## keep three decimal places</span></span>
+<span id="cb202-2"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb202-2" aria-hidden="true" tabindex="-1"></a><span class="fu">quality</span>(rules.surv) <span class="ot">&lt;-</span> rules.surv <span class="sc">%&gt;%</span> </span>
+<span id="cb202-3"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb202-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">quality</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb202-4"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb202-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="at">digits=</span><span class="dv">3</span>)</span>
+<span id="cb202-5"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb202-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb202-6"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb202-6" aria-hidden="true" tabindex="-1"></a><span class="do">## sort rules by lift</span></span>
+<span id="cb202-7"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb202-7" aria-hidden="true" tabindex="-1"></a>rules.surv.sorted <span class="ot">&lt;-</span> rules.surv <span class="sc">%&gt;%</span></span>
+<span id="cb202-8"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb202-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sort</span>(<span class="at">by=</span><span class="st">&quot;lift&quot;</span>)</span>
+<span id="cb202-9"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb202-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb202-10"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb202-10" aria-hidden="true" tabindex="-1"></a>rules.surv.sorted <span class="sc">%&gt;%</span></span>
+<span id="cb202-11"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb202-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inspect</span>() <span class="do">## print rules </span></span></code></pre></div>
+<pre><code>##      lhs                                    rhs            support confidence
+## [1]  {Class=2nd, Age=Child}              =&gt; {Survived=Yes} 0.011   1.000     
+## [2]  {Class=2nd, Sex=Female, Age=Child}  =&gt; {Survived=Yes} 0.006   1.000     
+## [3]  {Class=1st, Sex=Female}             =&gt; {Survived=Yes} 0.064   0.972     
+## [4]  {Class=1st, Sex=Female, Age=Adult}  =&gt; {Survived=Yes} 0.064   0.972     
+## [5]  {Class=2nd, Sex=Female}             =&gt; {Survived=Yes} 0.042   0.877     
+## [6]  {Class=Crew, Sex=Female}            =&gt; {Survived=Yes} 0.009   0.870     
+## [7]  {Class=Crew, Sex=Female, Age=Adult} =&gt; {Survived=Yes} 0.009   0.870     
+## [8]  {Class=2nd, Sex=Female, Age=Adult}  =&gt; {Survived=Yes} 0.036   0.860     
+## [9]  {Class=2nd, Sex=Male, Age=Adult}    =&gt; {Survived=No}  0.070   0.917     
+## [10] {Class=2nd, Sex=Male}               =&gt; {Survived=No}  0.070   0.860     
+## [11] {Class=3rd, Sex=Male, Age=Adult}    =&gt; {Survived=No}  0.176   0.838     
+## [12] {Class=3rd, Sex=Male}               =&gt; {Survived=No}  0.192   0.827     
+##      coverage lift  count
+## [1]  0.011    3.096  24  
+## [2]  0.006    3.096  13  
+## [3]  0.066    3.010 141  
+## [4]  0.065    3.010 140  
+## [5]  0.048    2.716  93  
+## [6]  0.010    2.692  20  
+## [7]  0.010    2.692  20  
+## [8]  0.042    2.663  80  
+## [9]  0.076    1.354 154  
+## [10] 0.081    1.271 154  
+## [11] 0.210    1.237 387  
+## [12] 0.232    1.222 422</code></pre>
+<p>З метою відсікання зайвих занадто очевидних правил виконаємо процедуру відсікання.</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb204-1" aria-hidden="true" tabindex="-1"></a>subset.matrix <span class="ot">&lt;-</span> <span class="fu">is.subset</span>(rules.surv.sorted, rules.surv.sorted)</span>
+<span id="cb204-2"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb204-2" aria-hidden="true" tabindex="-1"></a>subset.matrix[<span class="fu">lower.tri</span>(subset.matrix, <span class="at">diag =</span> T)] <span class="ot">&lt;-</span> F</span>
+<span id="cb204-3"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb204-3" aria-hidden="true" tabindex="-1"></a>redundant <span class="ot">&lt;-</span> <span class="fu">colSums</span>(subset.matrix) <span class="sc">&gt;=</span> <span class="dv">1</span></span>
+<span id="cb204-4"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb204-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb204-5"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb204-5" aria-hidden="true" tabindex="-1"></a><span class="do">## which rules are redundant</span></span>
+<span id="cb204-6"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb204-6" aria-hidden="true" tabindex="-1"></a>redundant <span class="sc">%&gt;%</span> <span class="fu">which</span>()</span></code></pre></div>
+<pre><code>##  {Class=2nd,Sex=Female,Age=Child,Survived=Yes} 
+##                                              2 
+##  {Class=1st,Sex=Female,Age=Adult,Survived=Yes} 
+##                                              4 
+## {Class=Crew,Sex=Female,Age=Adult,Survived=Yes} 
+##                                              7 
+##  {Class=2nd,Sex=Female,Age=Adult,Survived=Yes} 
+##                                              8</code></pre>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb206-1" aria-hidden="true" tabindex="-1"></a><span class="do">## remove redundant rules</span></span>
+<span id="cb206-2"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb206-2" aria-hidden="true" tabindex="-1"></a>rules.surv.pruned <span class="ot">&lt;-</span> rules.surv.sorted[<span class="sc">!</span>redundant]</span>
+<span id="cb206-3"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb206-3" aria-hidden="true" tabindex="-1"></a>rules.surv.pruned <span class="sc">%&gt;%</span> </span>
+<span id="cb206-4"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#cb206-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inspect</span>() <span class="do">## print rules </span></span></code></pre></div>
+<pre><code>##     lhs                                 rhs            support confidence
+## [1] {Class=2nd, Age=Child}           =&gt; {Survived=Yes} 0.011   1.000     
+## [2] {Class=1st, Sex=Female}          =&gt; {Survived=Yes} 0.064   0.972     
+## [3] {Class=2nd, Sex=Female}          =&gt; {Survived=Yes} 0.042   0.877     
+## [4] {Class=Crew, Sex=Female}         =&gt; {Survived=Yes} 0.009   0.870     
+## [5] {Class=2nd, Sex=Male, Age=Adult} =&gt; {Survived=No}  0.070   0.917     
+## [6] {Class=2nd, Sex=Male}            =&gt; {Survived=No}  0.070   0.860     
+## [7] {Class=3rd, Sex=Male, Age=Adult} =&gt; {Survived=No}  0.176   0.838     
+## [8] {Class=3rd, Sex=Male}            =&gt; {Survived=No}  0.192   0.827     
+##     coverage lift  count
+## [1] 0.011    3.096  24  
+## [2] 0.066    3.010 141  
+## [3] 0.048    2.716  93  
+## [4] 0.010    2.692  20  
+## [5] 0.076    1.354 154  
+## [6] 0.081    1.271 154  
+## [7] 0.210    1.237 387  
+## [8] 0.232    1.222 422</code></pre>
+<p><strong>Завдання на самостійну роботу</strong></p>
+<ol style="list-style-type: decimal">
+<li>Переписати процедуру трансформації початкового набору даних засобами пакет <code>tidy</code>.</li>
+<li>Проаналізувати знайдені асоціативні правила.</li>
+</ol>
+<p>ДАЛІ БУДЕ.</p>
+<div id="індивідуальні-завдання-на-лабораторну-роботу-6" class="section level3 hasAnchor" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> Індивідуальні завдання на лабораторну роботу<a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#індивідуальні-завдання-на-лабораторну-роботу-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Видає викладач.</p>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Barsegjan" class="csl-entry">
+Barsegjan, Kuprijanov, A. 2007. <em>Data Analysis and Process</em>. bhv. <a href="http://kist.ntu.edu.ua/textPhD/AnalizDannyhIProcessov.pdf">http://kist.ntu.edu.ua/textPhD/AnalizDannyhIProcessov.pdf</a>.
+</div>
+<div id="ref-R-arulesViz" class="csl-entry">
+———. 2021. <em>arulesViz: Visualizing Association Rules and Frequent Itemsets</em>. <a href="https://github.com/mhahsler/arulesViz">https://github.com/mhahsler/arulesViz</a>.
+</div>
+<div id="ref-R-arules" class="csl-entry">
+Hahsler, Michael, Christian Buchta, Bettina Gruen, and Kurt Hornik. 2022. <em>Arules: Mining Association Rules and Frequent Itemsets</em>. <a href="https://github.com/mhahsler/arules">https://github.com/mhahsler/arules</a>.
+</div>
+<div id="ref-arulsPackageVignet" class="csl-entry">
+Hahsler, Michael, Bettina Gruen, and Kurt Hornik. 2005. <span>“Arules – <span>A</span> Computational Environment for Mining Association Rules and Frequent Item Sets.”</span> <em>Journal of Statistical Software</em> 14 (15): 1–25. <a href="https://doi.org/10.18637/jss.v014.i15">https://doi.org/10.18637/jss.v014.i15</a>.
+</div>
+<div id="ref-CRISP_DM" class="csl-entry">
+wikipedia. 2018a. <span>“Cross-Industry Standard Process for Data Mining.”</span> Article. <a href="https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining">https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="lab_6.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lab_8.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/07-lab7.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

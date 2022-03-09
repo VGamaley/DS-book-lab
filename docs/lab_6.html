@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Розділ 7 Лабораторна робота №6. Побудова моделей класифікації | Data Science на R. Лабораторний практикум (draft version)</title>
+  <meta name="description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Розділ 7 Лабораторна робота №6. Побудова моделей класифікації | Data Science на R. Лабораторний практикум (draft version)" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  <meta name="github-repo" content="VGamaley/DS-book-lab" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Розділ 7 Лабораторна робота №6. Побудова моделей класифікації | Data Science на R. Лабораторний практикум (draft version)" />
+  
+  <meta name="twitter:description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  
+
+<meta name="author" content="© Сидоренко В. М." />
+
+
+<meta name="date" content="2022-03-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="lab_5.html"/>
+<link rel="next" href="лабораторна-робота-7.-пошук-асоціативних-правил.html"/>
+<script src="libs/header-attrs-2.12/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Вступ<span></span></a></li>
+<li class="chapter" data-level="2" data-path="modul1.html"><a href="modul1.html"><i class="fa fa-check"></i><b>2</b> Модуль 1. Базовий. Лабораторна робота №1. Створення основи типового Data Science-проєкту<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="modul1.html"><a href="modul1.html#що-ви-будете-вміти"><i class="fa fa-check"></i><b>2.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="modul1.html"><a href="modul1.html#короткі-теоретичні-відомості"><i class="fa fa-check"></i><b>2.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="modul1.html"><a href="modul1.html#що-таке-data-science-проект"><i class="fa fa-check"></i><b>2.2.1</b> Що таке Data Science-проект?<span></span></a></li>
+<li class="chapter" data-level="2.2.2" data-path="modul1.html"><a href="modul1.html#концепція-грамотного-програмування"><i class="fa fa-check"></i><b>2.2.2</b> Концепція грамотного програмування<span></span></a></li>
+<li class="chapter" data-level="2.2.3" data-path="modul1.html"><a href="modul1.html#markdown-і-rmarkdown"><i class="fa fa-check"></i><b>2.2.3</b> Markdown і RMarkdown<span></span></a></li>
+<li class="chapter" data-level="2.2.4" data-path="modul1.html"><a href="modul1.html#інсталяція-r"><i class="fa fa-check"></i><b>2.2.4</b> Інсталяція R<span></span></a></li>
+<li class="chapter" data-level="2.2.5" data-path="modul1.html"><a href="modul1.html#інсталяція-rstudio"><i class="fa fa-check"></i><b>2.2.5</b> Інсталяція RStudio<span></span></a></li>
+<li class="chapter" data-level="2.2.6" data-path="modul1.html"><a href="modul1.html#CreateRMarkdown"><i class="fa fa-check"></i><b>2.2.6</b> Створення RMarkdown-документу<span></span></a></li>
+<li class="chapter" data-level="2.2.7" data-path="modul1.html"><a href="modul1.html#генерація-електронного-документу"><i class="fa fa-check"></i><b>2.2.7</b> Генерація електронного документу<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="modul1.html"><a href="modul1.html#приклад-створення-markdown-документу"><i class="fa fa-check"></i><b>2.3</b> Приклад створення Markdown-документу<span></span></a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="modul1.html"><a href="modul1.html#постановка-задачі"><i class="fa fa-check"></i><b>2.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="2.3.2" data-path="modul1.html"><a href="modul1.html#виконання-завдання"><i class="fa fa-check"></i><b>2.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="2.3.3" data-path="modul1.html"><a href="modul1.html#індивідуальні-завдання-на-лабораторну-роботу"><i class="fa fa-check"></i><b>2.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+<li class="chapter" data-level="2.3.4" data-path="modul1.html"><a href="modul1.html#домашнє-завдання"><i class="fa fa-check"></i><b>2.3.4</b> Домашнє завдання<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="lab_2.html"><a href="lab_2.html"><i class="fa fa-check"></i><b>3</b> Лабораторна робота №2. Маніпулювання даними<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="lab_2.html"><a href="lab_2.html#що-ви-будете-вміти-1"><i class="fa fa-check"></i><b>3.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="lab_2.html"><a href="lab_2.html#короткі-теоретичні-відомості-1"><i class="fa fa-check"></i><b>3.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="lab_2.html"><a href="lab_2.html#що-таке-маніпулювання-данними"><i class="fa fa-check"></i><b>3.2.1</b> Що таке маніпулювання данними?<span></span></a></li>
+<li class="chapter" data-level="3.2.2" data-path="lab_2.html"><a href="lab_2.html#імпорт-даних"><i class="fa fa-check"></i><b>3.2.2</b> Імпорт даних<span></span></a></li>
+<li class="chapter" data-level="3.2.3" data-path="lab_2.html"><a href="lab_2.html#приведення-даних-до-охайного-вигляду"><i class="fa fa-check"></i><b>3.2.3</b> Приведення даних до охайного вигляду<span></span></a></li>
+<li class="chapter" data-level="3.2.4" data-path="lab_2.html"><a href="lab_2.html#трансформація"><i class="fa fa-check"></i><b>3.2.4</b> Трансформація<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="lab_2.html"><a href="lab_2.html#приклад-виконання-індівідуального-завдання"><i class="fa fa-check"></i><b>3.3</b> Приклад виконання індівідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="lab_2.html"><a href="lab_2.html#постановка-задачі-1"><i class="fa fa-check"></i><b>3.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="3.3.2" data-path="lab_2.html"><a href="lab_2.html#виконання-завдання-1"><i class="fa fa-check"></i><b>3.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="3.3.3" data-path="lab_2.html"><a href="lab_2.html#індивідуальні-завдання-на-лабораторну-роботу-1"><i class="fa fa-check"></i><b>3.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="lab_3.html"><a href="lab_3.html"><i class="fa fa-check"></i><b>4</b> Лабораторна робота №3. Розвідувальний аналіз даних. Візуалізація<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="lab_3.html"><a href="lab_3.html#що-ви-будете-вміти-2"><i class="fa fa-check"></i><b>4.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="lab_3.html"><a href="lab_3.html#короткі-теоретичні-відомості-2"><i class="fa fa-check"></i><b>4.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="lab_3.html"><a href="lab_3.html#що-таке-розвідувальний-аналіз-даних"><i class="fa fa-check"></i><b>4.2.1</b> Що таке розвідувальний аналіз даних?<span></span></a></li>
+<li class="chapter" data-level="4.2.2" data-path="lab_3.html"><a href="lab_3.html#питання"><i class="fa fa-check"></i><b>4.2.2</b> Питання<span></span></a></li>
+<li class="chapter" data-level="4.2.3" data-path="lab_3.html"><a href="lab_3.html#зниження-розмірності-даних"><i class="fa fa-check"></i><b>4.2.3</b> Зниження розмірності даних<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="lab_3.html"><a href="lab_3.html#приклад-виконання-індивідуального-завдання"><i class="fa fa-check"></i><b>4.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="lab_3.html"><a href="lab_3.html#постановка-задачі-2"><i class="fa fa-check"></i><b>4.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="lab_3.html"><a href="lab_3.html#виконання-завдання-2"><i class="fa fa-check"></i><b>4.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="4.3.3" data-path="lab_3.html"><a href="lab_3.html#індивідуальні-завдання-на-лабораторну-роботу-2"><i class="fa fa-check"></i><b>4.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><i class="fa fa-check"></i><b>5</b> Модуль 2. Моделювання. Лабораторна робота №4. Розгортання моделі<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html#що-ви-будете-вміти-3"><i class="fa fa-check"></i><b>5.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html#короткі-теоретичні-відомості-3"><i class="fa fa-check"></i><b>5.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html#індивідуальні-завдання-на-лабораторну-роботу-3"><i class="fa fa-check"></i><b>5.2.1</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="lab_5.html"><a href="lab_5.html"><i class="fa fa-check"></i><b>6</b> Модуль 2. Моделювання. Лабораторна робота №5. Побудова регресійних моделей<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="lab_5.html"><a href="lab_5.html#що-ви-будете-вміти-4"><i class="fa fa-check"></i><b>6.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="6.2" data-path="lab_5.html"><a href="lab_5.html#короткі-теоретичні-відомості-4"><i class="fa fa-check"></i><b>6.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="lab_5.html"><a href="lab_5.html#що-таке-регресія-і-регресійний-аналіз"><i class="fa fa-check"></i><b>6.2.1</b> Що таке регресія і регресійний аналіз?<span></span></a></li>
+<li class="chapter" data-level="6.2.2" data-path="lab_5.html"><a href="lab_5.html#формальна-постановка-задачі-регресії"><i class="fa fa-check"></i><b>6.2.2</b> Формальна постановка задачі регресії<span></span></a></li>
+<li class="chapter" data-level="6.2.3" data-path="lab_5.html"><a href="lab_5.html#статистичний-підхід"><i class="fa fa-check"></i><b>6.2.3</b> Статистичний підхід<span></span></a></li>
+<li class="chapter" data-level="6.2.4" data-path="lab_5.html"><a href="lab_5.html#підхід-на-основі-машинного-навчання"><i class="fa fa-check"></i><b>6.2.4</b> Підхід на основі машинного навчання<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="lab_5.html"><a href="lab_5.html#ind"><i class="fa fa-check"></i><b>6.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="lab_5.html"><a href="lab_5.html#розуміння-даних"><i class="fa fa-check"></i><b>6.3.1</b> Розуміння даних<span></span></a></li>
+<li class="chapter" data-level="6.3.2" data-path="lab_5.html"><a href="lab_5.html#підготовка-даних"><i class="fa fa-check"></i><b>6.3.2</b> Підготовка даних<span></span></a></li>
+<li class="chapter" data-level="6.3.3" data-path="lab_5.html"><a href="lab_5.html#rf"><i class="fa fa-check"></i><b>6.3.3</b> Моделювання<span></span></a></li>
+<li class="chapter" data-level="6.3.4" data-path="lab_5.html"><a href="lab_5.html#індивідуальні-завдання-на-лабораторну-роботу-4"><i class="fa fa-check"></i><b>6.3.4</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="lab_6.html"><a href="lab_6.html"><i class="fa fa-check"></i><b>7</b> Лабораторна робота №6. Побудова моделей класифікації<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="lab_6.html"><a href="lab_6.html#що-ви-будете-вміти-5"><i class="fa fa-check"></i><b>7.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="7.2" data-path="lab_6.html"><a href="lab_6.html#короткі-теоретичні-відомості-5"><i class="fa fa-check"></i><b>7.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="lab_6.html"><a href="lab_6.html#у-чому-полягає-задача-класифікації"><i class="fa fa-check"></i><b>7.2.1</b> У чому полягає задача класифікації?<span></span></a></li>
+<li class="chapter" data-level="7.2.2" data-path="lab_6.html"><a href="lab_6.html#формальна-постановка-задачі-класифікації"><i class="fa fa-check"></i><b>7.2.2</b> Формальна постановка задачі класифікації<span></span></a></li>
+<li class="chapter" data-level="7.2.3" data-path="lab_6.html"><a href="lab_6.html#пакет-caret"><i class="fa fa-check"></i><b>7.2.3</b> Пакет <code>caret</code><span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="lab_6.html"><a href="lab_6.html#приклад-виконання-індивідуального-завдання-1"><i class="fa fa-check"></i><b>7.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="lab_6.html"><a href="lab_6.html#навчання-моделі"><i class="fa fa-check"></i><b>7.3.1</b> Навчання моделі<span></span></a></li>
+<li class="chapter" data-level="7.3.2" data-path="lab_6.html"><a href="lab_6.html#експорт-моделі-до-бд"><i class="fa fa-check"></i><b>7.3.2</b> Експорт моделі до БД<span></span></a></li>
+<li class="chapter" data-level="7.3.3" data-path="lab_6.html"><a href="lab_6.html#імпорт-моделі-і-работа-з-нею"><i class="fa fa-check"></i><b>7.3.3</b> Імпорт моделі і работа з нею<span></span></a></li>
+<li class="chapter" data-level="7.3.4" data-path="lab_6.html"><a href="lab_6.html#індивідуальні-завдання-на-лабораторну-роботу-5"><i class="fa fa-check"></i><b>7.3.4</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html"><i class="fa fa-check"></i><b>8</b> Лабораторна робота №7. Пошук асоціативних правил<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#що-ви-будете-вміти-6"><i class="fa fa-check"></i><b>8.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="8.2" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#короткі-теоретичні-відомості-6"><i class="fa fa-check"></i><b>8.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#у-чому-полягає-задача-пошуку-асоціативних-правил"><i class="fa fa-check"></i><b>8.2.1</b> У чому полягає задача пошуку асоціативних правил?<span></span></a></li>
+<li class="chapter" data-level="8.2.2" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#формальна-постановка-задачі-класифікації-1"><i class="fa fa-check"></i><b>8.2.2</b> Формальна постановка задачі класифікації<span></span></a></li>
+<li class="chapter" data-level="8.2.3" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#основні-міри-цікавості-асоціативних-правил"><i class="fa fa-check"></i><b>8.2.3</b> Основні міри “цікавості” асоціативних правил<span></span></a></li>
+<li class="chapter" data-level="8.2.4" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#пакети-arules-та-arulesviz"><i class="fa fa-check"></i><b>8.2.4</b> Пакети <code>arules</code> та <code>arulesViz</code><span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="lab_5.html"><a href="lab_5.html#ind"><i class="fa fa-check"></i><b>8.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#індивідуальні-завдання-на-лабораторну-роботу-6"><i class="fa fa-check"></i><b>8.3.1</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="lab_8.html"><a href="lab_8.html"><i class="fa fa-check"></i><b>9</b> Лабораторна робота № 8. Побудова ARIMA-моделі часового ряду і прогнозування на її основі (short version)<span></span></a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="lab_8.html"><a href="lab_8.html#що-ви-будете-вміти-7"><i class="fa fa-check"></i><b>9.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="9.2" data-path="lab_8.html"><a href="lab_8.html#ts-обєкт"><i class="fa fa-check"></i><b>9.2</b> ts-об’єкт<span></span></a></li>
+<li class="chapter" data-level="9.3" data-path="lab_8.html"><a href="lab_8.html#візуалізація-чр"><i class="fa fa-check"></i><b>9.3</b> Візуалізація ЧР<span></span></a></li>
+<li class="chapter" data-level="9.4" data-path="lab_8.html"><a href="lab_8.html#стаціонарність-і-диференціювання"><i class="fa fa-check"></i><b>9.4</b> Стаціонарність і диференціювання<span></span></a></li>
+<li class="chapter" data-level="9.5" data-path="lab_8.html"><a href="lab_8.html#example"><i class="fa fa-check"></i><b>9.5</b> Приклад побудови не сезонної ARIMA-моделі<span></span></a></li>
+<li class="chapter" data-level="9.6" data-path="lab_8.html"><a href="lab_8.html#завдання-на-лабораторну-роботу"><i class="fa fa-check"></i><b>9.6</b> Завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science на R. Лабораторний практикум (draft version)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="lab_6" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Розділ 7</span> Лабораторна робота №6. Побудова моделей класифікації<a href="lab_6.html#lab_6" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Мета:</strong> <em>Засвоєння базових принципів, знайомство з інструментами та набуття навичок побудови, eкспорту та імпорту моделей класифікації</em> <strong>на рівні технології</strong> на основі статистичного підходу та моделей машинного навчання засобами мови програмування R та за допомогою універсального інтерфейсу доступа до функцій машинного навчання пакета <code>caret</code>.</p>
+<div id="що-ви-будете-вміти-5" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Що ви будете вміти?<a href="lab_6.html#що-ви-будете-вміти-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>будувати моделі класифікації на основі статистичних моделей та моделей машинного навчання засобами мови R і пакету <code>caret</code> у середовищі IDE RStudio.</p></li>
+<li><p>виконувати експорт/імпорт навчених моделей до/з бази даних.</p></li>
+</ul>
+</div>
+<div id="короткі-теоретичні-відомості-5" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Короткі теоретичні відомості<a href="lab_6.html#короткі-теоретичні-відомості-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>У рамках життєвого циклу процесу Data Mining згідно з методологією CRISP DM <span class="citation">(<a href="#ref-CRISP_DM" role="doc-biblioref">wikipedia 2018a</a>)</span>, наступною за фазою “Підготовка даних” (<strong>Data Preparing</strong>) є фаза “Моделювання” (<strong>Modelling</strong>) (рис. 1).</p>
+<p>Фаза моделювання призначена для вибору оптимального методу побудови моделей і настроювання його параметрів для отримання оптимальних рішень. На даній фазі вирішуються наступні задачі:</p>
+<ul>
+<li>вибір методу моделювання;<br />
+</li>
+<li>генерація тестового проекту;<br />
+</li>
+<li>створення моделей;<br />
+</li>
+<li>оцінка моделей.</li>
+</ul>
+<p>Згідно з класичним розумінням технологія Data Mining передбачає побудову моделей, які можна віднести до одного з п’яти основних класів: <em>кластеризація (сегментація) та аналіз відхилень, регресія, класифікація, пошук асоціативних правил та аналіз послідовних шаблонів</em>.</p>
+<div class="figure">
+<img src="image/data-science-model.png" alt="" />
+<p class="caption"><em>Рис. 1. Задача моделювання у складі Data Science-проекту</em> <span class="citation">(<a href="#ref-r4ds" role="doc-biblioref">Garrett Grolemund 2018</a>)</span></p>
+</div>
+<p>Задача сегментації та аналізу відхилень розглядалася нами як складова розвідувального аналізу даних <a href="lab_3.html#lab_3">лаб. роб. №3</a> у рамках базового модулю.</p>
+<p>У рамках даного модулю буде розглянуто решту моделей. Дана лабораторна робота присвячена побудові моделей класифікації, що має багато спільного з побудовою моделей регресії (див. попередню <a href="lab_5.html#lab_5">лаб. бар. №5</a>.</p>
+<div id="у-чому-полягає-задача-класифікації" class="section level3 hasAnchor" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> У чому полягає задача класифікації?<a href="lab_6.html#у-чому-полягає-задача-класифікації" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Регресія і класифікація</strong></p>
+<p>Між задачею класифікації і регресії існує багато спільного і в самому загальному вигляді їх можна розглядати як одну. Вона може бути сформульована наступим чином: припустимо, що об’єкт, який нас цікавить, описується вектором <span class="math inline">\(n\)</span> незалежних змінних <span class="math inline">\(X_1, X_2, \dots, X_n\)</span>, які називаються предикторами. Існує деяка величина <span class="math inline">\(Y\)</span>, яка також характеризує досліджуваний об’єкт, але залежить від <span class="math inline">\(X_1, X_2, \dots, X_n\)</span>. Ми маємо колекцію наборів спостережень незалежних змінних у вигляді матриці <span class="math inline">\(X\)</span> та залежної змінної у вигляді вектора відгуків <span class="math inline">\(Y\)</span>:</p>
+<p><span class="math display">\[X=\begin{bmatrix}
+x_{11} &amp; x_{12} &amp; \cdots &amp; x_{1,n} \\
+x_{21} &amp; x_{22} &amp; \cdots &amp; x_{2,n} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \cdots \\
+x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{n,n} \\
+\end{bmatrix},\]</span><br />
+та
+<span class="math display">\[Y=\begin{bmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{bmatrix}.\]</span></p>
+<p>На основі інформації, яку несуть в собі наявні значення <span class="math inline">\(X\)</span> та <span class="math inline">\(Y\)</span> необхідно побудувати модель, яка буде передбачати значення відгуку <span class="math inline">\(y^*\)</span> для будь-якого заданого набору незалежних змінних <span class="math inline">\(x^*_1, x^*_2, \dots, x^*_n\)</span><br />
+Відмінність полягає у наступному (рис. 1): якщо значення відгуку носять дискретний характер, говорять про задачу <em>класифікації</em>, якщо неперервний – має місце задача <em>регресії</em>.</p>
+<div class="figure">
+<img src="image/regression_classification.png" alt="" />
+<p class="caption">Рис. 1. Ілюстрація задач класифікації і регресії <span class="citation">(<a href="#ref-Paklin" role="doc-biblioref">Viacheslav Oreshkov 2012</a>)</span></p>
+</div>
+<p>Таким чином логічно припустити, що і з точки зору математичного апарату і алгоритмів, що його реалізують при розв’язанні задач регресії і класифікації, має бути багато спільного, але, звичайно, мають бути і відмінності.</p>
+<p>У цій лабораторні роботі розглядаються методи і засоби побудови моделей регресії.</p>
+</div>
+<div id="формальна-постановка-задачі-класифікації" class="section level3 hasAnchor" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Формальна постановка задачі класифікації<a href="lab_6.html#формальна-постановка-задачі-класифікації" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Сформулюємо задачу у <a href="https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%B4%D0%B0%D1%87%D0%B0_%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8#%D0%9C%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F_%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0_%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8">ймовірністній постановці</a>. Припускається, що множина пар “об’єкт – клас” <span class="math inline">\(X \times Y\)</span> є ймовірнісним простором з невідомою ймовірнісною мірою <span class="math inline">\(\mathrm{P}\)</span>. Є скінченна навчальна вибірка спостережень <span class="math inline">\(X^m = \big\{ (x_1, y_1), (x_2, y_2), ..., (x_m, y_m) \big\}\)</span>, згенерована згідно з ймовірнісною мірою <span class="math inline">\(\mathrm{P}\)</span>. Потрібно побудувати алгоритм <span class="math inline">\(a\)</span>: <span class="math inline">\(X \rightarrow Y\)</span>, здатний класифікувати довільний об’єкт <span class="math inline">\(x \in X\)</span>.</p>
+<p>Як і в регресійному аналізі при побудові моделей класифікації використовуються як <em>статистичні</em> підходи (<em>лінійний дискримінантний аналіз, логістична регресія</em>), так і підходи на основі машинного навчання (<em>дерева рішень, ліси дерев, нейронні мережі</em>).</p>
+<p>Як уже зазначалося, у роботі <span class="citation">(<a href="#ref-Fernandes" role="doc-biblioref">Manuel Fernandez-Delgado 2014</a>)</span> автори дослідили широке коло існуючих моделей класифікації і зробили висновок стосовно чотирьох класів моделей, які мають найбільшу точність:</p>
+<ul>
+<li><strong>Випадковий ліс” (Random Forest)</strong>;<br />
+</li>
+<li><strong>Машини опорних векторів (Support Vector Machines)</strong>;<br />
+</li>
+<li><strong>Штучні нейронні мережі (Artificial Neural Networks)</strong>;<br />
+</li>
+<li><strong>Бустінгові ансамблі моделей (Boosting Ensembles)</strong>.</li>
+</ul>
+<p>Однак, питання побудови моделей класифікації, що можуть бути пояснені (<a href="https://en.wikipedia.org/wiki/Explainable_artificial_intelligence">Explainable artificial intelligence)</a>, актуальне, як і у регресійному аналізі.</p>
+<p>Нижче будемо розглядати популярний потужній засіб для побудови моделей коасифікації і регресії <code>caret</code> (див. документацію на <a href="https://cran.r-project.org/">CRAN</a>).</p>
+</div>
+<div id="пакет-caret" class="section level3 hasAnchor" number="7.2.3">
+<h3><span class="header-section-number">7.2.3</span> Пакет <code>caret</code><a href="lab_6.html#пакет-caret" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Часто на практиці аналітику складно вибрати конкретний алгоритм машинного навчання, скласти план оптимізації параметрів, врахувати синтаксичні нюанси кожної функції і відстежити особливості її виконання. Крім того, процедури, що дозволяють реалізувати повний цикл розробки побудови прогнозних моделей, часто містяться в різних пакетах, що потребує часу і зусиль для їх освоєння. З метою інтеграції різних функцій і методів в рамках єдиної надбудови з метою узагальнення характерних для всіх моделей процедур обчислень доктор М. Кун із співробітниками зробили спробу розробити універсальний інтерфейс, що надає доступ до основних алгоритмів машинного навчання, реалізованих на R та інших спеціалізованих статистичних системах (наприклад, <a href="https://en.wikipedia.org/wiki/Weka_(machine_learning)">Weka</a>). Розробники <code>caret</code> <span class="citation">(<a href="#ref-R-caret" role="doc-biblioref">Max Kuhn 2021</a>)</span> поставили перед собою наступні завдання <span class="citation">(<a href="#ref-Shit_Mast" role="doc-biblioref">Shitikov V. K. 2017</a>)</span>:</p>
+<ul>
+<li>урахування наявних синтаксичних відмінностей між використовуваними функціями R при побудові моделей класифікації та регресії і тестуванні їх можливостей для прогнозування;</li>
+<li>розвиток ряду напівавтоматичних, інтелектуальних підходів і критеріїв для оптимізації коефіцієнтів і параметрів багатьох з цих моделей, що мають бути налаштовані, з використанням алгоритмів ресемплінга;</li>
+<li>створення пакету з набором методів, який постійно розширюється;</li>
+<li>реалізація паралельних обчислень при підгонці моделей.</li>
+</ul>
+<p>Результатом цієї роботи став пакет <code>caret</code> (скорочення від Classification and Regression Training), який сьогодні став одним з найбільш популярних інструментів серед користувачів R, що займаються розробкою прогнозних моделей. Основні можливості пакету <code>caret</code> досить повно представлені в публікаціях розробників (<span class="citation">(<a href="#ref-Kuhn2008" role="doc-biblioref">M. Kuhn 2008</a>)</span>, <span class="citation">(<a href="#ref-Kuhn2003" role="doc-biblioref">M. Kuhn 2003</a>)</span>, <span class="citation">(<a href="#ref-Khun_book" role="doc-biblioref">Kuhn M. 2013</a>)</span>, <span class="citation">(<a href="#ref-Kuhn2013" role="doc-biblioref">M. Kuhn 2013</a>)</span>).</p>
+<p>З іншого боку, на практиці часто важливо вміти зберігати побудовані моделі в репозиторії і вилучати їх для подальшого використання безпосередньо в проектах. Для цього існують різні механізми, один з яких буде показано нижче.</p>
+<p>Таким чином, головна мета прикладу, який наведно нижче, зробити акцент на базових особливостях пакету <code>caret</code> при побудові моделі класифікації і показати механізм експорту/імпорту навченної моделі до реляційної бази даних з використанням механізму серилізації <span class="citation">(<a href="#ref-khramov" role="doc-biblioref">Khramov 2017</a>)</span>.</p>
+</div>
+</div>
+<div id="приклад-виконання-індивідуального-завдання-1" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Приклад виконання індивідуального завдання<a href="lab_6.html#приклад-виконання-індивідуального-завдання-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>(<em>Експрес-версія. Далі буде</em>)</p>
+<p><strong>Задача</strong>. Використовуючи стандартний набір даних <code>iris</code>:</p>
+<ul>
+<li>побудувати модель класифікації;</li>
+<li>зберегти навчену модель у БД;</li>
+<li>реалізувати імпорт навченої моделі з БД.</li>
+</ul>
+<div id="навчання-моделі" class="section level3 hasAnchor" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Навчання моделі<a href="lab_6.html#навчання-моделі" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="lab_6.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb173-2"><a href="lab_6.html#cb173-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-3"><a href="lab_6.html#cb173-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Завантажуємо дані</span></span>
+<span id="cb173-4"><a href="lab_6.html#cb173-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-5"><a href="lab_6.html#cb173-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> iris</span>
+<span id="cb173-6"><a href="lab_6.html#cb173-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-7"><a href="lab_6.html#cb173-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Розділяємо дані на навчальну та тестову вибірки.</span></span>
+<span id="cb173-8"><a href="lab_6.html#cb173-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-9"><a href="lab_6.html#cb173-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb173-10"><a href="lab_6.html#cb173-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-11"><a href="lab_6.html#cb173-11" aria-hidden="true" tabindex="-1"></a>trainIndex <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data), <span class="at">times =</span> <span class="dv">1</span>, <span class="at">p =</span> .<span class="dv">8</span>) <span class="co">#знаємо (1)</span></span>
+<span id="cb173-12"><a href="lab_6.html#cb173-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-13"><a href="lab_6.html#cb173-13" aria-hidden="true" tabindex="-1"></a>trainSet  <span class="ot">&lt;-</span> data[trainIndex<span class="sc">$</span>Resample1,]</span>
+<span id="cb173-14"><a href="lab_6.html#cb173-14" aria-hidden="true" tabindex="-1"></a>testSet   <span class="ot">&lt;-</span> data[<span class="sc">-</span>trainIndex<span class="sc">$</span>Resample1,]</span>
+<span id="cb173-15"><a href="lab_6.html#cb173-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-16"><a href="lab_6.html#cb173-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Керування навчанням</span></span>
+<span id="cb173-17"><a href="lab_6.html#cb173-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-18"><a href="lab_6.html#cb173-18" aria-hidden="true" tabindex="-1"></a>fitCtrl <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;repeatedcv&quot;</span>,  <span class="co"># Кросс-валідація</span></span>
+<span id="cb173-19"><a href="lab_6.html#cb173-19" aria-hidden="true" tabindex="-1"></a>                        <span class="at">number =</span> <span class="dv">10</span>,            <span class="co"># дані розбиваються на 10 частин</span></span>
+<span id="cb173-20"><a href="lab_6.html#cb173-20" aria-hidden="true" tabindex="-1"></a>                        <span class="at">repeats =</span> <span class="dv">5</span>             <span class="co"># число повторень</span></span>
+<span id="cb173-21"><a href="lab_6.html#cb173-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb173-22"><a href="lab_6.html#cb173-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-23"><a href="lab_6.html#cb173-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Навчання класиифікації за методом лінійного дискримінантного аналіза</span></span>
+<span id="cb173-24"><a href="lab_6.html#cb173-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-25"><a href="lab_6.html#cb173-25" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">train</span>(trainSet[,<span class="sc">-</span><span class="dv">5</span>],trainSet[,<span class="dv">5</span>],</span>
+<span id="cb173-26"><a href="lab_6.html#cb173-26" aria-hidden="true" tabindex="-1"></a>               <span class="at">method =</span> <span class="st">&#39;lda&#39;</span>,</span>
+<span id="cb173-27"><a href="lab_6.html#cb173-27" aria-hidden="true" tabindex="-1"></a>               <span class="at">trControl =</span> fitCtrl</span>
+<span id="cb173-28"><a href="lab_6.html#cb173-28" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb173-29"><a href="lab_6.html#cb173-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-30"><a href="lab_6.html#cb173-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Навчена модель, яку має бути збережено:</span></span>
+<span id="cb173-31"><a href="lab_6.html#cb173-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-32"><a href="lab_6.html#cb173-32" aria-hidden="true" tabindex="-1"></a><span class="co"># str(model)</span></span>
+<span id="cb173-33"><a href="lab_6.html#cb173-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-34"><a href="lab_6.html#cb173-34" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> model<span class="sc">$</span>finalModel</span>
+<span id="cb173-35"><a href="lab_6.html#cb173-35" aria-hidden="true" tabindex="-1"></a><span class="co"># str(fit)</span></span></code></pre></div>
+</div>
+<div id="експорт-моделі-до-бд" class="section level3 hasAnchor" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Експорт моделі до БД<a href="lab_6.html#експорт-моделі-до-бд" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Навчена модель – це об’єкт класу <code>list</code> (список), тому завдання полягає в тому, щоби зберегти цей список у БД “єдиним куском,” без декомпозиції його структури у відповідності до атрибутів таблиць БД. Для цього необхідно виконати його <a href="https://ru.wikipedia.org/wiki/%D0%A1%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F">серилізацію</a>.</p>
+<p>Серилізуємо модель за допомогою спеціального метода <code>serialize</code> і потім трансформуємо її у єдиний блок символів.</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="lab_6.html#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Трансформуємо модель у набір символів</span></span>
+<span id="cb174-2"><a href="lab_6.html#cb174-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb174-3"><a href="lab_6.html#cb174-3" aria-hidden="true" tabindex="-1"></a>fit_char <span class="ot">&lt;-</span> <span class="fu">rawToChar</span>(<span class="fu">serialize</span>(fit, <span class="cn">NULL</span>, <span class="cn">TRUE</span>))</span>
+<span id="cb174-4"><a href="lab_6.html#cb174-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nchar</span>(fit_char) <span class="co"># скільки там символів?</span></span></code></pre></div>
+<pre><code>## [1] 1830</code></pre>
+<p>Тепер в такому вигляді її може бути експортовано до БД. За допомогою БД <code>SQLite</code> це можа зробити наступним чином.</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="lab_6.html#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb176-2"><a href="lab_6.html#cb176-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-3"><a href="lab_6.html#cb176-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Створюємо базу даних.</span></span>
+<span id="cb176-4"><a href="lab_6.html#cb176-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-5"><a href="lab_6.html#cb176-5" aria-hidden="true" tabindex="-1"></a><span class="co"># db &lt;- dbConnect(RSQLite::SQLite(), dbname=&quot;models.sqlite&quot;)</span></span>
+<span id="cb176-6"><a href="lab_6.html#cb176-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-7"><a href="lab_6.html#cb176-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Видаляємо таблиці перед наступним тестовим запуском.</span></span>
+<span id="cb176-8"><a href="lab_6.html#cb176-8" aria-hidden="true" tabindex="-1"></a><span class="co"># dbGetQuery(db, &quot;DROP TABLE IF EXISTS models&quot;)</span></span>
+<span id="cb176-9"><a href="lab_6.html#cb176-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-10"><a href="lab_6.html#cb176-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Створюємо таблицю з атрибутами:</span></span>
+<span id="cb176-11"><a href="lab_6.html#cb176-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   &#39;id&#39;,</span></span>
+<span id="cb176-12"><a href="lab_6.html#cb176-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   &#39;model&#39; - собственно модель, сохраняемая как &#39;VARCHAR(2000)&#39;.</span></span>
+<span id="cb176-13"><a href="lab_6.html#cb176-13" aria-hidden="true" tabindex="-1"></a><span class="co"># dbGetQuery(db, &#39;CREATE TABLE IF NOT EXISTS models</span></span>
+<span id="cb176-14"><a href="lab_6.html#cb176-14" aria-hidden="true" tabindex="-1"></a><span class="co">#            (id INT PRIMARY KEY,</span></span>
+<span id="cb176-15"><a href="lab_6.html#cb176-15" aria-hidden="true" tabindex="-1"></a><span class="co">#            model VARCHAR(2000))&#39;</span></span>
+<span id="cb176-16"><a href="lab_6.html#cb176-16" aria-hidden="true" tabindex="-1"></a><span class="co">#           )</span></span>
+<span id="cb176-17"><a href="lab_6.html#cb176-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-18"><a href="lab_6.html#cb176-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Створємо data.frame для вставки у БД.</span></span>
+<span id="cb176-19"><a href="lab_6.html#cb176-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-20"><a href="lab_6.html#cb176-20" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="dv">1</span>, <span class="at">mdl =</span> fit_char)</span>
+<span id="cb176-21"><a href="lab_6.html#cb176-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-22"><a href="lab_6.html#cb176-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Вставляємо дані у таблицю БД.</span></span>
+<span id="cb176-23"><a href="lab_6.html#cb176-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-24"><a href="lab_6.html#cb176-24" aria-hidden="true" tabindex="-1"></a><span class="co"># dbGetPreparedQuery(db, &#39;INSERT INTO models (model) values (:mdl)&#39;,</span></span>
+<span id="cb176-25"><a href="lab_6.html#cb176-25" aria-hidden="true" tabindex="-1"></a><span class="co">#                    bind.data = df)</span></span>
+<span id="cb176-26"><a href="lab_6.html#cb176-26" aria-hidden="true" tabindex="-1"></a><span class="co"># dbDisConnect(db)</span></span></code></pre></div>
+</div>
+<div id="імпорт-моделі-і-работа-з-нею" class="section level3 hasAnchor" number="7.3.3">
+<h3><span class="header-section-number">7.3.3</span> Імпорт моделі і работа з нею<a href="lab_6.html#імпорт-моделі-і-работа-з-нею" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Імпортуємо збережену у БД модель і застосуємо її для класифікації тестової вибірки. Для цього необхідно відновити модель у вигляді об’єкта R (<code>model2</code>). Для цього використовуємо зворотній метод <code>unserialize</code>.</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="lab_6.html#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Вилучаємо дані з таблиці БД.</span></span>
+<span id="cb177-2"><a href="lab_6.html#cb177-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb177-3"><a href="lab_6.html#cb177-3" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="at">dbname=</span><span class="st">&quot;models.sqlite&quot;</span>)</span>
+<span id="cb177-4"><a href="lab_6.html#cb177-4" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(db, <span class="st">&quot;SELECT * FROM models&quot;</span>)</span>
+<span id="cb177-5"><a href="lab_6.html#cb177-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb177-6"><a href="lab_6.html#cb177-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Відновлюємо представлення моделі в R.</span></span>
+<span id="cb177-7"><a href="lab_6.html#cb177-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb177-8"><a href="lab_6.html#cb177-8" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">unserialize</span>(<span class="fu">charToRaw</span>(df2<span class="sc">$</span>model))</span>
+<span id="cb177-9"><a href="lab_6.html#cb177-9" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(model2)</span></code></pre></div>
+<pre><code>## [1] &quot;lda&quot;</code></pre>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="lab_6.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Виконуємо класифікацію за допомогою відновленої моделі.</span></span>
+<span id="cb179-2"><a href="lab_6.html#cb179-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb179-3"><a href="lab_6.html#cb179-3" aria-hidden="true" tabindex="-1"></a>prediction <span class="ot">&lt;-</span> <span class="fu">predict</span>(model2, <span class="at">newdata =</span> testSet[,<span class="sc">-</span><span class="dv">5</span>])</span>
+<span id="cb179-4"><a href="lab_6.html#cb179-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb179-5"><a href="lab_6.html#cb179-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Перервіряємо якість класифікації.</span></span>
+<span id="cb179-6"><a href="lab_6.html#cb179-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb179-7"><a href="lab_6.html#cb179-7" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(prediction<span class="sc">$</span>class, testSet[,<span class="dv">5</span>])</span></code></pre></div>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##             Reference
+## Prediction   setosa versicolor virginica
+##   setosa         12          0         0
+##   versicolor      0          7         0
+##   virginica       0          0         9
+## 
+## Overall Statistics
+##                                      
+##                Accuracy : 1          
+##                  95% CI : (0.8766, 1)
+##     No Information Rate : 0.4286     
+##     P-Value [Acc &gt; NIR] : 4.973e-11  
+##                                      
+##                   Kappa : 1          
+##                                      
+##  Mcnemar&#39;s Test P-Value : NA         
+## 
+## Statistics by Class:
+## 
+##                      Class: setosa Class: versicolor Class: virginica
+## Sensitivity                 1.0000              1.00           1.0000
+## Specificity                 1.0000              1.00           1.0000
+## Pos Pred Value              1.0000              1.00           1.0000
+## Neg Pred Value              1.0000              1.00           1.0000
+## Prevalence                  0.4286              0.25           0.3214
+## Detection Rate              0.4286              0.25           0.3214
+## Detection Prevalence        0.4286              0.25           0.3214
+## Balanced Accuracy           1.0000              1.00           1.0000</code></pre>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="lab_6.html#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Розриваємо зв&#39;язок з БД.</span></span>
+<span id="cb181-2"><a href="lab_6.html#cb181-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb181-3"><a href="lab_6.html#cb181-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(db)</span>
+<span id="cb181-4"><a href="lab_6.html#cb181-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb181-5"><a href="lab_6.html#cb181-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Видяляємо таблиці перед наступним тестовим запуском.</span></span>
+<span id="cb181-6"><a href="lab_6.html#cb181-6" aria-hidden="true" tabindex="-1"></a><span class="co"># dbGetQuery(db, &quot;DROP TABLE IF EXISTS models&quot;)</span></span></code></pre></div>
+</div>
+<div id="індивідуальні-завдання-на-лабораторну-роботу-5" class="section level3 hasAnchor" number="7.3.4">
+<h3><span class="header-section-number">7.3.4</span> Індивідуальні завдання на лабораторну роботу<a href="lab_6.html#індивідуальні-завдання-на-лабораторну-роботу-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Видає викладач.</p>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-r4ds" class="csl-entry">
+Garrett Grolemund, Hadley Wickham. 2018. <em>R for Data Science</em>. <a href="http://r4ds.had.co.nz/index.html">http://r4ds.had.co.nz/index.html</a>.
+</div>
+<div id="ref-khramov" class="csl-entry">
+Khramov, Dmitry. 2017. <span>“Saving-Importing Machine Learning Models in Databases.”</span> Article. <a href="http://dkhramov.dp.ua/Comp.CaretModelsAndDB.html#.Xbr4G0YzY2w">http://dkhramov.dp.ua/Comp.CaretModelsAndDB.html#.Xbr4G0YzY2w</a>.
+</div>
+<div id="ref-Kuhn2003" class="csl-entry">
+Kuhn, M. 2003. <span>“Variable Selection Using the Caret Package.”</span> <a href="https://r-forge.r-project.org/scm/viewvc.php/*checkout*/pkg/caret/inst/doc/caretSelection.pdf?revision=77&amp;root=caret&amp;pathrev=90">https://r-forge.r-project.org/scm/viewvc.php/*checkout*/pkg/caret/inst/doc/caretSelection.pdf?revision=77&amp;root=caret&amp;pathrev=90</a>.
+</div>
+<div id="ref-Kuhn2008" class="csl-entry">
+———. 2008. <span>“Building Predictive Models in r Using the Caret Package.”</span> <em>Journal of Statistical Software</em> 5: 113–42. <a href="https://doi.org/10.18637/jss.v028.i05">https://doi.org/10.18637/jss.v028.i05</a>.
+</div>
+<div id="ref-Kuhn2013" class="csl-entry">
+———. 2013. <span>“Predictive Modeling with r and the Caret Package.”</span> <a href="https://www.r-project.org/">https://www.r-project.org/</a>.
+</div>
+<div id="ref-Khun_book" class="csl-entry">
+Kuhn M., Johnson K. 2013. <em>Applied Predictive Modeling</em>. Springer-Verlag New-York.
+</div>
+<div id="ref-R-caret" class="csl-entry">
+Kuhn, Max. 2021. <em>Caret: Classification and Regression Training</em>. <a href="https://github.com/topepo/caret/">https://github.com/topepo/caret/</a>.
+</div>
+<div id="ref-Fernandes" class="csl-entry">
+Manuel Fernandez-Delgado, Senen Barro, Eva Cernadas. 2014. <span>“Do We Need Hundreds of Classifiers to Solve Real World Classification Problems?”</span> <a href="https://www.jstatsoft.org/article/view/v059i10">https://www.jstatsoft.org/article/view/v059i10</a>.
+</div>
+<div id="ref-Shit_Mast" class="csl-entry">
+Shitikov V. K., Masticky S. E. 2017. <em>Classification, Regression, and Other Data Mining Algorithms Using r</em>. <a href="https://ranalytics.github.io/data-mining/index.html">https://ranalytics.github.io/data-mining/index.html</a>.
+</div>
+<div id="ref-Paklin" class="csl-entry">
+Viacheslav Oreshkov, Nikolay Paklin. 2012. <em>Business: From Data to Knowlige</em>. Piter. <a href="https://kniga.biz.ua/book-biznes-analitika-ot-dannykh-k-znaniiam-cd-uchebnoe-posobie-2-e-izdanie-ispravlennoe-003514.html">https://kniga.biz.ua/book-biznes-analitika-ot-dannykh-k-znaniiam-cd-uchebnoe-posobie-2-e-izdanie-ispravlennoe-003514.html</a>.
+</div>
+<div id="ref-CRISP_DM" class="csl-entry">
+wikipedia. 2018a. <span>“Cross-Industry Standard Process for Data Mining.”</span> Article. <a href="https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining">https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="lab_5.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="лабораторна-робота-7.-пошук-асоціативних-правил.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/06-lab6.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
