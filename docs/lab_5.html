@@ -24,14 +24,14 @@
 <meta name="author" content="© Сидоренко В. М." />
 
 
-<meta name="date" content="2022-03-09" />
+<meta name="date" content="2022-03-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"/>
+<link rel="prev" href="лабораторна-робота-4.-розгортання-моделі.html"/>
 <link rel="next" href="lab_6.html"/>
 <script src="libs/header-attrs-2.12/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -215,12 +215,12 @@ div.csl-indent {
 <li class="chapter" data-level="4.3.3" data-path="lab_3.html"><a href="lab_3.html#індивідуальні-завдання-на-лабораторну-роботу-2"><i class="fa fa-check"></i><b>4.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><i class="fa fa-check"></i><b>5</b> Модуль 2. Моделювання. Лабораторна робота №4. Розгортання моделі<span></span></a>
+<li class="chapter" data-level="5" data-path="лабораторна-робота-4.-розгортання-моделі.html"><a href="лабораторна-робота-4.-розгортання-моделі.html"><i class="fa fa-check"></i><b>5</b> Лабораторна робота №4. Розгортання моделі<span></span></a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html#що-ви-будете-вміти-3"><i class="fa fa-check"></i><b>5.1</b> Що ви будете вміти?<span></span></a></li>
-<li class="chapter" data-level="5.2" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html#короткі-теоретичні-відомості-3"><i class="fa fa-check"></i><b>5.2</b> Короткі теоретичні відомості<span></span></a>
+<li class="chapter" data-level="5.1" data-path="лабораторна-робота-4.-розгортання-моделі.html"><a href="лабораторна-робота-4.-розгортання-моделі.html#що-ви-будете-вміти-3"><i class="fa fa-check"></i><b>5.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="лабораторна-робота-4.-розгортання-моделі.html"><a href="лабораторна-робота-4.-розгортання-моделі.html#короткі-теоретичні-відомості-3"><i class="fa fa-check"></i><b>5.2</b> Короткі теоретичні відомості<span></span></a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html"><a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html#індивідуальні-завдання-на-лабораторну-роботу-3"><i class="fa fa-check"></i><b>5.2.1</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+<li class="chapter" data-level="5.2.1" data-path="лабораторна-робота-4.-розгортання-моделі.html"><a href="лабораторна-робота-4.-розгортання-моделі.html#індивідуальні-завдання-на-лабораторну-роботу-3"><i class="fa fa-check"></i><b>5.2.1</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="lab_5.html"><a href="lab_5.html"><i class="fa fa-check"></i><b>6</b> Модуль 2. Моделювання. Лабораторна робота №5. Побудова регресійних моделей<span></span></a>
@@ -812,7 +812,7 @@ b=(X^TX)^{-1}X^TY=
 ## Resampling results:
 ## 
 ##   RMSE      Rsquared   MAE     
-##   1421.564  0.6795475  1146.743
+##   1441.364  0.6701918  1150.544
 ## 
 ## Tuning parameter &#39;intercept&#39; was held constant at a value of TRUE</code></pre>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="lab_5.html#cb144-1" aria-hidden="true" tabindex="-1"></a>lmStep.reach.cv</span></code></pre></div>
@@ -827,7 +827,7 @@ b=(X^TX)^{-1}X^TY=
 ## Resampling results:
 ## 
 ##   RMSE      Rsquared   MAE     
-##   1424.043  0.6916297  1180.539
+##   1403.034  0.6724215  1161.493
 ## 
 ## Tuning parameter &#39;intercept&#39; was held constant at a value of TRUE</code></pre>
 <p>Як видно з результатів, проста модель лінійної регресії має меншу похибку (RMSE), ніж модель множинної регресії, хоча спостерігається невелике зниження (на <span class="math inline">\(2%\)</span>) коефіцієнта детермінації у другої моделі. Але, як свідчить проведений вище дисперсійний аналіз, це незначимо. Цю модель можна покращити, вилучивши константу зі специфікації моделі, тобто отримати модель у вигляді <span class="math inline">\(y=b_1x_2\)</span>:</p>
@@ -1059,23 +1059,23 @@ b=(X^TX)^{-1}X^TY=
 ##                      Number of trees: 500
 ## No. of variables tried at each split: 1
 ## 
-##           Mean of squared residuals: 2592915
-##                     % Var explained: 60.25</code></pre>
+##           Mean of squared residuals: 2427730
+##                     % Var explained: 59.4</code></pre>
 <div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="lab_5.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Побудова прогнозу на тестовій вибірці</span></span>
 <span id="cb168-2"><a href="lab_5.html#cb168-2" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(rf, test)</span>
 <span id="cb168-3"><a href="lab_5.html#cb168-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb168-4"><a href="lab_5.html#cb168-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ПОхибка прогнозу</span></span>
 <span id="cb168-5"><a href="lab_5.html#cb168-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">sqrt</span>(<span class="fu">sum</span>((<span class="fu">as.vector</span>(predictions <span class="sc">-</span> test<span class="sc">$</span>reach))<span class="sc">^</span><span class="dv">2</span>))<span class="sc">/</span><span class="fu">length</span>(predictions))</span></code></pre></div>
-<pre><code>## [1] 278.4305</code></pre>
+<pre><code>## [1] 316.7715</code></pre>
 <div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="lab_5.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Графік похибки прогнозу</span></span>
 <span id="cb170-2"><a href="lab_5.html#cb170-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rf)</span></code></pre></div>
 <p><img src="DS-book-lab_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="lab_5.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Оцінка важливості предикторів</span></span>
 <span id="cb171-2"><a href="lab_5.html#cb171-2" aria-hidden="true" tabindex="-1"></a><span class="fu">importance</span>(rf)</span></code></pre></div>
 <pre><code>##          IncNodePurity
-## comments     105029142
-## likes        190889028
-## shares       145240391</code></pre>
+## comments      95473346
+## likes        178721544
+## shares       113786972</code></pre>
 <p>Як видно з графіка, значення кількості дерев на рівні <span class="math inline">\(300\)</span> цілком достатньо для мінімізації похибки. Також за результатами оцінки важливості предикторів видно, що <code>likes</code> є найбільш значимим з них.</p>
 </div>
 <div id="індивідуальні-завдання-на-лабораторну-роботу-4" class="section level3 hasAnchor" number="6.3.4">
@@ -1114,7 +1114,7 @@ Wikipedia. 2020. <span>“Decision Tree Learning.”</span> Article. <a href="ht
           </div>
         </div>
       </div>
-<a href="модуль-2.-моделювання.-лабораторна-робота-4.-розгортання-моделі.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="лабораторна-робота-4.-розгортання-моделі.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="lab_6.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

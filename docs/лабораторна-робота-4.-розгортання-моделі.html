@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Data Science на R. Лабораторний практикум (draft version)</title>
+  <title>Розділ 5 Лабораторна робота №4. Розгортання моделі | Data Science на R. Лабораторний практикум (draft version)</title>
   <meta name="description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Data Science на R. Лабораторний практикум (draft version)" />
+  <meta property="og:title" content="Розділ 5 Лабораторна робота №4. Розгортання моделі | Data Science на R. Лабораторний практикум (draft version)" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="VGamaley/DS-book-lab" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data Science на R. Лабораторний практикум (draft version)" />
+  <meta name="twitter:title" content="Розділ 5 Лабораторна робота №4. Розгортання моделі | Data Science на R. Лабораторний практикум (draft version)" />
   
   <meta name="twitter:description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="modul1.html"/>
+<link rel="prev" href="lab_3.html"/>
+<link rel="next" href="lab_5.html"/>
 <script src="libs/header-attrs-2.12/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -302,20 +302,25 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Data Science на R. Лабораторний практикум (draft version)</h1>
-<p class="author"><em>© <a href="https://www.linkedin.com/in/valeriy-sydorenko-6782279a/">Сидоренко В. М.</a></em></p>
-<p class="date"><em>2022-03-10</em></p>
+<div id="лабораторна-робота-4.-розгортання-моделі" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Розділ 5</span> Лабораторна робота №4. Розгортання моделі<a href="лабораторна-робота-4.-розгортання-моделі.html#лабораторна-робота-4.-розгортання-моделі" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Мета:</strong> <em>Засвоєння базових принципів, знайомство з інструментами та набуття навичок побудови моделей регресії</em> <strong>на рівні технології</strong> на основи статистичного підходу та моделей машинного навчання засобами мови програмування R та колекції пакетів <code>dplyr</code>, <code>ggplot2</code>.</p>
+<div id="що-ви-будете-вміти-3" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Що ви будете вміти?<a href="лабораторна-робота-4.-розгортання-моделі.html#що-ви-будете-вміти-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>будувати моделі парної і багатовимірної лінійної та нелінійної регресії на основі статистичних моделей та моделей машинного навчання засобами мови R у середовищі IDE RStudio.</p></li>
+<li><p>зберігати навчені моделі для подальшого використання.</p></li>
+</ul>
 </div>
-<div id="вступ" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Розділ 1</span> Вступ<a href="index.html#вступ" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<!-- >Русский военный корабль, иди нах`*`й!   -->
-<!-- >Белорусский трактор, иди в п`*`зду! -->
-<p>Лабораторний практикум призначений для виконання лабораторних робіт з дисципліни “Інтелектуальний аналіз даних,” який викладається в рамках освітньої магістерської програми “Комп’ютерна інженерія” на кафедрі <a href="http://cis.kdu.edu.ua/">комп’ютерної інженерії та електроніки</a> <a href="http://www.kdu.edu.ua/">Кременчуцького національного університету імені Михайла Остроградського</a>. Автор: доцент, к. т. н. <a href="https://www.linkedin.com/in/valeriy-sydorenko-6782279a/">Валерій СИДОРЕНКО</a>.</p>
-<p>Мета посібника, який у великій мірі є компілятивним, – у зручній і адаптованій формі довести новітні технології аналізу даних у середовищі R, спираючись на якісні і відомі першоджерела, зокрема <code>vignetts</code> відповідних програмних пакетів з ресурсу <a href="https://cran.r-project.org/">CRAN</a>. Тому місцями текст є безпосереднім перекладом з англійської.</p>
-<p>Структура посібника спирається на міждисциплінарний стандарт CRISP DM <span class="citation">(<a href="#ref-CRISP_DM" role="doc-biblioref">wikipedia 2018a</a>)</span> і надає можливість поступово опанувати роботу з відповідним інструментарієм для реалізації всіх етапів аналізу даних: імпорту та маніпулювання даними, розвідувального аналізу даних, візуалізації, моделювання та розгортання Data Science-проекту.</p>
-<p>Критичні відгуки та зауваження прохання надсилати наа адресою <a href="mailto:vnsidorenko@gmail.com" class="email">vnsidorenko@gmail.com</a>.</p>
+<div id="короткі-теоретичні-відомості-3" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Короткі теоретичні відомості<a href="лабораторна-робота-4.-розгортання-моделі.html#короткі-теоретичні-відомості-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>У рамках життєвого циклу процесу Data Mining згідно з методологією CRISP DM <span class="citation">(<a href="#ref-CRISP_DM" role="doc-biblioref">wikipedia 2018a</a>)</span>, наступною за фазою “Підготовка даних” (<strong>Data Preparing</strong>) є фаза “Моделювання” (<strong>Modelling</strong>) (рис. 1).</p>
+<div id="індивідуальні-завдання-на-лабораторну-роботу-3" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Індивідуальні завдання на лабораторну роботу<a href="лабораторна-робота-4.-розгортання-моделі.html#індивідуальні-завдання-на-лабораторну-роботу-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Видає викладач.</p>
 
+</div>
+</div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
@@ -328,8 +333,8 @@ wikipedia. 2018a. <span>“Cross-Industry Standard Process for Data Mining.”</
           </div>
         </div>
       </div>
-
-<a href="modul1.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="lab_3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lab_5.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -360,7 +365,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-lab4.Rmd",
 "text": "Edit"
 },
 "history": {
