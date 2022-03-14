@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Розділ 5 Лабораторна робота №4. Доставка результатів Data Science-проєкту та його розгортання | Data Science на R. Лабораторний практикум (draft version)</title>
+  <meta name="description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Розділ 5 Лабораторна робота №4. Доставка результатів Data Science-проєкту та його розгортання | Data Science на R. Лабораторний практикум (draft version)" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  <meta name="github-repo" content="VGamaley/DS-book-lab" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Розділ 5 Лабораторна робота №4. Доставка результатів Data Science-проєкту та його розгортання | Data Science на R. Лабораторний практикум (draft version)" />
+  
+  <meta name="twitter:description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  
+
+<meta name="author" content="© Сидоренко В. М." />
+
+
+<meta name="date" content="2022-03-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="lab_3.html"/>
+<link rel="next" href="lab_5.html"/>
+<script src="libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Вступ<span></span></a></li>
+<li class="chapter" data-level="2" data-path="modul1.html"><a href="modul1.html"><i class="fa fa-check"></i><b>2</b> Модуль 1. Базовий. Лабораторна робота №1. Створення основи типового Data Science-проєкту<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="modul1.html"><a href="modul1.html#що-ви-будете-вміти"><i class="fa fa-check"></i><b>2.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="modul1.html"><a href="modul1.html#короткі-теоретичні-відомості"><i class="fa fa-check"></i><b>2.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="modul1.html"><a href="modul1.html#що-таке-data-science-проект"><i class="fa fa-check"></i><b>2.2.1</b> Що таке Data Science-проект?<span></span></a></li>
+<li class="chapter" data-level="2.2.2" data-path="modul1.html"><a href="modul1.html#концепція-грамотного-програмування"><i class="fa fa-check"></i><b>2.2.2</b> Концепція грамотного програмування<span></span></a></li>
+<li class="chapter" data-level="2.2.3" data-path="modul1.html"><a href="modul1.html#markdown-і-rmarkdown"><i class="fa fa-check"></i><b>2.2.3</b> Markdown і RMarkdown<span></span></a></li>
+<li class="chapter" data-level="2.2.4" data-path="modul1.html"><a href="modul1.html#інсталяція-r"><i class="fa fa-check"></i><b>2.2.4</b> Інсталяція R<span></span></a></li>
+<li class="chapter" data-level="2.2.5" data-path="modul1.html"><a href="modul1.html#інсталяція-rstudio"><i class="fa fa-check"></i><b>2.2.5</b> Інсталяція RStudio<span></span></a></li>
+<li class="chapter" data-level="2.2.6" data-path="modul1.html"><a href="modul1.html#CreateRMarkdown"><i class="fa fa-check"></i><b>2.2.6</b> Створення RMarkdown-документу<span></span></a></li>
+<li class="chapter" data-level="2.2.7" data-path="modul1.html"><a href="modul1.html#генерація-електронного-документу"><i class="fa fa-check"></i><b>2.2.7</b> Генерація електронного документу<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="modul1.html"><a href="modul1.html#приклад-створення-markdown-документу"><i class="fa fa-check"></i><b>2.3</b> Приклад створення Markdown-документу<span></span></a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="modul1.html"><a href="modul1.html#постановка-задачі"><i class="fa fa-check"></i><b>2.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="2.3.2" data-path="modul1.html"><a href="modul1.html#виконання-завдання"><i class="fa fa-check"></i><b>2.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="2.3.3" data-path="modul1.html"><a href="modul1.html#індивідуальні-завдання-на-лабораторну-роботу"><i class="fa fa-check"></i><b>2.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+<li class="chapter" data-level="2.3.4" data-path="modul1.html"><a href="modul1.html#домашнє-завдання"><i class="fa fa-check"></i><b>2.3.4</b> Домашнє завдання<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="lab_2.html"><a href="lab_2.html"><i class="fa fa-check"></i><b>3</b> Лабораторна робота №2. Маніпулювання даними<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="lab_2.html"><a href="lab_2.html#що-ви-будете-вміти-1"><i class="fa fa-check"></i><b>3.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="lab_2.html"><a href="lab_2.html#короткі-теоретичні-відомості-1"><i class="fa fa-check"></i><b>3.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="lab_2.html"><a href="lab_2.html#що-таке-маніпулювання-данними"><i class="fa fa-check"></i><b>3.2.1</b> Що таке маніпулювання данними?<span></span></a></li>
+<li class="chapter" data-level="3.2.2" data-path="lab_2.html"><a href="lab_2.html#імпорт-даних"><i class="fa fa-check"></i><b>3.2.2</b> Імпорт даних<span></span></a></li>
+<li class="chapter" data-level="3.2.3" data-path="lab_2.html"><a href="lab_2.html#приведення-даних-до-охайного-вигляду"><i class="fa fa-check"></i><b>3.2.3</b> Приведення даних до охайного вигляду<span></span></a></li>
+<li class="chapter" data-level="3.2.4" data-path="lab_2.html"><a href="lab_2.html#трансформація"><i class="fa fa-check"></i><b>3.2.4</b> Трансформація<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="lab_2.html"><a href="lab_2.html#приклад-виконання-індівідуального-завдання"><i class="fa fa-check"></i><b>3.3</b> Приклад виконання індівідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="lab_2.html"><a href="lab_2.html#постановка-задачі-1"><i class="fa fa-check"></i><b>3.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="3.3.2" data-path="lab_2.html"><a href="lab_2.html#виконання-завдання-1"><i class="fa fa-check"></i><b>3.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="3.3.3" data-path="lab_2.html"><a href="lab_2.html#індивідуальні-завдання-на-лабораторну-роботу-1"><i class="fa fa-check"></i><b>3.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="lab_3.html"><a href="lab_3.html"><i class="fa fa-check"></i><b>4</b> Лабораторна робота №3. Розвідувальний аналіз даних. Візуалізація<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="lab_3.html"><a href="lab_3.html#що-ви-будете-вміти-2"><i class="fa fa-check"></i><b>4.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="lab_3.html"><a href="lab_3.html#короткі-теоретичні-відомості-2"><i class="fa fa-check"></i><b>4.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="lab_3.html"><a href="lab_3.html#що-таке-розвідувальний-аналіз-даних"><i class="fa fa-check"></i><b>4.2.1</b> Що таке розвідувальний аналіз даних?<span></span></a></li>
+<li class="chapter" data-level="4.2.2" data-path="lab_3.html"><a href="lab_3.html#питання"><i class="fa fa-check"></i><b>4.2.2</b> Питання<span></span></a></li>
+<li class="chapter" data-level="4.2.3" data-path="lab_3.html"><a href="lab_3.html#зниження-розмірності-даних"><i class="fa fa-check"></i><b>4.2.3</b> Зниження розмірності даних<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="lab_3.html"><a href="lab_3.html#приклад-виконання-індивідуального-завдання"><i class="fa fa-check"></i><b>4.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="lab_3.html"><a href="lab_3.html#постановка-задачі-2"><i class="fa fa-check"></i><b>4.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="lab_3.html"><a href="lab_3.html#виконання-завдання-2"><i class="fa fa-check"></i><b>4.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="4.3.3" data-path="lab_3.html"><a href="lab_3.html#індивідуальні-завдання-на-лабораторну-роботу-2"><i class="fa fa-check"></i><b>4.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><i class="fa fa-check"></i><b>5</b> Лабораторна робота №4. Доставка результатів Data Science-проєкту та його розгортання<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#що-ви-будете-вміти-3"><i class="fa fa-check"></i><b>5.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#короткі-теоретичні-відомості-3"><i class="fa fa-check"></i><b>5.2</b> Короткі теоретичні відомості<span></span></a></li>
+<li class="chapter" data-level="5.3" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#dash"><i class="fa fa-check"></i><b>5.3</b> Створення дашборду<span></span></a></li>
+<li class="chapter" data-level="5.4" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#Shiny"><i class="fa fa-check"></i><b>5.4</b> Фреймворк Shiny<span></span></a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#структура-shiny-app-застосунку"><i class="fa fa-check"></i><b>5.4.1</b> Структура Shiny App застосунку<span></span></a></li>
+<li class="chapter" data-level="5.4.2" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#структура-front-end-частини"><i class="fa fa-check"></i><b>5.4.2</b> Структура front-end частини<span></span></a></li>
+<li class="chapter" data-level="5.4.3" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#структура-back-end-частини"><i class="fa fa-check"></i><b>5.4.3</b> Структура back-end частини<span></span></a></li>
+<li class="chapter" data-level="5.4.4" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#відлагодження-web-застосунку"><i class="fa fa-check"></i><b>5.4.4</b> Відлагодження web-застосунку<span></span></a></li>
+<li class="chapter" data-level="5.4.5" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#доставка-та-розгортання-web-застосунку"><i class="fa fa-check"></i><b>5.4.5</b> Доставка та розгортання web-застосунку<span></span></a></li>
+<li class="chapter" data-level="5.4.6" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#індивідуальні-завдання-на-лабораторну-роботу-3"><i class="fa fa-check"></i><b>5.4.6</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="lab_5.html"><a href="lab_5.html"><i class="fa fa-check"></i><b>6</b> Модуль 2. Моделювання. Лабораторна робота №5. Побудова регресійних моделей<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="lab_5.html"><a href="lab_5.html#що-ви-будете-вміти-4"><i class="fa fa-check"></i><b>6.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="6.2" data-path="lab_5.html"><a href="lab_5.html#короткі-теоретичні-відомості-4"><i class="fa fa-check"></i><b>6.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="lab_5.html"><a href="lab_5.html#що-таке-регресія-і-регресійний-аналіз"><i class="fa fa-check"></i><b>6.2.1</b> Що таке регресія і регресійний аналіз?<span></span></a></li>
+<li class="chapter" data-level="6.2.2" data-path="lab_5.html"><a href="lab_5.html#формальна-постановка-задачі-регресії"><i class="fa fa-check"></i><b>6.2.2</b> Формальна постановка задачі регресії<span></span></a></li>
+<li class="chapter" data-level="6.2.3" data-path="lab_5.html"><a href="lab_5.html#статистичний-підхід"><i class="fa fa-check"></i><b>6.2.3</b> Статистичний підхід<span></span></a></li>
+<li class="chapter" data-level="6.2.4" data-path="lab_5.html"><a href="lab_5.html#підхід-на-основі-машинного-навчання"><i class="fa fa-check"></i><b>6.2.4</b> Підхід на основі машинного навчання<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="lab_5.html"><a href="lab_5.html#ind"><i class="fa fa-check"></i><b>6.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="lab_5.html"><a href="lab_5.html#розуміння-даних"><i class="fa fa-check"></i><b>6.3.1</b> Розуміння даних<span></span></a></li>
+<li class="chapter" data-level="6.3.2" data-path="lab_5.html"><a href="lab_5.html#підготовка-даних"><i class="fa fa-check"></i><b>6.3.2</b> Підготовка даних<span></span></a></li>
+<li class="chapter" data-level="6.3.3" data-path="lab_5.html"><a href="lab_5.html#rf"><i class="fa fa-check"></i><b>6.3.3</b> Моделювання<span></span></a></li>
+<li class="chapter" data-level="6.3.4" data-path="lab_5.html"><a href="lab_5.html#індивідуальні-завдання-на-лабораторну-роботу-4"><i class="fa fa-check"></i><b>6.3.4</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="lab_6.html"><a href="lab_6.html"><i class="fa fa-check"></i><b>7</b> Лабораторна робота №6. Побудова моделей класифікації<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="lab_6.html"><a href="lab_6.html#що-ви-будете-вміти-5"><i class="fa fa-check"></i><b>7.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="7.2" data-path="lab_6.html"><a href="lab_6.html#короткі-теоретичні-відомості-5"><i class="fa fa-check"></i><b>7.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="lab_6.html"><a href="lab_6.html#у-чому-полягає-задача-класифікації"><i class="fa fa-check"></i><b>7.2.1</b> У чому полягає задача класифікації?<span></span></a></li>
+<li class="chapter" data-level="7.2.2" data-path="lab_6.html"><a href="lab_6.html#формальна-постановка-задачі-класифікації"><i class="fa fa-check"></i><b>7.2.2</b> Формальна постановка задачі класифікації<span></span></a></li>
+<li class="chapter" data-level="7.2.3" data-path="lab_6.html"><a href="lab_6.html#пакет-caret"><i class="fa fa-check"></i><b>7.2.3</b> Пакет <code>caret</code><span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="lab_6.html"><a href="lab_6.html#приклад-виконання-індивідуального-завдання-1"><i class="fa fa-check"></i><b>7.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="lab_6.html"><a href="lab_6.html#навчання-моделі"><i class="fa fa-check"></i><b>7.3.1</b> Навчання моделі<span></span></a></li>
+<li class="chapter" data-level="7.3.2" data-path="lab_6.html"><a href="lab_6.html#експорт-моделі-до-бд"><i class="fa fa-check"></i><b>7.3.2</b> Експорт моделі до БД<span></span></a></li>
+<li class="chapter" data-level="7.3.3" data-path="lab_6.html"><a href="lab_6.html#імпорт-моделі-і-работа-з-нею"><i class="fa fa-check"></i><b>7.3.3</b> Імпорт моделі і работа з нею<span></span></a></li>
+<li class="chapter" data-level="7.3.4" data-path="lab_6.html"><a href="lab_6.html#індивідуальні-завдання-на-лабораторну-роботу-5"><i class="fa fa-check"></i><b>7.3.4</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html"><i class="fa fa-check"></i><b>8</b> Лабораторна робота №7. Пошук асоціативних правил<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#що-ви-будете-вміти-6"><i class="fa fa-check"></i><b>8.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="8.2" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#короткі-теоретичні-відомості-6"><i class="fa fa-check"></i><b>8.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#у-чому-полягає-задача-пошуку-асоціативних-правил"><i class="fa fa-check"></i><b>8.2.1</b> У чому полягає задача пошуку асоціативних правил?<span></span></a></li>
+<li class="chapter" data-level="8.2.2" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#формальна-постановка-задачі-класифікації-1"><i class="fa fa-check"></i><b>8.2.2</b> Формальна постановка задачі класифікації<span></span></a></li>
+<li class="chapter" data-level="8.2.3" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#основні-міри-цікавості-асоціативних-правил"><i class="fa fa-check"></i><b>8.2.3</b> Основні міри “цікавості” асоціативних правил<span></span></a></li>
+<li class="chapter" data-level="8.2.4" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#пакети-arules-та-arulesviz"><i class="fa fa-check"></i><b>8.2.4</b> Пакети <code>arules</code> та <code>arulesViz</code><span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="lab_5.html"><a href="lab_5.html#ind"><i class="fa fa-check"></i><b>8.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#індивідуальні-завдання-на-лабораторну-роботу-6"><i class="fa fa-check"></i><b>8.3.1</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="lab_8.html"><a href="lab_8.html"><i class="fa fa-check"></i><b>9</b> Лабораторна робота № 8. Побудова ARIMA-моделі часового ряду і прогнозування на її основі (short version)<span></span></a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="lab_8.html"><a href="lab_8.html#що-ви-будете-вміти-7"><i class="fa fa-check"></i><b>9.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="9.2" data-path="lab_8.html"><a href="lab_8.html#ts-обєкт"><i class="fa fa-check"></i><b>9.2</b> ts-об’єкт<span></span></a></li>
+<li class="chapter" data-level="9.3" data-path="lab_8.html"><a href="lab_8.html#візуалізація-чр"><i class="fa fa-check"></i><b>9.3</b> Візуалізація ЧР<span></span></a></li>
+<li class="chapter" data-level="9.4" data-path="lab_8.html"><a href="lab_8.html#стаціонарність-і-диференціювання"><i class="fa fa-check"></i><b>9.4</b> Стаціонарність і диференціювання<span></span></a></li>
+<li class="chapter" data-level="9.5" data-path="lab_8.html"><a href="lab_8.html#example"><i class="fa fa-check"></i><b>9.5</b> Приклад побудови не сезонної ARIMA-моделі<span></span></a></li>
+<li class="chapter" data-level="9.6" data-path="lab_8.html"><a href="lab_8.html#завдання-на-лабораторну-роботу"><i class="fa fa-check"></i><b>9.6</b> Завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science на R. Лабораторний практикум (draft version)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Розділ 5</span> Лабораторна робота №4. Доставка результатів Data Science-проєкту та його розгортання<a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Мета:</strong> Ознайомлення з інструментарієм доставки та розгортання аналітичних рішень Data Science-проекту за допомогою RMarkdown-дашбордів та фреймворка Shiny.</p>
+<div id="що-ви-будете-вміти-3" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Що ви будете вміти?<a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#що-ви-будете-вміти-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Створювати дашборди для подання (доставки) результатів аналізу.</li>
+<li>Використовувати фреймворк Shiny та засоби мови R у середовищі IDE RStudio для розробки front- та back-and частини аналітичного Web-застосунку (Shiny App) з реактивним інтерфейсом.</li>
+<li>Розгортати Shiny App, зокрема у хмарному сховищі Shinyapps.io.</li>
+</ul>
+</div>
+<div id="короткі-теоретичні-відомості-3" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Короткі теоретичні відомості<a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#короткі-теоретичні-відомості-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Остання фаза будь-якого Data Science-проєкту згідно з методологією <a href="https://www.the-modeling-agency.com/crisp-dm.pdf">CRISP DM</a> <span class="citation">(<a href="#ref-CRISP_DM" role="doc-biblioref">wikipedia 2018a</a>)</span> – <strong>розгортання</strong> (deployment), яка передбачає <strong>в широкому сенсі</strong> розробку певного інтерфейсу у певному середовищі кінцевому замовнику для доступу до аналітичного застосунку з можливістю подальшого використання запропонованого аналітичного рішення. Такого роду задача входить до компетенцій фахівця на позиції <em>Data Scientist</em>.</p>
+<p>У <strong>вузькому сенсі</strong> можна говорити не про фазу <em>deployment</em>, а про фазу <em>communicate</em> <span class="citation">(<a href="#ref-r4ds" role="doc-biblioref">Garrett Grolemund 2018</a>)</span> (рис. 4.1). Так як замовник (або інші члени команди) часто ставлять задачу не розгортання аналітичного рішення у вигляді програмного застосунку з високорівневим інтерфейсом, а лише доставки (delivery), тобто, подання проміжних чи остаточних результатів, можливо, з елементами інтерактивності. Такого роду задача входить до компетенцій фахівця на позиції <em>Data Analyst</em>.</p>
+<div class="figure">
+<img src="image/communicate.png" alt="" />
+<p class="caption"><em>Рис. 4.1 Структура типового Data Science-проекту</em></p>
+</div>
+<p>Мова і середовище програмування R та IDE RStudio також має в своєму арсеналі достатньо інструментів для вирішення такого роду задач.</p>
+<p>Серед засобів подання результатів аналітики може виступати формат ноутбуків на основі RMarkdown, яким ми користувалися до цього моменту. Нижче буде показано модифікацію електронного RMarkdown-документу, який дозволяє створювати даш-борди.</p>
+<p>В якості інструменту розгортання буде розглянуто найбільш популярний фреймворк Shiny.</p>
+</div>
+<div id="dash" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Створення дашборду<a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#dash" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://uk.wikipedia.org/wiki/%D0%86%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D1%96%D0%B9%D0%BD%D0%B0_%D0%BF%D0%B0%D0%BD%D0%B5%D0%BB%D1%8C"><strong>Інформаційна панель</strong></a> (інфопанель, дашборд) – тип графічного інтерфейсу користувача, що забезпечує наочну презентацію основних показників продуктивності (ОПП), значимих для конкретної цілі чи підприємчого процесу. Інфопанелі є динамічними звітами в режимі реального часу, за допомогою яких керівники та менеджери слідкують за визначеними показниками.</p>
+<p>Інформаційні панелі можуть містити графіки, таблиці, картки показників та примітки щодо ефективності підприємчого процесу.</p>
+<p>Тобто, в основі дашбордів лежить та ж сама технологія грамотного програмування, яка дозволяє створювати їх на льоту.</p>
+<p>Приклад коду найпростішого дашборду можна подивитися <a href="https://r4ds.had.co.nz/r-markdown-formats.html#r-markdown-formats">тут</a> <span class="citation">(<a href="#ref-r4ds" role="doc-biblioref">Garrett Grolemund 2018</a>)</span>.</p>
+<p>Для генерації дашборду необхідно виконати наступні дії:</p>
+<ol style="list-style-type: decimal">
+<li>Налаштувати шапку YAML-хедера наступним чином:</li>
+</ol>
+<p><code>---</code><br />
+<code>title: "Diamonds distribution dashboard"</code><br />
+<code>output: flexdashboard::flex_dashboard</code><br />
+<code>---</code></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Задати кожну колонку у вигляді</li>
+</ol>
+<p><code>## Column 1</code></p>
+<p><code>## Column 2</code></p>
+<p><code>## Column 3</code></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Як підпункти виділити назви зон виводу візуалізаторів у відповідну колонку:</li>
+</ol>
+<p><code>## Column 1</code></p>
+<p><code>### Карати</code></p>
+<p><code>## Column 2</code></p>
+<p><code>### Огранювання</code></p>
+<p><code>## Column 3</code></p>
+<p><code>### Найбільші діаманти та їх вартість</code></p>
+<ol start="4" style="list-style-type: decimal">
+<li>У відповідну зону написати код, який генерує потрібний візуалізатор:</li>
+</ol>
+<div class="figure">
+<img src="image/dushboard.png" alt="" />
+<p class="caption"><em>Рис.4.2 Структура динамічного документа</em></p>
+</div>
+<p>Після компіляції дашбоард буде мати <a href="https://prnt.sc/ddCVGxrH183B">наступний вигляд</a>.</p>
+</div>
+<div id="Shiny" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Фреймворк Shiny<a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#Shiny" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Згідно з електронним керівництвом <a href="https://shiny.rstudio.com/tutorial/">Learn Shiny</a>.</p>
+<p><code>Shiny</code> <span class="citation">(<a href="#ref-R-shiny" role="doc-biblioref">Chang et al. 2021</a>)</span> — це пакет R, який дозволяє легко створювати інтерактивні веб-застосунки прямо з R, розроблений на базі Twitter Bootstrap.</p>
+<p>Нижче розглянемо його структуру та наведемо основні елементи, які пояснюють концепцію цього фреймворка та дозволяють створити простий web-застосунок.</p>
+<div id="структура-shiny-app-застосунку" class="section level3 hasAnchor" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Структура Shiny App застосунку<a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#структура-shiny-app-застосунку" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Shiny App-застосунок міститься в одному скрипті під назвою <em>app.R</em>. Сценарій <em>app.R</em> знаходиться в каталозі (наприклад, dirname/), і програму можна запускати за допомогою runApp(“dirname”).</p>
+<p><em>app.R</em> складається з трьох компонент:</p>
+<ul>
+<li><p>інтерфейсна частина (front-and)</p></li>
+<li><p>серверна частина (back-and)</p></li>
+<li><p>виклик функції shinyApp</p></li>
+</ul>
+<p>Інтерфейсна частина (<code>ui</code>) контролює макет і зовнішній вигляд програмного застосунку. Серверна частина містить інструкції, необхідні комп’ютеру для створення програми. Нарешті функція <code>shinyApp</code> створює об’єкти програми <code>Shiny</code> з наявної пари <em>інтерфейс користувача/сервер</em>.</p>
+<p>Застосунок, який виводить рядок <em>Hello, World!</em> виглядає наступним чином:</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="co"># інсталюємо пакет</span></span>
+<span id="cb125-2"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb125-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(shiny))</span>
+<span id="cb125-3"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb125-3" aria-hidden="true" tabindex="-1"></a><span class="co"># front-end</span></span>
+<span id="cb125-4"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb125-4" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb125-5"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb125-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Hello, world!&quot;</span></span>
+<span id="cb125-6"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb125-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb125-7"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb125-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb125-8"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb125-8" aria-hidden="true" tabindex="-1"></a><span class="co"># back-end</span></span>
+<span id="cb125-9"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb125-9" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb125-10"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb125-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb125-11"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb125-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb125-12"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb125-12" aria-hidden="true" tabindex="-1"></a><span class="co"># заупуск застосунку</span></span>
+<span id="cb125-13"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb125-13" aria-hidden="true" tabindex="-1"></a><span class="co"># shinyApp(ui, server)</span></span></code></pre></div>
+<p>Кожен Shiny застосунок має однакову структуру: файл <em>app.R</em>, який містить інтерфейс користувача та сервер. Ми можемо створити Shiny застосунок, створивши новий каталог і зберігши в ньому файл <em>app.R</em>. Рекомендується кожний застосунок розміщувати в окремому унікальному каталозі.</p>
+<p>Для запуску Shiny застосунку необхідно скористатися функцією <code>runApp</code>, передавши їй в якості параметра ім’я каталогу, в якому містисться застосунок. Наприклад, якщо Shiny застосунок знаходиться в каталозі під назвою <code>my_app</code>, то для її запуску необхідно виконати наступне:</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb126-2"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb126-2" aria-hidden="true" tabindex="-1"></a><span class="co"># runApp(&quot;my_app&quot;)</span></span></code></pre></div>
+<p>Для запуску коду з середовища <code>R Studio</code> необхідно натиснути комбінацію клавіш <em>Ctrl-Shif-Enter</em> і за замовчанням застосунок запускається в режимі <em>Run in Window</em>.</p>
+</div>
+<div id="структура-front-end-частини" class="section level3 hasAnchor" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Структура front-end частини<a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#структура-front-end-частини" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>Shiny</code> використовує функцію <code>fluidPage()</code> для створення дисплея, який автоматично підлаштовується під розміри вікна браузера вашого користувача. Таким чином ми створюємо інтерфейс користувача своєї програми, розміщуючи елементи у функції <code>fluidPage()</code>.</p>
+<p>Наприклад, функція інтерфейсу користувача, наведена нижче, створює інтерфейс користувача, який має панель заголовків <code>titlePanel()</code> і макет бічної панелі <code>titlePanel()</code>, що включає бічну панель <code>sidebarPanel()</code> та головну панель <code>mainPanel()</code>. Слід звернути увагу на те, що ці елементи розміщуються в середині функції <code>fluidPage()</code>. У той же час, ці елементи є необов’язковими.</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb127-1" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb127-2"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb127-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">titlePanel</span>(<span class="st">&quot;title panel&quot;</span>),</span>
+<span id="cb127-3"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb127-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-4"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb127-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb127-5"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb127-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sidebarPanel</span>(<span class="st">&quot;sidebar panel&quot;</span>),</span>
+<span id="cb127-6"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb127-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mainPanel</span>(<span class="st">&quot;main panel&quot;</span>)</span>
+<span id="cb127-7"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb127-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb127-8"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb127-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure">
+<img src="image/front.png" alt="" />
+<p class="caption"><em>Рис. 4.3 Вигляд інтерфейсу</em></p>
+</div>
+<p><code>titlePanel()</code> і <code>sidebarLayout()</code> — два найпопулярніші елементи, які можна додати до <code>fluidPage</code>. Вони створюють базову програму <code>Shiny</code> з боковою панеллю.</p>
+<p><code>sidebarLayout</code> завжди приймає два аргументи:</p>
+<ul>
+<li><p>функцію вводу <code>sidebarPanel</code></p></li>
+<li><p>функцію виводу <code>mainPanel</code></p></li>
+</ul>
+<p>Ці функції розміщують вміст або на бічній панелі, або на основних панелях.</p>
+<p>Для взаємодії користувача з застосунком до інтерефейсної частини необхідно додати необхідні <a href="https://shiny.rstudio.com/tutorial/written-tutorial/lesson3/">віджети</a>. Віджет – це веб-елемент, який надає можливість надсилати повідомлення до Shiny застосунку і забезпечує, таким чином, його інтерактивність. Віджети у Shiny представляються сімейством функцій <code>*Input</code>.</p>
+<p>Внесемо до нашої інтерфейсної частини елемент “випадаючий список” (див. приклад з <a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#dash">дашбордом</a>), скориставшись функцією <code>selectInput</code> і стандартним датасетом <code>diamonds</code>, який входить до пакету <code>ggplot2</code>.</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="co"># інсталюємо пакет</span></span>
+<span id="cb128-2"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb128-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb128-3"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb128-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb128-4"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb128-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-5"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb128-5" aria-hidden="true" tabindex="-1"></a><span class="co"># front-end</span></span>
+<span id="cb128-6"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb128-6" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb128-7"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb128-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">titlePanel</span>(<span class="st">&quot;Характеристики діамантів&quot;</span>),</span>
+<span id="cb128-8"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb128-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb128-9"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb128-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sidebarPanel</span>(  </span>
+<span id="cb128-10"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb128-10" aria-hidden="true" tabindex="-1"></a>       <span class="fu">selectInput</span>(<span class="st">&quot;select&quot;</span>, <span class="fu">h3</span>(<span class="st">&quot;вибрати характеристику&quot;</span>), </span>
+<span id="cb128-11"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb128-11" aria-hidden="true" tabindex="-1"></a>                               <span class="at">choices =</span> <span class="fu">names</span>(diamonds), </span>
+<span id="cb128-12"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb128-12" aria-hidden="true" tabindex="-1"></a>                  <span class="at">selected =</span> <span class="dv">1</span>),</span>
+<span id="cb128-13"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb128-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb128-14"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb128-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mainPanel</span>()</span>
+<span id="cb128-15"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb128-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb128-16"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb128-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure">
+<img src="image/list_down.png" alt="" />
+<p class="caption"><em>Рис. 4.4 Випадаючий спискок</em></p>
+</div>
+<p>Більш детально про віджети можна прочитати <a href="https://shiny.rstudio.com/tutorial/written-tutorial/lesson4/">тут</a>, <a href="https://shiny.rstudio.com/articles/layout-guide.html">тут</a> і у <span class="citation">(<a href="#ref-wickham2021mastering" role="doc-biblioref">H. Wickham and Safari 2021</a>)</span>.</p>
+<p>Найголовніша осбливість будь-якого Shiny застосунку, це можливість створення реактивного виходу. Для цього необхідно виконати два наступні кроки:</p>
+<ul>
+<li><p>Додати об’єкт R до свого інтерфейсу користувача.</p></li>
+<li><p>Дати вказівку Shiny, як побудувати об’єкт у функції сервера. Об’єкт буде реактивним, якщо код, який його створює, викликає значення віджета.</p></li>
+</ul>
+<p>Shiny надає <a href="https://shiny.rstudio.com/tutorial/written-tutorial/lesson4/">сімейство функцій</a>, які перетворюють об’єкти R у вихідні дані для вашого інтерфейсу користувача. Кожна функція створює певний тип виводу.</p>
+<p>Для того, щоби в нашому прикладі вивести необхідну гістограму, нам потрібно скористатися функцією <code>plotOutput</code>, а для виводу таблиці – функцією <code>tableOutput</code> ввівши їх у панель виводу <code>mainPanel</code>,</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="co"># front-end</span></span>
+<span id="cb129-2"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb129-2" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb129-3"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb129-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">titlePanel</span>(<span class="st">&quot;Характеристики діамантів&quot;</span>),</span>
+<span id="cb129-4"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb129-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb129-5"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb129-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sidebarPanel</span>(  </span>
+<span id="cb129-6"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb129-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">selectInput</span>(<span class="st">&quot;select&quot;</span>, <span class="fu">h3</span>(<span class="st">&quot;вибрати характеристику&quot;</span>), </span>
+<span id="cb129-7"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb129-7" aria-hidden="true" tabindex="-1"></a>                               <span class="at">choices =</span> <span class="fu">names</span>(diamonds), </span>
+<span id="cb129-8"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb129-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">selected =</span> <span class="dv">1</span>),</span>
+<span id="cb129-9"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb129-9" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb129-10"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb129-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb129-11"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb129-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mainPanel</span>(</span>
+<span id="cb129-12"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb129-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">plotOutput</span>(<span class="st">&quot;hist&quot;</span>),</span>
+<span id="cb129-13"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb129-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">dataTableOutput</span>(<span class="st">&quot;table&quot;</span>)</span>
+<span id="cb129-14"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb129-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb129-15"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb129-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb129-16"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb129-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Реалізація другого етапу потребує написання серверної частини, з відповідним функціоналом, тобто, back-end.</p>
+</div>
+<div id="структура-back-end-частини" class="section level3 hasAnchor" number="5.4.3">
+<h3><span class="header-section-number">5.4.3</span> Структура back-end частини<a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#структура-back-end-частини" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Розміщення функції в інтерфейсній частині <code>ui</code> користувача вказує <code>Shiny</code>, де відображати наш об’єкт. Далі нам потрібно вказати <code>Shiny</code>, як побудувати об’єкт. Для цього ми пишемо відповідний код у серверній частині застосунку.</p>
+<p>Функція <code>server</code> створює об’єкт, подібний до списку, з назвою виведення, який містить весь код, необхідний для оновлення об’єктів R у вашій програмі. Кожен об’єкт R повинен мати власний запис у списку.</p>
+<p>Ми маємо створити запис, визначивши новий елемент для виведення <code>output</code> всередині <code>server</code>, як показано нижче. Ім’я елемента має відповідати імені реактивного елемента, який було створено в інтерфейсній частині <code>ui</code>.</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="co"># back-end</span></span>
+<span id="cb130-2"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb130-2" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb130-3"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb130-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb130-4"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb130-4" aria-hidden="true" tabindex="-1"></a>  data_1 <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="co"># звичайний датасет</span></span>
+<span id="cb130-5"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb130-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(carat)) <span class="sc">%&gt;%</span></span>
+<span id="cb130-6"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb130-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb130-7"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb130-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(carat, cut, color, price)</span>
+<span id="cb130-8"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb130-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-9"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb130-9" aria-hidden="true" tabindex="-1"></a>  data_2 <span class="ot">&lt;-</span> <span class="fu">reactive</span>(<span class="fu">get</span>(input<span class="sc">$</span>select, diamonds)) <span class="co"># реактивний датасет</span></span>
+<span id="cb130-10"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb130-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb130-11"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb130-11" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>table <span class="ot">&lt;-</span> <span class="fu">renderDataTable</span>(data_1, <span class="at">options =</span> <span class="fu">list</span>(<span class="at">pageLength =</span> <span class="dv">5</span>))</span>
+<span id="cb130-12"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb130-12" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>hist <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>(<span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="fu">data_2</span>())) <span class="sc">+</span> <span class="fu">geom_bar</span>())</span>
+<span id="cb130-13"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb130-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Кожен елемент виведення <code>output</code> – це виклик однієї з функцій сімейства рендерингу render*. Слід використовувати функцію render*, відповідно до типу реактивного об’єкта, який ми створюємо. Див. детально <a href="https://shiny.rstudio.com/tutorial/written-tutorial/lesson4/">тут</a>.</p>
+<p>У нашому випадку ми використовуємо <code>renderDataTable()</code> для виводу інтерактивної таблиці і <code>renderPlot()</code> для виводу гістограми.</p>
+<p>Особливо слід відмітити, що для забезпечення реактивної зміни гістограми при виборі відповідного датасету, необхідно використовувати функцію <code>reactive()</code>. Водночас для рендерінгу таблиці така необхідність не виникає. Це дає нам можливість оптимізувати код серверної частини за допомогою потокового оператора, виключивши зайву змінну <code>data_1</code>.</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb131-1" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb131-2"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb131-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb131-3"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb131-3" aria-hidden="true" tabindex="-1"></a> data_2 <span class="ot">&lt;-</span> <span class="fu">reactive</span>(<span class="fu">get</span>(input<span class="sc">$</span>select, diamonds)) <span class="co"># реактивний датасет</span></span>
+<span id="cb131-4"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb131-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb131-5"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb131-5" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>table <span class="ot">&lt;-</span> <span class="fu">renderDataTable</span>({</span>
+<span id="cb131-6"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb131-6" aria-hidden="true" tabindex="-1"></a>    diamonds <span class="sc">%&gt;%</span> </span>
+<span id="cb131-7"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb131-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(carat)) <span class="sc">%&gt;%</span></span>
+<span id="cb131-8"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb131-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">head</span>(<span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb131-9"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb131-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select</span>(carat, cut, color, price)</span>
+<span id="cb131-10"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb131-10" aria-hidden="true" tabindex="-1"></a>  }, <span class="at">options =</span> <span class="fu">list</span>(<span class="at">pageLength =</span> <span class="dv">5</span>))</span>
+<span id="cb131-11"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb131-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb131-12"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb131-12" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>hist <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb131-13"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb131-13" aria-hidden="true" tabindex="-1"></a>    diamonds <span class="sc">%&gt;%</span> </span>
+<span id="cb131-14"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb131-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="fu">data_2</span>())) <span class="sc">+</span> <span class="fu">geom_bar</span>()})</span>
+<span id="cb131-15"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb131-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>У результаті інтерфес нашого застосунок буде виглядати <a href="https://prnt.sc/Ntn5xh8Yq9SO">наступним чином</a>.</p>
+</div>
+<div id="відлагодження-web-застосунку" class="section level3 hasAnchor" number="5.4.4">
+<h3><span class="header-section-number">5.4.4</span> Відлагодження web-застосунку<a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#відлагодження-web-застосунку" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Для відлагодження коду у <code>Shiny</code> існує потужній інструмент – <strong>інтерактивний налагоджувач (interactive debugger)</strong> <span class="citation">(<a href="#ref-wickham2021mastering" role="doc-biblioref">H. Wickham and Safari 2021</a>)</span>. Налагоджувач призупиняє виконання та надає вам інтерактивну консоль R, де ми можемо запустити будь-який код, щоб з’ясувати, що пішло не так. Існує два способи запуску налагоджувача:</p>
+<ul>
+<li>Для цього необхідно додати виклик функції <code>browser()</code> у своєму вихідному коді. Це стандартний спосіб R для запуску інтерактивного налагоджувача, який працюватиме незалежно від того, як ми запускаємо Shiny.</li>
+</ul>
+<p>Інша перевага <code>browser()</code> полягає в тому, що, оскільки це код R, ми можемо об’єднати його з оператором <code>if</code>. Це дозволяє запускати налагоджувач лише для проблемних вводів.</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="co"># if (input$select == &quot;carat&quot;) {</span></span>
+<span id="cb132-2"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb132-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   browser()</span></span>
+<span id="cb132-3"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb132-3" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span></code></pre></div>
+<ul>
+<li>Додати точку зупинки RStudio, клацнувши ліворуч від номера рядка. Ми можемо видалити точку зупину, натиснувши на червоне коло.</li>
+</ul>
+<p><img src="image/browser.png" alt="Рис. 4.5 Точка зупинки" />
+Перевага точок зупинки полягає в тому, що вони не є кодом, тому нам ніколи не доведеться турбуватися про випадкову перевірку їх у нашій системі контролю версій.</p>
+<p>Якщо ми використовуємо RStudio, панель інструментів (лив. рис. ) на з’явиться у верхній частині консолі, коли ви перебуваєте в налагоджувачі.</p>
+<div class="figure">
+<img src="image/debug_panel.png" alt="" />
+<p class="caption"><em>Рис. 4.6 Панель налагоджувача RStudio</em></p>
+</div>
+<p>Панель інструментів — це простий спосіб запам’ятати команди налагодження, які тепер нам доступні. Вони також доступні за межами RStudio; нам просто потрібно запам’ятати команду з однієї букви, щоб активувати їх. Три найкорисніші команди:</p>
+<ul>
+<li><p><code>Next</code> (натисніть <code>n</code>): виконує наступний крок у функції. Зауважте, що якщо у нас є змінна з іменем <code>n</code>, нам потрібно буде використовувати <code>print(n)</code>, щоб відобразити її значення.</p></li>
+<li><p><code>Continue</code> (натисніть <code>c</code>): продовжує регулярне виконання функції. Це корисно, якщо ми виправили помилку і хочемо перевірити, чи функція працює правильно.</p></li>
+<li><p><code>Stop</code> (натиснути <code>Q</code>): зупиняє режим налагодження, припиняє роботу функції та повертається до глобального робочого простору. Це потрібно використовувати, коли ми зрозуміємо, де проблема, і будемо готові виправити її та перезавантажити код.</p></li>
+</ul>
+</div>
+<div id="доставка-та-розгортання-web-застосунку" class="section level3 hasAnchor" number="5.4.5">
+<h3><span class="header-section-number">5.4.5</span> Доставка та розгортання web-застосунку<a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#доставка-та-розгортання-web-застосунку" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Існує декілька способів доставки/розгортання Shiny застосунку.</p>
+<div class="figure">
+<img src="image/CD.png" alt="" />
+<p class="caption"><em>Рис. 4.7 Способи доставки/розгортання Shiny застосунку</em></p>
+</div>
+<p>Для того, щоби будь-хто міг запустити наш Shiny застосунок необхідно надати йому копію файлу <code>app.R</code>, а також будь-які додаткові матеріали, які використовуються у цій програмі (наприклад, папки <code>www</code> або файли <code>helpers.R</code>).</p>
+<p>Щоб надіслати файли іншому користувачеві, необхідно надіслати файли електронною поштою (можливо, у zip-файлі) або розмістити файли в Інтернеті (<code>runUrl</code>, <code>runGitHub</code>, <code>runGist</code>).</p>
+<p>Користувач може розмістити файли в каталозі програми у своєму робочому каталозі. Застосунок може бути запущено в R за допомогою тих самих команд, які було <a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#Shiny">розглянуто вище</a>.</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb133-2"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#cb133-2" aria-hidden="true" tabindex="-1"></a><span class="co"># runApp(&quot;my_app&quot;)</span></span></code></pre></div>
+<p>Для розгортання проекту у вигляді web-застосунку існує три способи:</p>
+<ul>
+<li><p><a href="https://www.shinyapps.io/?_ga=2.68346006.606918479.1647117734-136314609.1527258720">Shinyapps.io</a> – хмарний сервіс від RStudio, дозволяє завантажувати додаток прямо з сеансу R на сервер, розміщений на RStudio. У цьому випадку ми маємо повний контроль над своєю програмою, включаючи інструменти адміністрування сервера.</p></li>
+<li><p><a href="https://github.com/rstudio/shiny-server/blob/master/README.md">Shiny Server</a> – це програма-супутник для Shiny, яка створює веб-сервер, призначений для розгортання Shiny застосунків, є безкоштовною, з відкритим вихідним кодом і доступною на GitHub. Дає можливість розміщувати кілька Shiny застосунків на кількох веб-сторінках за допомогою одного Shiny Server, а також здійснювати розгортання через брандмауер.</p></li>
+<li><p><a href="https://www.rstudio.com/products/connect/?_ga=2.16385201.606918479.1647117734-136314609.1527258720">RStudio Connect</a> – видавнича платформа для роботи, яку команди розробників створюють у R. Дозволяє також поширювати звіти R Markdown, інформаційні панелі, графіки, блокноти Jupyter та багато іншого в одному зручному місці. За допомогою RStudio Connect можна публікувати звіти з RStudio IDE одним натисканням кнопки та планувати виконання звітів з гнучкою політикою безпеки.</p></li>
+</ul>
+<p>Створений нами застосунок і розгорнутий у хмарі <code>shinyapps.io</code> знаходиться <a href="https://hamalii.shinyapps.io/my_app/">тут</a>.</p>
+</div>
+<div id="індивідуальні-завдання-на-лабораторну-роботу-3" class="section level3 hasAnchor" number="5.4.6">
+<h3><span class="header-section-number">5.4.6</span> Індивідуальні завдання на лабораторну роботу<a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#індивідуальні-завдання-на-лабораторну-роботу-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Видає викладач.</p>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-R-shiny" class="csl-entry">
+Chang, Winston, Joe Cheng, JJ Allaire, Carson Sievert, Barret Schloerke, Yihui Xie, Jeff Allen, Jonathan McPherson, Alan Dipert, and Barbara Borges. 2021. <em>Shiny: Web Application Framework for r</em>. <a href="https://CRAN.R-project.org/package=shiny">https://CRAN.R-project.org/package=shiny</a>.
+</div>
+<div id="ref-r4ds" class="csl-entry">
+Garrett Grolemund, Hadley Wickham. 2018. <em>R for Data Science</em>. <a href="http://r4ds.had.co.nz/index.html">http://r4ds.had.co.nz/index.html</a>.
+</div>
+<div id="ref-wickham2021mastering" class="csl-entry">
+Wickham, H., and an O’Reilly Media Company Safari. 2021. <em>Mastering Shiny</em>. O’Reilly Media, Incorporated. <a href="https://books.google.com.ua/books?id=ha1CzgEACAAJ">https://books.google.com.ua/books?id=ha1CzgEACAAJ</a>.
+</div>
+<div id="ref-CRISP_DM" class="csl-entry">
+wikipedia. 2018a. <span>“Cross-Industry Standard Process for Data Mining.”</span> Article. <a href="https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining">https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="lab_3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lab_5.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-lab4.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
