@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Розділ 3 Лабораторна робота №2. Маніпулювання даними | Data Science на R. Лабораторний практикум (draft version)</title>
   <meta name="description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Розділ 3 Лабораторна робота №2. Маніпулювання даними | Data Science на R. Лабораторний практикум (draft version)" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
   <meta name="github-repo" content="VGamaley/DS-book-lab" />
@@ -24,7 +23,7 @@
 <meta name="author" content="© Сидоренко В. М." />
 
 
-<meta name="date" content="2022-03-14" />
+<meta name="date" content="2022-04-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="modul1.html"/>
 <link rel="next" href="lab_3.html"/>
-<script src="libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -54,6 +52,14 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.22/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -289,6 +295,16 @@ div.csl-indent {
 <li class="chapter" data-level="9.5" data-path="lab_8.html"><a href="lab_8.html#example"><i class="fa fa-check"></i><b>9.5</b> Приклад побудови не сезонної ARIMA-моделі<span></span></a></li>
 <li class="chapter" data-level="9.6" data-path="lab_8.html"><a href="lab_8.html#завдання-на-лабораторну-роботу"><i class="fa fa-check"></i><b>9.6</b> Завдання на лабораторну роботу<span></span></a></li>
 </ul></li>
+<li class="chapter" data-level="10" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><i class="fa fa-check"></i><b>10</b> Лабораторна робота № 9. Веб скрепінг. Пакет <code>rvest</code>. Short-версія<span></span></a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#пакет-rvest"><i class="fa fa-check"></i><b>10.1</b> Пакет <code>rvest</code><span></span></a></li>
+<li class="chapter" data-level="10.2" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#основні-методи-пакета-rvest"><i class="fa fa-check"></i><b>10.2</b> Основні методи пакета <code>rvest</code><span></span></a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#отримання-html-сторінки-і-знаходження-потрібного-елемента"><i class="fa fa-check"></i><b>10.2.1</b> Отримання <code>html</code>-сторінки і знаходження потрібного елемента<span></span></a></li>
+<li class="chapter" data-level="10.2.2" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#розбір-елементів-на-складові-частини"><i class="fa fa-check"></i><b>10.2.2</b> Розбір елементів на складові частини<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#завдання-на-лабораторну-роботу-1"><i class="fa fa-check"></i><b>10.3</b> Завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -311,7 +327,7 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="lab_2" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number">Розділ 3</span> Лабораторна робота №2. Маніпулювання даними<a href="lab_2.html#lab_2" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><strong>Мета:</strong> <em>Засвоєння принципів, знайомвство з інструментами та набуття навичок манпулювання даними (<strong>wrangle</strong>) засобами мови програмування <code>R</code> та колекції пакетів <code>tidyverse</code> <span class="citation">(<a href="#ref-R-tidyverse" role="doc-biblioref">Hadley Wickham 2021b</a>)</span>.</em></p>
+<p><strong>Мета:</strong> <em>Засвоєння принципів, знайомвство з інструментами та набуття навичок манпулювання даними (<strong>wrangle</strong>) засобами мови програмування <code>R</code> та колекції пакетів <code>tidyverse</code> <span class="citation">(<a href="#ref-R-tidyverse" role="doc-biblioref">Hadley Wickham 2021c</a>)</span>.</em></p>
 <div id="що-ви-будете-вміти-1" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Що ви будете вміти?<a href="lab_2.html#що-ви-будете-вміти-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
@@ -402,7 +418,7 @@ div.csl-indent {
 <span id="cb13-11"><a href="lab_2.html#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-12"><a href="lab_2.html#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(flights_sqlite)</span></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 19]
-## # Database: sqlite 3.37.2 []
+## # Database: sqlite 3.38.0 []
 ##    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
 ##   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
 ## 1  2013     1     1      517            515         2      830            819
@@ -850,7 +866,7 @@ div.csl-indent {
 <span id="cb63-11"><a href="lab_2.html#cb63-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb63-12"><a href="lab_2.html#cb63-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(flights_sqlite)</span></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 19]
-## # Database: sqlite 3.37.2 []
+## # Database: sqlite 3.38.0 []
 ##    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
 ##   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
 ## 1  2013     1     1      517            515         2      830            819
@@ -867,7 +883,7 @@ div.csl-indent {
 </ol>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="lab_2.html#cb65-1" aria-hidden="true" tabindex="-1"></a>flights_sqlite <span class="sc">%&gt;%</span> <span class="fu">select</span>(year<span class="sc">:</span>day, dep_delay, arr_delay)</span></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 5]
-## # Database: sqlite 3.37.2 []
+## # Database: sqlite 3.38.0 []
 ##     year month   day dep_delay arr_delay
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;
 ##  1  2013     1     1         2        11
@@ -886,7 +902,7 @@ div.csl-indent {
 </ol>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="lab_2.html#cb67-1" aria-hidden="true" tabindex="-1"></a>flights_sqlite <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dep_delay <span class="sc">&gt;</span> <span class="dv">240</span>)</span></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 19]
-## # Database: sqlite 3.37.2 []
+## # Database: sqlite 3.38.0 []
 ##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
 ##  1  2013     1     1      848           1835       853     1001           1950
@@ -912,7 +928,7 @@ div.csl-indent {
 ## Use `mean(x, na.rm = TRUE)` to silence this warning
 ## This warning is displayed only once per session.</code></pre>
 <pre><code>## # Source:   lazy query [?? x 2]
-## # Database: sqlite 3.37.2 []
+## # Database: sqlite 3.38.0 []
 ##    dest  delay
 ##    &lt;chr&gt; &lt;dbl&gt;
 ##  1 ABQ   2006.
@@ -1032,7 +1048,7 @@ Spinu, Vitalie, Garrett Grolemund, and Hadley Wickham. 2021. <em>Lubridate: Make
 ———. 2021a. <em>Nycflights13: Flights That Departed NYC in 2013</em>. <a href="https://github.com/hadley/nycflights13">https://github.com/hadley/nycflights13</a>.
 </div>
 <div id="ref-R-tidyverse" class="csl-entry">
-———. 2021b. <em>Tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
+———. 2021c. <em>Tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
 </div>
 <div id="ref-R-bigrquery" class="csl-entry">
 Wickham, Hadley, and Jennifer Bryan. 2021. <em>Bigrquery: An Interface to Google’s BigQuery ’API’</em>. <a href="https://CRAN.R-project.org/package=bigrquery">https://CRAN.R-project.org/package=bigrquery</a>.

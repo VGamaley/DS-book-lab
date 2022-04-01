@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Розділ 10 Лабораторна робота № 9. Веб скрепінг. Пакет rvest. Short-версія | Data Science на R. Лабораторний практикум (draft version)</title>
+  <meta name="description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Розділ 10 Лабораторна робота № 9. Веб скрепінг. Пакет rvest. Short-версія | Data Science на R. Лабораторний практикум (draft version)" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  <meta name="github-repo" content="VGamaley/DS-book-lab" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Розділ 10 Лабораторна робота № 9. Веб скрепінг. Пакет rvest. Short-версія | Data Science на R. Лабораторний практикум (draft version)" />
+  
+  <meta name="twitter:description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
+  
+
+<meta name="author" content="© Сидоренко В. М." />
+
+
+<meta name="date" content="2022-04-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="lab_8.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.22/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Вступ<span></span></a></li>
+<li class="chapter" data-level="2" data-path="modul1.html"><a href="modul1.html"><i class="fa fa-check"></i><b>2</b> Модуль 1. Базовий. Лабораторна робота №1. Створення основи типового Data Science-проєкту<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="modul1.html"><a href="modul1.html#що-ви-будете-вміти"><i class="fa fa-check"></i><b>2.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="modul1.html"><a href="modul1.html#короткі-теоретичні-відомості"><i class="fa fa-check"></i><b>2.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="modul1.html"><a href="modul1.html#що-таке-data-science-проект"><i class="fa fa-check"></i><b>2.2.1</b> Що таке Data Science-проект?<span></span></a></li>
+<li class="chapter" data-level="2.2.2" data-path="modul1.html"><a href="modul1.html#концепція-грамотного-програмування"><i class="fa fa-check"></i><b>2.2.2</b> Концепція грамотного програмування<span></span></a></li>
+<li class="chapter" data-level="2.2.3" data-path="modul1.html"><a href="modul1.html#markdown-і-rmarkdown"><i class="fa fa-check"></i><b>2.2.3</b> Markdown і RMarkdown<span></span></a></li>
+<li class="chapter" data-level="2.2.4" data-path="modul1.html"><a href="modul1.html#інсталяція-r"><i class="fa fa-check"></i><b>2.2.4</b> Інсталяція R<span></span></a></li>
+<li class="chapter" data-level="2.2.5" data-path="modul1.html"><a href="modul1.html#інсталяція-rstudio"><i class="fa fa-check"></i><b>2.2.5</b> Інсталяція RStudio<span></span></a></li>
+<li class="chapter" data-level="2.2.6" data-path="modul1.html"><a href="modul1.html#CreateRMarkdown"><i class="fa fa-check"></i><b>2.2.6</b> Створення RMarkdown-документу<span></span></a></li>
+<li class="chapter" data-level="2.2.7" data-path="modul1.html"><a href="modul1.html#генерація-електронного-документу"><i class="fa fa-check"></i><b>2.2.7</b> Генерація електронного документу<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="modul1.html"><a href="modul1.html#приклад-створення-markdown-документу"><i class="fa fa-check"></i><b>2.3</b> Приклад створення Markdown-документу<span></span></a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="modul1.html"><a href="modul1.html#постановка-задачі"><i class="fa fa-check"></i><b>2.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="2.3.2" data-path="modul1.html"><a href="modul1.html#виконання-завдання"><i class="fa fa-check"></i><b>2.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="2.3.3" data-path="modul1.html"><a href="modul1.html#індивідуальні-завдання-на-лабораторну-роботу"><i class="fa fa-check"></i><b>2.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+<li class="chapter" data-level="2.3.4" data-path="modul1.html"><a href="modul1.html#домашнє-завдання"><i class="fa fa-check"></i><b>2.3.4</b> Домашнє завдання<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="lab_2.html"><a href="lab_2.html"><i class="fa fa-check"></i><b>3</b> Лабораторна робота №2. Маніпулювання даними<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="lab_2.html"><a href="lab_2.html#що-ви-будете-вміти-1"><i class="fa fa-check"></i><b>3.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="lab_2.html"><a href="lab_2.html#короткі-теоретичні-відомості-1"><i class="fa fa-check"></i><b>3.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="lab_2.html"><a href="lab_2.html#що-таке-маніпулювання-данними"><i class="fa fa-check"></i><b>3.2.1</b> Що таке маніпулювання данними?<span></span></a></li>
+<li class="chapter" data-level="3.2.2" data-path="lab_2.html"><a href="lab_2.html#імпорт-даних"><i class="fa fa-check"></i><b>3.2.2</b> Імпорт даних<span></span></a></li>
+<li class="chapter" data-level="3.2.3" data-path="lab_2.html"><a href="lab_2.html#приведення-даних-до-охайного-вигляду"><i class="fa fa-check"></i><b>3.2.3</b> Приведення даних до охайного вигляду<span></span></a></li>
+<li class="chapter" data-level="3.2.4" data-path="lab_2.html"><a href="lab_2.html#трансформація"><i class="fa fa-check"></i><b>3.2.4</b> Трансформація<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="lab_2.html"><a href="lab_2.html#приклад-виконання-індівідуального-завдання"><i class="fa fa-check"></i><b>3.3</b> Приклад виконання індівідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="lab_2.html"><a href="lab_2.html#постановка-задачі-1"><i class="fa fa-check"></i><b>3.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="3.3.2" data-path="lab_2.html"><a href="lab_2.html#виконання-завдання-1"><i class="fa fa-check"></i><b>3.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="3.3.3" data-path="lab_2.html"><a href="lab_2.html#індивідуальні-завдання-на-лабораторну-роботу-1"><i class="fa fa-check"></i><b>3.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="lab_3.html"><a href="lab_3.html"><i class="fa fa-check"></i><b>4</b> Лабораторна робота №3. Розвідувальний аналіз даних. Візуалізація<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="lab_3.html"><a href="lab_3.html#що-ви-будете-вміти-2"><i class="fa fa-check"></i><b>4.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="lab_3.html"><a href="lab_3.html#короткі-теоретичні-відомості-2"><i class="fa fa-check"></i><b>4.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="lab_3.html"><a href="lab_3.html#що-таке-розвідувальний-аналіз-даних"><i class="fa fa-check"></i><b>4.2.1</b> Що таке розвідувальний аналіз даних?<span></span></a></li>
+<li class="chapter" data-level="4.2.2" data-path="lab_3.html"><a href="lab_3.html#питання"><i class="fa fa-check"></i><b>4.2.2</b> Питання<span></span></a></li>
+<li class="chapter" data-level="4.2.3" data-path="lab_3.html"><a href="lab_3.html#зниження-розмірності-даних"><i class="fa fa-check"></i><b>4.2.3</b> Зниження розмірності даних<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="lab_3.html"><a href="lab_3.html#приклад-виконання-індивідуального-завдання"><i class="fa fa-check"></i><b>4.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="lab_3.html"><a href="lab_3.html#постановка-задачі-2"><i class="fa fa-check"></i><b>4.3.1</b> Постановка задачі<span></span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="lab_3.html"><a href="lab_3.html#виконання-завдання-2"><i class="fa fa-check"></i><b>4.3.2</b> Виконання завдання<span></span></a></li>
+<li class="chapter" data-level="4.3.3" data-path="lab_3.html"><a href="lab_3.html#індивідуальні-завдання-на-лабораторну-роботу-2"><i class="fa fa-check"></i><b>4.3.3</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><i class="fa fa-check"></i><b>5</b> Лабораторна робота №4. Доставка результатів Data Science-проєкту та його розгортання<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#що-ви-будете-вміти-3"><i class="fa fa-check"></i><b>5.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#короткі-теоретичні-відомості-3"><i class="fa fa-check"></i><b>5.2</b> Короткі теоретичні відомості<span></span></a></li>
+<li class="chapter" data-level="5.3" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#dash"><i class="fa fa-check"></i><b>5.3</b> Створення дашборду<span></span></a></li>
+<li class="chapter" data-level="5.4" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#Shiny"><i class="fa fa-check"></i><b>5.4</b> Фреймворк Shiny<span></span></a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#структура-shiny-app-застосунку"><i class="fa fa-check"></i><b>5.4.1</b> Структура Shiny App застосунку<span></span></a></li>
+<li class="chapter" data-level="5.4.2" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#структура-front-end-частини"><i class="fa fa-check"></i><b>5.4.2</b> Структура front-end частини<span></span></a></li>
+<li class="chapter" data-level="5.4.3" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#структура-back-end-частини"><i class="fa fa-check"></i><b>5.4.3</b> Структура back-end частини<span></span></a></li>
+<li class="chapter" data-level="5.4.4" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#відлагодження-web-застосунку"><i class="fa fa-check"></i><b>5.4.4</b> Відлагодження web-застосунку<span></span></a></li>
+<li class="chapter" data-level="5.4.5" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#доставка-та-розгортання-web-застосунку"><i class="fa fa-check"></i><b>5.4.5</b> Доставка та розгортання web-застосунку<span></span></a></li>
+<li class="chapter" data-level="5.4.6" data-path="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html"><a href="лабораторна-робота-4.-доставка-результатів-data-science-проєкту-та-його-розгортання.html#індивідуальні-завдання-на-лабораторну-роботу-3"><i class="fa fa-check"></i><b>5.4.6</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="lab_5.html"><a href="lab_5.html"><i class="fa fa-check"></i><b>6</b> Модуль 2. Моделювання. Лабораторна робота №5. Побудова регресійних моделей<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="lab_5.html"><a href="lab_5.html#що-ви-будете-вміти-4"><i class="fa fa-check"></i><b>6.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="6.2" data-path="lab_5.html"><a href="lab_5.html#короткі-теоретичні-відомості-4"><i class="fa fa-check"></i><b>6.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="lab_5.html"><a href="lab_5.html#що-таке-регресія-і-регресійний-аналіз"><i class="fa fa-check"></i><b>6.2.1</b> Що таке регресія і регресійний аналіз?<span></span></a></li>
+<li class="chapter" data-level="6.2.2" data-path="lab_5.html"><a href="lab_5.html#формальна-постановка-задачі-регресії"><i class="fa fa-check"></i><b>6.2.2</b> Формальна постановка задачі регресії<span></span></a></li>
+<li class="chapter" data-level="6.2.3" data-path="lab_5.html"><a href="lab_5.html#статистичний-підхід"><i class="fa fa-check"></i><b>6.2.3</b> Статистичний підхід<span></span></a></li>
+<li class="chapter" data-level="6.2.4" data-path="lab_5.html"><a href="lab_5.html#підхід-на-основі-машинного-навчання"><i class="fa fa-check"></i><b>6.2.4</b> Підхід на основі машинного навчання<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="lab_5.html"><a href="lab_5.html#ind"><i class="fa fa-check"></i><b>6.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="lab_5.html"><a href="lab_5.html#розуміння-даних"><i class="fa fa-check"></i><b>6.3.1</b> Розуміння даних<span></span></a></li>
+<li class="chapter" data-level="6.3.2" data-path="lab_5.html"><a href="lab_5.html#підготовка-даних"><i class="fa fa-check"></i><b>6.3.2</b> Підготовка даних<span></span></a></li>
+<li class="chapter" data-level="6.3.3" data-path="lab_5.html"><a href="lab_5.html#rf"><i class="fa fa-check"></i><b>6.3.3</b> Моделювання<span></span></a></li>
+<li class="chapter" data-level="6.3.4" data-path="lab_5.html"><a href="lab_5.html#індивідуальні-завдання-на-лабораторну-роботу-4"><i class="fa fa-check"></i><b>6.3.4</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="lab_6.html"><a href="lab_6.html"><i class="fa fa-check"></i><b>7</b> Лабораторна робота №6. Побудова моделей класифікації<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="lab_6.html"><a href="lab_6.html#що-ви-будете-вміти-5"><i class="fa fa-check"></i><b>7.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="7.2" data-path="lab_6.html"><a href="lab_6.html#короткі-теоретичні-відомості-5"><i class="fa fa-check"></i><b>7.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="lab_6.html"><a href="lab_6.html#у-чому-полягає-задача-класифікації"><i class="fa fa-check"></i><b>7.2.1</b> У чому полягає задача класифікації?<span></span></a></li>
+<li class="chapter" data-level="7.2.2" data-path="lab_6.html"><a href="lab_6.html#формальна-постановка-задачі-класифікації"><i class="fa fa-check"></i><b>7.2.2</b> Формальна постановка задачі класифікації<span></span></a></li>
+<li class="chapter" data-level="7.2.3" data-path="lab_6.html"><a href="lab_6.html#пакет-caret"><i class="fa fa-check"></i><b>7.2.3</b> Пакет <code>caret</code><span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="lab_6.html"><a href="lab_6.html#приклад-виконання-індивідуального-завдання-1"><i class="fa fa-check"></i><b>7.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="lab_6.html"><a href="lab_6.html#навчання-моделі"><i class="fa fa-check"></i><b>7.3.1</b> Навчання моделі<span></span></a></li>
+<li class="chapter" data-level="7.3.2" data-path="lab_6.html"><a href="lab_6.html#експорт-моделі-до-бд"><i class="fa fa-check"></i><b>7.3.2</b> Експорт моделі до БД<span></span></a></li>
+<li class="chapter" data-level="7.3.3" data-path="lab_6.html"><a href="lab_6.html#імпорт-моделі-і-работа-з-нею"><i class="fa fa-check"></i><b>7.3.3</b> Імпорт моделі і работа з нею<span></span></a></li>
+<li class="chapter" data-level="7.3.4" data-path="lab_6.html"><a href="lab_6.html#індивідуальні-завдання-на-лабораторну-роботу-5"><i class="fa fa-check"></i><b>7.3.4</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html"><i class="fa fa-check"></i><b>8</b> Лабораторна робота №7. Пошук асоціативних правил<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#що-ви-будете-вміти-6"><i class="fa fa-check"></i><b>8.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="8.2" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#короткі-теоретичні-відомості-6"><i class="fa fa-check"></i><b>8.2</b> Короткі теоретичні відомості<span></span></a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#у-чому-полягає-задача-пошуку-асоціативних-правил"><i class="fa fa-check"></i><b>8.2.1</b> У чому полягає задача пошуку асоціативних правил?<span></span></a></li>
+<li class="chapter" data-level="8.2.2" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#формальна-постановка-задачі-класифікації-1"><i class="fa fa-check"></i><b>8.2.2</b> Формальна постановка задачі класифікації<span></span></a></li>
+<li class="chapter" data-level="8.2.3" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#основні-міри-цікавості-асоціативних-правил"><i class="fa fa-check"></i><b>8.2.3</b> Основні міри “цікавості” асоціативних правил<span></span></a></li>
+<li class="chapter" data-level="8.2.4" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#пакети-arules-та-arulesviz"><i class="fa fa-check"></i><b>8.2.4</b> Пакети <code>arules</code> та <code>arulesViz</code><span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="lab_5.html"><a href="lab_5.html#ind"><i class="fa fa-check"></i><b>8.3</b> Приклад виконання індивідуального завдання<span></span></a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="лабораторна-робота-7.-пошук-асоціативних-правил.html"><a href="лабораторна-робота-7.-пошук-асоціативних-правил.html#індивідуальні-завдання-на-лабораторну-роботу-6"><i class="fa fa-check"></i><b>8.3.1</b> Індивідуальні завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="lab_8.html"><a href="lab_8.html"><i class="fa fa-check"></i><b>9</b> Лабораторна робота № 8. Побудова ARIMA-моделі часового ряду і прогнозування на її основі (short version)<span></span></a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="lab_8.html"><a href="lab_8.html#що-ви-будете-вміти-7"><i class="fa fa-check"></i><b>9.1</b> Що ви будете вміти?<span></span></a></li>
+<li class="chapter" data-level="9.2" data-path="lab_8.html"><a href="lab_8.html#ts-обєкт"><i class="fa fa-check"></i><b>9.2</b> ts-об’єкт<span></span></a></li>
+<li class="chapter" data-level="9.3" data-path="lab_8.html"><a href="lab_8.html#візуалізація-чр"><i class="fa fa-check"></i><b>9.3</b> Візуалізація ЧР<span></span></a></li>
+<li class="chapter" data-level="9.4" data-path="lab_8.html"><a href="lab_8.html#стаціонарність-і-диференціювання"><i class="fa fa-check"></i><b>9.4</b> Стаціонарність і диференціювання<span></span></a></li>
+<li class="chapter" data-level="9.5" data-path="lab_8.html"><a href="lab_8.html#example"><i class="fa fa-check"></i><b>9.5</b> Приклад побудови не сезонної ARIMA-моделі<span></span></a></li>
+<li class="chapter" data-level="9.6" data-path="lab_8.html"><a href="lab_8.html#завдання-на-лабораторну-роботу"><i class="fa fa-check"></i><b>9.6</b> Завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><i class="fa fa-check"></i><b>10</b> Лабораторна робота № 9. Веб скрепінг. Пакет <code>rvest</code>. Short-версія<span></span></a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#пакет-rvest"><i class="fa fa-check"></i><b>10.1</b> Пакет <code>rvest</code><span></span></a></li>
+<li class="chapter" data-level="10.2" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#основні-методи-пакета-rvest"><i class="fa fa-check"></i><b>10.2</b> Основні методи пакета <code>rvest</code><span></span></a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#отримання-html-сторінки-і-знаходження-потрібного-елемента"><i class="fa fa-check"></i><b>10.2.1</b> Отримання <code>html</code>-сторінки і знаходження потрібного елемента<span></span></a></li>
+<li class="chapter" data-level="10.2.2" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#розбір-елементів-на-складові-частини"><i class="fa fa-check"></i><b>10.2.2</b> Розбір елементів на складові частини<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#завдання-на-лабораторну-роботу-1"><i class="fa fa-check"></i><b>10.3</b> Завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science на R. Лабораторний практикум (draft version)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Розділ 10</span> Лабораторна робота № 9. Веб скрепінг. Пакет <code>rvest</code>. Short-версія<a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Примітка.</strong> За основу цієї лабораторної роботи взята <a href="http://dkhramov.dp.ua/Stu.WebMining.html#.YGSEMJ0zY2x">робота Дмитра Храмова</a> і його книга <span class="citation">(<a href="#ref-hram" role="doc-biblioref">Dmytrii Khramov 2016</a>)</span>.</p>
+<div id="пакет-rvest" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Пакет <code>rvest</code><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#пакет-rvest" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Процес веб-скрепінгу складається з двох основних етапів (рис. 1):</p>
+<ul>
+<li>Отримання потрібної сторінки</li>
+<li>Обробки отриманої сторінки і вилучення потрібних елементів</li>
+</ul>
+<div class="figure">
+<img src="image/rvest.png" alt="" />
+<p class="caption">Рис. 1. Інструменти веб скрепінгу за допомогою R</p>
+</div>
+<p>“Перше означає, що потрібно виконати <code>http</code> -запит за заданим <code>URL</code>. відповідно,
+потрібен пакет для виконання таких запитів. Таким пакетом може бути <code>RCurl</code> <span class="citation">(<a href="#ref-R-RCurl" role="doc-biblioref">Temple Lang 2022a</a>)</span> або
+<code>httr</code>. Обидва засновані на <code>cURL</code>. Перший являє собою інтерфейс для використання
+<code>libcurl</code> в <code>R</code>, і його буде простіше освоїти тим, хто вже знайомий з цією бібліотекою. Другий має
+більш дружелюбний, але зате і більш самостійний інтерфейс” <span class="citation">(<a href="#ref-hram" role="doc-biblioref">Dmytrii Khramov 2016</a>)</span>.</p>
+<p><code>cURL</code> — це утиліта для організації вибірки даних з вебу, що надає можливість гнучкого формування запиту із завданням таких параметрів, як cookie, user_agent, referrer і будь-яких інших заголовків. cURL — це додаткова можливість оперувати з файлами на стороні сервера сторінок Інтернету за допомогою параметрів, що можуть бути переданими в рядку <code>URL</code>. За допомогою cURL можна, наприклад, отримати html-сторінку, не використовуючи для цього браузер <span class="citation">(<a href="#ref-R-RCurl" role="doc-biblioref">Temple Lang 2022a</a>)</span>.</p>
+<p><code>Libcurl</code> —- це бібліотека <code>API</code> для передачі, яку розробники можуть вбудувати в свої програми; <code>cURL</code> діє як автономна обгортка для бібліотеки <code>Libcurl</code>. Бібліотека <code>Libcurl</code> використовується, для забезпечення можливості передачі файлів (що адресуються за допомогою <code>URL</code>) численним додаткам (як відкритим, так і комерційним) <span class="citation">(<a href="#ref-R-RCurl" role="doc-biblioref">Temple Lang 2022a</a>)</span>.</p>
+<p>“Для обробки веб-сторінок потрібен парсер – синтаксичний аналізатор. Його
+задача – прочитати <code>HTML</code>-розмітку і перетворити її в придатну для вилучення
+даних структуру. У нашому випадку такою структурою є дерево <code>HTML</code>-елементів.
+А як переміщатися по цьому дереву за допомогою <code>XPath</code> і <code>CSS</code>-селекторів ми вже знаємо.
+Для обробки <code>HTML</code> існують пакети <code>XML</code> <span class="citation">(<a href="#ref-R-XML" role="doc-biblioref">Temple Lang 2022b</a>)</span> і <code>xml2</code> <span class="citation">(<a href="#ref-R-xml2" role="doc-biblioref">Hadley Wickham, Hester, and Ooms 2021</a>)</span>. Перший - більш зрілий і крім
+читання <code>HTML</code> має масу додаткових можливостей. Другий - легший і швидший.
+Пакет <code>rvest</code> <span class="citation">(<a href="#ref-R-rvest" role="doc-biblioref">Hadley Wickham 2021b</a>)</span> вміє одночасно і завантажувати і обробляти Веб-сторінки, викачує
+він за допомогою <code>httr</code> <span class="citation">(<a href="#ref-R-httr" role="doc-biblioref">Hadley Wickham 2020</a>)</span>, а обробляє за допомогою <code>xml2</code> <span class="citation">(<a href="#ref-R-xml2" role="doc-biblioref">Hadley Wickham, Hester, and Ooms 2021</a>)</span>, благо автор у всіх трьох пакетів один - Хедлі Уікем. Розглянемо можливості цього пакета.” <span class="citation">(<a href="#ref-hram" role="doc-biblioref">Dmytrii Khramov 2016</a>)</span></p>
+</div>
+<div id="основні-методи-пакета-rvest" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Основні методи пакета <code>rvest</code><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#основні-методи-пакета-rvest" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Методи пакета <code>rvest</code> дозволяють:</p>
+<ol style="list-style-type: decimal">
+<li>Отримати <code>HTML/XML</code> розмітку і обробити її: <code>read_html</code>, <code>read_xml</code>;<br />
+</li>
+<li>Визначити елемент: <code>html_node</code>, <code>html_nodes</code>;<br />
+</li>
+<li>Розібрати елемент на складові частини: <code>html_name</code>, <code>html_attr</code>, <code>html_attrs</code>,<br />
+<code>html_text</code>, <code>html_children</code>, <code>html_table</code>, <code>html_form</code>;<br />
+</li>
+<li>Відправити запит через форму: <code>html_form</code>, <code>set_values</code>, <code>html_session</code>,<br />
+<code>submit_form</code>;</li>
+<li>Імітувати браузер: <code>jump_to</code>, <code>follow_link</code>, <code>back</code>, <code>html_session</code>, <code>session_history</code>;<br />
+</li>
+<li>Працювати з кодуваннями: <code>guess_encoding</code>, <code>repair_encoding</code>.</li>
+</ol>
+<div id="отримання-html-сторінки-і-знаходження-потрібного-елемента" class="section level3 hasAnchor" number="10.2.1">
+<h3><span class="header-section-number">10.2.1</span> Отримання <code>html</code>-сторінки і знаходження потрібного елемента<a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#отримання-html-сторінки-і-знаходження-потрібного-елемента" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Метод<br />
+<code>html_nodes (html_doc, css, xpath)</code><br />
+приймає на вхід <code>HTML</code>-документ <code>html_doc</code>, отриманий від <code>read_html</code>, і шлях до потрібного елементу, вказаний за допомогою <code>css</code>-селектор (<code>css</code>) або <code>XPath</code> (<code>xpath</code>) і повертає список елементів, розташованих за заданим шляхом.</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb239-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Отримати html-сторінку і знайти потрібний елемент</span></span>
+<span id="cb239-2"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb239-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb239-3"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb239-3" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(rvest))</span>
+<span id="cb239-4"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb239-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(dplyr))</span>
+<span id="cb239-5"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb239-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb239-6"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb239-6" aria-hidden="true" tabindex="-1"></a>html_1 <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">&quot;https://uk.wikipedia.org/wiki/%D0%A1%D0%BE%D0%BD%D1%8F%D1%87%D0%BD%D0%B0_%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D1%96%D1%81%D1%82%D1%8C&quot;</span>)</span>
+<span id="cb239-7"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb239-7" aria-hidden="true" tabindex="-1"></a>html <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">&quot;https://uk.wikipedia.org/wiki/%D0%A1%D0%BE%D0%BD%D1%8F%D1%87%D0%BD%D0%B0_%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D1%96%D1%81%D1%82%D1%8C&quot;</span>, <span class="at">encoding =</span> <span class="st">&quot;UTF-8&quot;</span>)</span>
+<span id="cb239-8"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb239-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb239-9"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb239-9" aria-hidden="true" tabindex="-1"></a><span class="co"># xpath</span></span>
+<span id="cb239-10"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb239-10" aria-hidden="true" tabindex="-1"></a>html_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb239-11"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb239-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_node</span>(<span class="at">xpath=</span><span class="st">&#39;//*[@id=&quot;mw-content-text&quot;]/div[1]/table[1]&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb239-12"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb239-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 8 x 3
+##   `Назва періоду`         Початок Завершення
+##   &lt;chr&gt;                     &lt;int&gt; &lt;chr&gt;     
+## 1 Мінімум Оорта              1040 1080      
+## 2 Середньовічний максимум    1100 1250      
+## 3 Мінімум Вольфа             1280 1350      
+## 4 Мінімум Шперера            1450 1550      
+## 5 Мінімум Маундера           1645 1715      
+## 6 Мінімум Дальтона           1790 1820      
+## 7 Сучасний максимум[en]      1950 2004      
+## 8 Сучасний Мінімум           2004 (Зараз)</code></pre>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb241-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    32 obs. of  5 variables:
+##  $ Class   : Factor w/ 4 levels &quot;1st&quot;,&quot;2nd&quot;,&quot;3rd&quot;,..: 1 2 3 4 1 2 3 4 1 2 ...
+##  $ Sex     : Factor w/ 2 levels &quot;Male&quot;,&quot;Female&quot;: 1 1 1 1 2 2 2 2 1 1 ...
+##  $ Age     : Factor w/ 2 levels &quot;Child&quot;,&quot;Adult&quot;: 1 1 1 1 1 1 1 1 2 2 ...
+##  $ Survived: Factor w/ 2 levels &quot;No&quot;,&quot;Yes&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ Freq    : num  0 0 35 0 0 0 17 0 118 154 ...</code></pre>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb243-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(df)</span></code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="co"># css-селектор</span></span>
+<span id="cb245-2"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb245-2" aria-hidden="true" tabindex="-1"></a>html_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb245-3"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb245-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_node</span>(<span class="at">css=</span><span class="st">&#39;#mw-content-text &gt; div.mw-parser-output &gt; table.wikitable&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb245-4"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb245-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 8 x 3
+##   `Назва періоду`         Початок Завершення
+##   &lt;chr&gt;                     &lt;int&gt; &lt;chr&gt;     
+## 1 Мінімум Оорта              1040 1080      
+## 2 Середньовічний максимум    1100 1250      
+## 3 Мінімум Вольфа             1280 1350      
+## 4 Мінімум Шперера            1450 1550      
+## 5 Мінімум Маундера           1645 1715      
+## 6 Мінімум Дальтона           1790 1820      
+## 7 Сучасний максимум[en]      1950 2004      
+## 8 Сучасний Мінімум           2004 (Зараз)</code></pre>
+<p>Метод <code>html_node</code> приймає ті ж самі вхідні аргументи, що і <code>html_nodes</code>, але повертає тільки перший елемент, розташований по заданому шляху.</p>
+<p><em>Приклад.</em> Доступ до таблиці з певним порядковим номером.</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb247-1" aria-hidden="true" tabindex="-1"></a>html_2 <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">&quot;https://index.minfin.com.ua/reference/people/&quot;</span>)</span>
+<span id="cb247-2"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb247-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb247-3"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb247-3" aria-hidden="true" tabindex="-1"></a>html_2 <span class="sc">%&gt;%</span> </span>
+<span id="cb247-4"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb247-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">&#39;table&#39;</span>) </span></code></pre></div>
+<pre><code>## {xml_nodeset (3)}
+## [1] &lt;table border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;3&quot; class=&quot;line&quot;&gt;\n&lt;caption ...
+## [2] &lt;table border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;3&quot; class=&quot;line&quot;&gt;\n&lt;caption ...
+## [3] &lt;table border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;3&quot; class=&quot;line&quot;&gt;\n&lt;caption ...</code></pre>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb249-1" aria-hidden="true" tabindex="-1"></a>html_2 <span class="sc">%&gt;%</span> </span>
+<span id="cb249-2"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb249-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">&#39;table&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb249-3"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb249-3" aria-hidden="true" tabindex="-1"></a>  .[[<span class="dv">3</span>]] <span class="sc">%&gt;%</span> </span>
+<span id="cb249-4"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb249-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb249-5"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb249-5" aria-hidden="true" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>()</span></code></pre></div>
+<div id="htmlwidget-acc48da58a60158e505d" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-acc48da58a60158e505d">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26"],["Украина","Винницкая обл.","Волынская обл.","Днепропетровская обл.","Донецкая обл.","Житомирская обл.","Закарпатская обл.","Запорожская обл.","Ивано-Франковская обл.","Киевская обл.","Кировоградская обл.","Луганская обл.","Львовская обл.","Николаевская обл.","Одесская обл.","Полтавская обл.","Ровенская обл.","Сумская обл.","Тернопольская обл.","Харьковская обл.","Херсонская обл.","Хмельницкая обл.","Черкасская обл.","Черновицкая обл.","Черниговская обл.","г.Киев"],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["41167,3","1509,5","1021,4","3096,5","4059,4","1179,0","1244,5","1638,5","1351,8","1795,1","903,7","2102,9","2478,1","1091,8","2351,4","1352,3","1141,8","1035,8","1021,7","2599,0","1001,6","1228,8","1160,7","890,5","959,3","2952,3"],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["41130,4","1507,7","1020,8","3093,2","4056,4","1177,6","1243,7","1636,3","1350,6","1795,5","902,3","2101,7","2476,1","1090,5","2349,7","1350,6","1140,9","1034,4","1021,0","2596,3","1000,4","1227,5","1159,2","889,9","957,7","2950,7"],[-36.9,-1.8,-0.6,-3.3,-3,-1.5,-0.8,-2.1,-1.3,0.5,-1.4,-1.3,-2,-1.3,-1.6,-1.7,-0.9,-1.4,-0.8,-2.7,-1.2,-1.4,-1.5,-0.5,-1.7,-1.6]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Var.2<\/th>\n      <th>Var.3<\/th>\n      <th>01.2022<\/th>\n      <th>Var.5<\/th>\n      <th>02.2022<\/th>\n      <th>Var.7<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":6},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="розбір-елементів-на-складові-частини" class="section level3 hasAnchor" number="10.2.2">
+<h3><span class="header-section-number">10.2.2</span> Розбір елементів на складові частини<a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#розбір-елементів-на-складові-частини" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Приклад вилучення таблиць показаний на прикладі вище за допомогою <code>html_table</code>.<br />
+Продемонструємо вилучення інших елементів веб-сторінки.</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb250-1" aria-hidden="true" tabindex="-1"></a>html_3 <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">&#39;&lt;a href=&quot;http://google.com&quot; rel=&quot;nofollow&quot;&gt; Link to the &lt;b&gt;Google&lt;/b&gt;&lt;/a&gt;&quot;&#39;</span>)</span>
+<span id="cb250-2"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb250-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb250-3"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb250-3" aria-hidden="true" tabindex="-1"></a><span class="fu">minimal_html</span>(html_3)</span></code></pre></div>
+<pre><code>## {html_document}
+## &lt;html&gt;
+## [1] &lt;head&gt;\n&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8 ...
+## [2] &lt;body&gt;\n&lt;a href=&quot;http://google.com&quot; rel=&quot;nofollow&quot;&gt; Link to the &lt;b&gt;Google ...</code></pre>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb252-1" aria-hidden="true" tabindex="-1"></a>links <span class="ot">&lt;-</span> html_3 <span class="sc">%&gt;%</span> </span>
+<span id="cb252-2"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb252-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="at">xpath=</span><span class="st">&quot;//a&quot;</span>)</span>
+<span id="cb252-3"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb252-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb252-4"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb252-4" aria-hidden="true" tabindex="-1"></a>links <span class="sc">%&gt;%</span></span>
+<span id="cb252-5"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb252-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_name</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;a&quot;</code></pre>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb254-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Вилучення атрибутів елемента</span></span>
+<span id="cb254-2"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb254-2" aria-hidden="true" tabindex="-1"></a>links <span class="sc">%&gt;%</span> </span>
+<span id="cb254-3"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb254-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_attrs</span>()</span></code></pre></div>
+<pre><code>## [[1]]
+##                href                 rel 
+## &quot;http://google.com&quot;          &quot;nofollow&quot;</code></pre>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb256-1" aria-hidden="true" tabindex="-1"></a>links <span class="sc">%&gt;%</span> </span>
+<span id="cb256-2"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb256-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_attr</span>(<span class="st">&quot;href&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;http://google.com&quot;</code></pre>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb258-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Текст всередин елемента</span></span>
+<span id="cb258-2"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb258-2" aria-hidden="true" tabindex="-1"></a>links <span class="sc">%&gt;%</span> </span>
+<span id="cb258-3"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb258-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_text</span>()</span></code></pre></div>
+<pre><code>## [1] &quot; Link to the Google&quot;</code></pre>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="co"># З видаленими пробілами</span></span>
+<span id="cb260-2"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb260-2" aria-hidden="true" tabindex="-1"></a>links <span class="sc">%&gt;%</span> </span>
+<span id="cb260-3"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#cb260-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_text</span>(<span class="at">trim=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Link to the Google&quot;</code></pre>
+</div>
+</div>
+<div id="завдання-на-лабораторну-роботу-1" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> Завдання на лабораторну роботу<a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#завдання-на-лабораторну-роботу-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Виконати завдання, видане викладачем.</li>
+<li>Створити звіт у вигляді .Rmd-документа у форматі RNotebook.</li>
+</ul>
+<p>Див. джерела:</p>
+<ol style="list-style-type: decimal">
+<li><a href="http://web-master.pp.ru/info/04.shtml">Описание протокола HTTP</a></li>
+<li><a href="https://code.tutsplus.com/tutorials/http-the-protocol-every-web-developer-must-know-part-1--net-31177">HTTP: The Protocol Every Web Developer Must Know - Part 1</a></li>
+<li><a href="https://www.jmarshall.com/easy/http/">HTTP Made Really Easy</a></li>
+<li><a href="http://zvon.org/xxl/XPathTutorial/Output_rus/examples.html">XPath Tutorial</a></li>
+</ol>
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2022. <em>Rmarkdown: Dynamic Documents for r</em>. <a href="https://CRAN.R-project.org/package=rmarkdown">https://CRAN.R-project.org/package=rmarkdown</a>.
+</div>
+<div class="csl-entry">
+Barsegjan, Kuprijanov, A. 2007. <em>Data Analysis and Process</em>. bhv. <a href="http://kist.ntu.edu.ua/textPhD/AnalizDannyhIProcessov.pdf">http://kist.ntu.edu.ua/textPhD/AnalizDannyhIProcessov.pdf</a>.
+</div>
+<div class="csl-entry">
+Box J., Jenkins G. 1974. <em>Time Series Analysis Forecasting and Management</em>. Moscow, MIR. <a href="https://scask.ru/a_book_boks1.php">https://scask.ru/a_book_boks1.php</a>.
+</div>
+<div class="csl-entry">
+Breiman, Leo. 2001. <span>“Random Forests.”</span> <em>Machine Learning</em> 45 (1).
+</div>
+<div class="csl-entry">
+Casas, Pablo. 2020. <em>funModeling: Exploratory Data Analysis and Data Preparation Tool-Box</em>. <a href="https://livebook.datascienceheroes.com">https://livebook.datascienceheroes.com</a>.
+</div>
+<div class="csl-entry">
+Chan, Chung-hong, Geoffrey CH Chan, Thomas J. Leeper, and Jason Becker. 2018. <em>Rio: A Swiss-Army Knife for Data File i/o</em>.
+</div>
+<div class="csl-entry">
+Chan, Chung-hong, and Thomas J. Leeper. 2021. <em>Rio: A Swiss-Army Knife for Data i/o</em>. <a href="https://github.com/leeper/rio">https://github.com/leeper/rio</a>.
+</div>
+<div class="csl-entry">
+Chang, Winston, Joe Cheng, JJ Allaire, Carson Sievert, Barret Schloerke, Yihui Xie, Jeff Allen, Jonathan McPherson, Alan Dipert, and Barbara Borges. 2021. <em>Shiny: Web Application Framework for r</em>. <a href="https://CRAN.R-project.org/package=shiny">https://CRAN.R-project.org/package=shiny</a>.
+</div>
+<div class="csl-entry">
+Conway, Joe, Dirk Eddelbuettel, Tomoaki Nishiyama, Sameer Kumar Prayaga, and Neil Tiffin. 2021. <em>RPostgreSQL: R Interface to the PostgreSQL Database System</em>. <a href="https://CRAN.R-project.org/package=RPostgreSQL">https://CRAN.R-project.org/package=RPostgreSQL</a>.
+</div>
+<div class="csl-entry">
+Cooper, Nicholas. 2017. <em>Reader: Suite of Functions to Flexibly Read Data from Files</em>. <a href="https://CRAN.R-project.org/package=reader">https://CRAN.R-project.org/package=reader</a>.
+</div>
+<div class="csl-entry">
+Garrett Grolemund, Hadley Wickham. 2018. <em>R for Data Science</em>. <a href="http://r4ds.had.co.nz/index.html">http://r4ds.had.co.nz/index.html</a>.
+</div>
+<div class="csl-entry">
+H., Kantorovich H. 2003. <em>Time Series Analysis</em>. Economical Journal High School Economics. <a href="https://elib.hse.ru/e-resources/HSE_economic_journal/articles/06_02_07.pdf">https://elib.hse.ru/e-resources/HSE_economic_journal/articles/06_02_07.pdf</a>.
+</div>
+<div class="csl-entry">
+Hadley Wickham, Lionel Henry, Romain Francois. 2018. <span>“Introduction to Dplyr. Translation of Andrey Ogurtsov.”</span> Documentation. <a href="http://rpubs.com/aa989190f363e46d/dplyr_intro">http://rpubs.com/aa989190f363e46d/dplyr_intro</a>.
+</div>
+<div class="csl-entry">
+Hahsler, Michael. 2019. <em>arulesViz: Visualizing Association Rules and Frequent Itemsets</em>. <a href="https://CRAN.R-project.org/package=arulesViz">https://CRAN.R-project.org/package=arulesViz</a>.
+</div>
+<div class="csl-entry">
+———. 2021. <em>arulesViz: Visualizing Association Rules and Frequent Itemsets</em>. <a href="https://github.com/mhahsler/arulesViz">https://github.com/mhahsler/arulesViz</a>.
+</div>
+<div class="csl-entry">
+Hahsler, Michael, Christian Buchta, Bettina Gruen, and Kurt Hornik. 2022. <em>Arules: Mining Association Rules and Frequent Itemsets</em>. <a href="https://github.com/mhahsler/arules">https://github.com/mhahsler/arules</a>.
+</div>
+<div class="csl-entry">
+Hahsler, Michael, Bettina Gruen, and Kurt Hornik. 2005. <span>“Arules – <span>A</span> Computational Environment for Mining Association Rules and Frequent Item Sets.”</span> <em>Journal of Statistical Software</em> 14 (15): 1–25. <a href="https://doi.org/10.18637/jss.v014.i15">https://doi.org/10.18637/jss.v014.i15</a>.
+</div>
+<div class="csl-entry">
+Henry, Lionel, and Hadley Wickham. 2020. <em>Purrr: Functional Programming Tools</em>. <a href="https://CRAN.R-project.org/package=purrr">https://CRAN.R-project.org/package=purrr</a>.
+</div>
+<div class="csl-entry">
+Hester, Jim, and Hadley Wickham. 2021. <em>Odbc: Connect to ODBC Compatible Databases (Using the DBI Interface)</em>. <a href="https://CRAN.R-project.org/package=odbc">https://CRAN.R-project.org/package=odbc</a>.
+</div>
+<div class="csl-entry">
+Hyndman, Athanasopoulos, R. J. 2018. <em>Forecasting: Principles and Practice, 2nd Edition</em>. OTexts: Melbourne, Australia. <a href="https://otexts.com/fpp2/">https://otexts.com/fpp2/</a>.
+</div>
+<div class="csl-entry">
+———. 2021. <em>Forecasting: Principles and Practice, 3nd Edition</em>. OTexts: Melbourne, Australia. <a href="https://otexts.com/fpp3/">https://otexts.com/fpp3/</a>.
+</div>
+<div class="csl-entry">
+Khramov, Dmitry. 2017. <span>“Saving-Importing Machine Learning Models in Databases.”</span> Article. <a href="http://dkhramov.dp.ua/Comp.CaretModelsAndDB.html#.Xbr4G0YzY2w">http://dkhramov.dp.ua/Comp.CaretModelsAndDB.html#.Xbr4G0YzY2w</a>.
+</div>
+<div class="csl-entry">
+Khramov, Dmytrii. 2016. <em>Collecting Data on the Internet in r</em>. <a href="http://www.knigograd.com.ua/index.php?dispatch=products.view&amp;product_id=263245">http://www.knigograd.com.ua/index.php?dispatch=products.view&amp;product_id=263245</a>.
+</div>
+<div class="csl-entry">
+Kuhn, M. 2003. <span>“Variable Selection Using the Caret Package.”</span> <a href="https://r-forge.r-project.org/scm/viewvc.php/*checkout*/pkg/caret/inst/doc/caretSelection.pdf?revision=77&amp;root=caret&amp;pathrev=90">https://r-forge.r-project.org/scm/viewvc.php/*checkout*/pkg/caret/inst/doc/caretSelection.pdf?revision=77&amp;root=caret&amp;pathrev=90</a>.
+</div>
+<div class="csl-entry">
+———. 2008. <span>“Building Predictive Models in r Using the Caret Package.”</span> <em>Journal of Statistical Software</em> 5: 113–42. <a href="https://doi.org/10.18637/jss.v028.i05">https://doi.org/10.18637/jss.v028.i05</a>.
+</div>
+<div class="csl-entry">
+———. 2013. <span>“Predictive Modeling with r and the Caret Package.”</span> <a href="https://www.r-project.org/">https://www.r-project.org/</a>.
+</div>
+<div class="csl-entry">
+Kuhn M., Johnson K. 2013. <em>Applied Predictive Modeling</em>. Springer-Verlag New-York.
+</div>
+<div class="csl-entry">
+Kuhn, Max. 2022. <em>Caret: Classification and Regression Training</em>. <a href="https://github.com/topepo/caret/">https://github.com/topepo/caret/</a>.
+</div>
+<div class="csl-entry">
+Manuel Fernandez-Delgado, Senen Barro, Eva Cernadas. 2014. <span>“Do We Need Hundreds of Classifiers to Solve Real World Classification Problems?”</span> <a href="https://www.jstatsoft.org/article/view/v059i10">https://www.jstatsoft.org/article/view/v059i10</a>.
+</div>
+<div class="csl-entry">
+Muller, Kirill. 2021. <em>Hms: Pretty Time of Day</em>. <a href="https://CRAN.R-project.org/package=hms">https://CRAN.R-project.org/package=hms</a>.
+</div>
+<div class="csl-entry">
+Müller, Kirill, and Hadley Wickham. 2021. <em>Tibble: Simple Data Frames</em>. <a href="https://CRAN.R-project.org/package=tibble">https://CRAN.R-project.org/package=tibble</a>.
+</div>
+<div class="csl-entry">
+Müller, Kirill, Hadley Wickham, David A. James, and Seth Falcon. 2022. <em>RSQLite: SQLite Interface for r</em>. <a href="https://CRAN.R-project.org/package=RSQLite">https://CRAN.R-project.org/package=RSQLite</a>.
+</div>
+<div class="csl-entry">
+Ooms, Jeroen, David James, Saikat DebRoy, Hadley Wickham, and Jeffrey Horner. 2021. <em>RMySQL: Database Interface and MySQL Driver for r</em>. <a href="https://CRAN.R-project.org/package=RMySQL">https://CRAN.R-project.org/package=RMySQL</a>.
+</div>
+<div class="csl-entry">
+R Core Team. 2022. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div class="csl-entry">
+R Special Interest Group on Databases (R-SIG-DB), Hadley Wickham, and Kirill Muller. 2021. <em>DBI: R Database Interface</em>. <a href="https://CRAN.R-project.org/package=DBI">https://CRAN.R-project.org/package=DBI</a>.
+</div>
+<div class="csl-entry">
+RStudio Team. 2020. <em>RStudio: Integrated Development Environment for r</em>. Boston, MA: RStudio, PBC. <a href="http://www.rstudio.com/">http://www.rstudio.com/</a>.
+</div>
+<div class="csl-entry">
+sandino. 2013. <span>“Cheat Sheet of Markdown.”</span> Article. <a href="https://github.com/sandino/Markdown-Cheatsheet#emphasis">https://github.com/sandino/Markdown-Cheatsheet#emphasis</a>.
+</div>
+<div class="csl-entry">
+Science, Eberly College of. 2020. <span>“STAT 505: Applied Multivariate Statistical Analysis.”</span> Course materials. <a href="http://belousovv.ru/markdown_syntax#fnref:2">http://belousovv.ru/markdown_syntax#fnref:2</a>.
+</div>
+<div class="csl-entry">
+Shitikov V. K., Masticky S. E. 2017. <em>Classification, Regression, and Other Data Mining Algorithms Using r</em>. <a href="https://ranalytics.github.io/data-mining/index.html">https://ranalytics.github.io/data-mining/index.html</a>.
+</div>
+<div class="csl-entry">
+Slabchenko Olesia, Siebert Xavier, Sydorenko Valeriy. 2016. <span>“Development of Models for Imputation of Data from Social Networks on the Basis of an Extended Matrix of Attributes.”</span> <em>Eastern-European Journal of Enterprise Technologies</em> 4 (2-82): 24–34.
+</div>
+<div class="csl-entry">
+Spinu, Vitalie, Garrett Grolemund, and Hadley Wickham. 2021. <em>Lubridate: Make Dealing with Dates a Little Easier</em>. <a href="https://CRAN.R-project.org/package=lubridate">https://CRAN.R-project.org/package=lubridate</a>.
+</div>
+<div class="csl-entry">
+Statsoft. 2021. <span>“Time Series Analysis.”</span> Article. <a href="http://statsoft.ru/home/textbook/modules/sttimser.html">http://statsoft.ru/home/textbook/modules/sttimser.html</a>.
+</div>
+<div class="csl-entry">
+Temple Lang, Duncan. 2022a. <em>RCurl: General Network (HTTP/FTP/...) Client Interface for r</em>. <a href="https://CRAN.R-project.org/package=RCurl">https://CRAN.R-project.org/package=RCurl</a>.
+</div>
+<div class="csl-entry">
+———. 2022b. <em>XML: Tools for Parsing and Generating XML Within r and s-Plus</em>. <a href="http://www.omegahat.net/RSXML/">http://www.omegahat.net/RSXML/</a>.
+</div>
+<div class="csl-entry">
+Viacheslav Oreshkov, Nikolay Paklin. 2012. <em>Business: From Data to Knowlige</em>. Piter. <a href="https://kniga.biz.ua/book-biznes-analitika-ot-dannykh-k-znaniiam-cd-uchebnoe-posobie-2-e-izdanie-ispravlennoe-003514.html">https://kniga.biz.ua/book-biznes-analitika-ot-dannykh-k-znaniiam-cd-uchebnoe-posobie-2-e-izdanie-ispravlennoe-003514.html</a>.
+</div>
+<div class="csl-entry">
+Wickham, Hadley. 2009. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="http://ggplot2.org">http://ggplot2.org</a>.
+</div>
+<div class="csl-entry">
+———. 2020. <em>Httr: Tools for Working with URLs and HTTP</em>. <a href="https://CRAN.R-project.org/package=httr">https://CRAN.R-project.org/package=httr</a>.
+</div>
+<div class="csl-entry">
+———. 2021a. <em>Nycflights13: Flights That Departed NYC in 2013</em>. <a href="https://github.com/hadley/nycflights13">https://github.com/hadley/nycflights13</a>.
+</div>
+<div class="csl-entry">
+———. 2021b. <em>Rvest: Easily Harvest (Scrape) Web Pages</em>. <a href="https://CRAN.R-project.org/package=rvest">https://CRAN.R-project.org/package=rvest</a>.
+</div>
+<div class="csl-entry">
+———. 2021c. <em>Tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
+</div>
+<div class="csl-entry">
+Wickham, Hadley, and Jennifer Bryan. 2021. <em>Bigrquery: An Interface to Google’s BigQuery ’API’</em>. <a href="https://CRAN.R-project.org/package=bigrquery">https://CRAN.R-project.org/package=bigrquery</a>.
+</div>
+<div class="csl-entry">
+Wickham, Hadley, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, and Dewey Dunnington. 2021. <em>Ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics</em>. <a href="https://CRAN.R-project.org/package=ggplot2">https://CRAN.R-project.org/package=ggplot2</a>.
+</div>
+<div class="csl-entry">
+Wickham, Hadley, Romain Francois, Lionel Henry, and Kirill Muller. 2022. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.
+</div>
+<div class="csl-entry">
+Wickham, Hadley, and Maximilian Girlich. 2022. <em>Tidyr: Tidy Messy Data</em>. <a href="https://CRAN.R-project.org/package=tidyr">https://CRAN.R-project.org/package=tidyr</a>.
+</div>
+<div class="csl-entry">
+Wickham, Hadley, Maximilian Girlich, and Edgar Ruiz. 2021. <em>Dbplyr: A Dplyr Back End for Databases</em>. <a href="https://CRAN.R-project.org/package=dbplyr">https://CRAN.R-project.org/package=dbplyr</a>.
+</div>
+<div class="csl-entry">
+Wickham, Hadley, Jim Hester, and Jeroen Ooms. 2021. <em>Xml2: Parse XML</em>. <a href="https://CRAN.R-project.org/package=xml2">https://CRAN.R-project.org/package=xml2</a>.
+</div>
+<div class="csl-entry">
+Wickham, H., and an O’Reilly Media Company Safari. 2021. <em>Mastering Shiny</em>. O’Reilly Media, Incorporated. <a href="https://books.google.com.ua/books?id=ha1CzgEACAAJ">https://books.google.com.ua/books?id=ha1CzgEACAAJ</a>.
+</div>
+<div class="csl-entry">
+wikipedia. 2018a. <span>“Cross-Industry Standard Process for Data Mining.”</span> Article. <a href="https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining">https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining</a>.
+</div>
+<div class="csl-entry">
+———. 2018b. <span>“Exploratory Data Analysis.”</span> Article. <a href="https://en.wikipedia.org/wiki/Exploratory_data_analysis">https://en.wikipedia.org/wiki/Exploratory_data_analysis</a>.
+</div>
+<div class="csl-entry">
+———. 2018c. <span>“Principal Component Analysis.”</span> Article. <a href="https://en.wikipedia.org/wiki/Principal_component_analysis">https://en.wikipedia.org/wiki/Principal_component_analysis</a>.
+</div>
+<div class="csl-entry">
+Wikipedia. 2020. <span>“Decision Tree Learning.”</span> Article. <a href="https://en.wikipedia.org/wiki/Decision_tree_learning">https://en.wikipedia.org/wiki/Decision_tree_learning</a>.
+</div>
+<div class="csl-entry">
+Yihui Xie, Garrett Grolemund, J. J. Allaire. 2018. <em>R Markdown: The Definitive Guide</em>. <a href="https://bookdown.org/yihui/rmarkdown/">https://bookdown.org/yihui/rmarkdown/</a>.
+</div>
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-hram" class="csl-entry">
+Khramov, Dmytrii. 2016. <em>Collecting Data on the Internet in r</em>. <a href="http://www.knigograd.com.ua/index.php?dispatch=products.view&amp;product_id=263245">http://www.knigograd.com.ua/index.php?dispatch=products.view&amp;product_id=263245</a>.
+</div>
+<div id="ref-R-RCurl" class="csl-entry">
+Temple Lang, Duncan. 2022a. <em>RCurl: General Network (HTTP/FTP/...) Client Interface for r</em>. <a href="https://CRAN.R-project.org/package=RCurl">https://CRAN.R-project.org/package=RCurl</a>.
+</div>
+<div id="ref-R-XML" class="csl-entry">
+———. 2022b. <em>XML: Tools for Parsing and Generating XML Within r and s-Plus</em>. <a href="http://www.omegahat.net/RSXML/">http://www.omegahat.net/RSXML/</a>.
+</div>
+<div id="ref-R-httr" class="csl-entry">
+———. 2020. <em>Httr: Tools for Working with URLs and HTTP</em>. <a href="https://CRAN.R-project.org/package=httr">https://CRAN.R-project.org/package=httr</a>.
+</div>
+<div id="ref-R-rvest" class="csl-entry">
+———. 2021b. <em>Rvest: Easily Harvest (Scrape) Web Pages</em>. <a href="https://CRAN.R-project.org/package=rvest">https://CRAN.R-project.org/package=rvest</a>.
+</div>
+<div id="ref-R-xml2" class="csl-entry">
+Wickham, Hadley, Jim Hester, and Jeroen Ooms. 2021. <em>Xml2: Parse XML</em>. <a href="https://CRAN.R-project.org/package=xml2">https://CRAN.R-project.org/package=xml2</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="lab_8.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/09-lab9.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

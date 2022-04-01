@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Розділ 7 Лабораторна робота №6. Побудова моделей класифікації | Data Science на R. Лабораторний практикум (draft version)</title>
   <meta name="description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Розділ 7 Лабораторна робота №6. Побудова моделей класифікації | Data Science на R. Лабораторний практикум (draft version)" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
   <meta name="github-repo" content="VGamaley/DS-book-lab" />
@@ -24,7 +23,7 @@
 <meta name="author" content="© Сидоренко В. М." />
 
 
-<meta name="date" content="2022-03-14" />
+<meta name="date" content="2022-04-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="lab_5.html"/>
 <link rel="next" href="лабораторна-робота-7.-пошук-асоціативних-правил.html"/>
-<script src="libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -54,6 +52,14 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.22/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -289,6 +295,16 @@ div.csl-indent {
 <li class="chapter" data-level="9.5" data-path="lab_8.html"><a href="lab_8.html#example"><i class="fa fa-check"></i><b>9.5</b> Приклад побудови не сезонної ARIMA-моделі<span></span></a></li>
 <li class="chapter" data-level="9.6" data-path="lab_8.html"><a href="lab_8.html#завдання-на-лабораторну-роботу"><i class="fa fa-check"></i><b>9.6</b> Завдання на лабораторну роботу<span></span></a></li>
 </ul></li>
+<li class="chapter" data-level="10" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><i class="fa fa-check"></i><b>10</b> Лабораторна робота № 9. Веб скрепінг. Пакет <code>rvest</code>. Short-версія<span></span></a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#пакет-rvest"><i class="fa fa-check"></i><b>10.1</b> Пакет <code>rvest</code><span></span></a></li>
+<li class="chapter" data-level="10.2" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#основні-методи-пакета-rvest"><i class="fa fa-check"></i><b>10.2</b> Основні методи пакета <code>rvest</code><span></span></a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#отримання-html-сторінки-і-знаходження-потрібного-елемента"><i class="fa fa-check"></i><b>10.2.1</b> Отримання <code>html</code>-сторінки і знаходження потрібного елемента<span></span></a></li>
+<li class="chapter" data-level="10.2.2" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#розбір-елементів-на-складові-частини"><i class="fa fa-check"></i><b>10.2.2</b> Розбір елементів на складові частини<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#завдання-на-лабораторну-роботу-1"><i class="fa fa-check"></i><b>10.3</b> Завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -384,7 +400,7 @@ y_n
 </div>
 <div id="пакет-caret" class="section level3 hasAnchor" number="7.2.3">
 <h3><span class="header-section-number">7.2.3</span> Пакет <code>caret</code><a href="lab_6.html#пакет-caret" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Часто на практиці аналітику складно вибрати конкретний алгоритм машинного навчання, скласти план оптимізації параметрів, врахувати синтаксичні нюанси кожної функції і відстежити особливості її виконання. Крім того, процедури, що дозволяють реалізувати повний цикл розробки побудови прогнозних моделей, часто містяться в різних пакетах, що потребує часу і зусиль для їх освоєння. З метою інтеграції різних функцій і методів в рамках єдиної надбудови з метою узагальнення характерних для всіх моделей процедур обчислень доктор М. Кун із співробітниками зробили спробу розробити універсальний інтерфейс, що надає доступ до основних алгоритмів машинного навчання, реалізованих на R та інших спеціалізованих статистичних системах (наприклад, <a href="https://en.wikipedia.org/wiki/Weka_(machine_learning)">Weka</a>). Розробники <code>caret</code> <span class="citation">(<a href="#ref-R-caret" role="doc-biblioref">Max Kuhn 2021</a>)</span> поставили перед собою наступні завдання <span class="citation">(<a href="#ref-Shit_Mast" role="doc-biblioref">Shitikov V. K. 2017</a>)</span>:</p>
+<p>Часто на практиці аналітику складно вибрати конкретний алгоритм машинного навчання, скласти план оптимізації параметрів, врахувати синтаксичні нюанси кожної функції і відстежити особливості її виконання. Крім того, процедури, що дозволяють реалізувати повний цикл розробки побудови прогнозних моделей, часто містяться в різних пакетах, що потребує часу і зусиль для їх освоєння. З метою інтеграції різних функцій і методів в рамках єдиної надбудови з метою узагальнення характерних для всіх моделей процедур обчислень доктор М. Кун із співробітниками зробили спробу розробити універсальний інтерфейс, що надає доступ до основних алгоритмів машинного навчання, реалізованих на R та інших спеціалізованих статистичних системах (наприклад, <a href="https://en.wikipedia.org/wiki/Weka_(machine_learning)">Weka</a>). Розробники <code>caret</code> <span class="citation">(<a href="#ref-R-caret" role="doc-biblioref">Max Kuhn 2022</a>)</span> поставили перед собою наступні завдання <span class="citation">(<a href="#ref-Shit_Mast" role="doc-biblioref">Shitikov V. K. 2017</a>)</span>:</p>
 <ul>
 <li>урахування наявних синтаксичних відмінностей між використовуваними функціями R при побудові моделей класифікації та регресії і тестуванні їх можливостей для прогнозування;</li>
 <li>розвиток ряду напівавтоматичних, інтелектуальних підходів і критеріїв для оптимізації коефіцієнтів і параметрів багатьох з цих моделей, що мають бути налаштовані, з використанням алгоритмів ресемплінга;</li>
@@ -393,7 +409,7 @@ y_n
 </ul>
 <p>Результатом цієї роботи став пакет <code>caret</code> (скорочення від Classification and Regression Training), який сьогодні став одним з найбільш популярних інструментів серед користувачів R, що займаються розробкою прогнозних моделей. Основні можливості пакету <code>caret</code> досить повно представлені в публікаціях розробників (<span class="citation">(<a href="#ref-Kuhn2008" role="doc-biblioref">M. Kuhn 2008</a>)</span>, <span class="citation">(<a href="#ref-Kuhn2003" role="doc-biblioref">M. Kuhn 2003</a>)</span>, <span class="citation">(<a href="#ref-Khun_book" role="doc-biblioref">Kuhn M. 2013</a>)</span>, <span class="citation">(<a href="#ref-Kuhn2013" role="doc-biblioref">M. Kuhn 2013</a>)</span>).</p>
 <p>З іншого боку, на практиці часто важливо вміти зберігати побудовані моделі в репозиторії і вилучати їх для подальшого використання безпосередньо в проектах. Для цього існують різні механізми, один з яких буде показано нижче.</p>
-<p>Таким чином, головна мета прикладу, який наведно нижче, зробити акцент на базових особливостях пакету <code>caret</code> при побудові моделі класифікації і показати механізм експорту/імпорту навченної моделі до реляційної бази даних з використанням механізму серилізації <span class="citation">(<a href="#ref-khramov" role="doc-biblioref">Khramov 2017</a>)</span>.</p>
+<p>Таким чином, головна мета прикладу, який наведно нижче, зробити акцент на базових особливостях пакету <code>caret</code> при побудові моделі класифікації і показати механізм експорту/імпорту навченної моделі до реляційної бази даних з використанням механізму серилізації <span class="citation">(<a href="#ref-khramov" role="doc-biblioref">Dmitry Khramov 2017</a>)</span>.</p>
 </div>
 </div>
 <div id="приклад-виконання-індивідуального-завдання-1" class="section level2 hasAnchor" number="7.3">
@@ -565,7 +581,7 @@ Kuhn, M. 2003. <span>“Variable Selection Using the Caret Package.”</span> <a
 Kuhn M., Johnson K. 2013. <em>Applied Predictive Modeling</em>. Springer-Verlag New-York.
 </div>
 <div id="ref-R-caret" class="csl-entry">
-Kuhn, Max. 2021. <em>Caret: Classification and Regression Training</em>. <a href="https://github.com/topepo/caret/">https://github.com/topepo/caret/</a>.
+Kuhn, Max. 2022. <em>Caret: Classification and Regression Training</em>. <a href="https://github.com/topepo/caret/">https://github.com/topepo/caret/</a>.
 </div>
 <div id="ref-Fernandes" class="csl-entry">
 Manuel Fernandez-Delgado, Senen Barro, Eva Cernadas. 2014. <span>“Do We Need Hundreds of Classifiers to Solve Real World Classification Problems?”</span> <a href="https://www.jstatsoft.org/article/view/v059i10">https://www.jstatsoft.org/article/view/v059i10</a>.

@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Розділ 9 Лабораторна робота № 8. Побудова ARIMA-моделі часового ряду і прогнозування на її основі (short version) | Data Science на R. Лабораторний практикум (draft version)</title>
   <meta name="description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Розділ 9 Лабораторна робота № 8. Побудова ARIMA-моделі часового ряду і прогнозування на її основі (short version) | Data Science на R. Лабораторний практикум (draft version)" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Лабораторні роботи з дисципліни ‘Інтелектуальний аналіз даних’" />
   <meta name="github-repo" content="VGamaley/DS-book-lab" />
@@ -24,7 +23,7 @@
 <meta name="author" content="© Сидоренко В. М." />
 
 
-<meta name="date" content="2022-03-14" />
+<meta name="date" content="2022-04-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,8 +31,7 @@
   
   
 <link rel="prev" href="лабораторна-робота-7.-пошук-асоціативних-правил.html"/>
-
-<script src="libs/header-attrs-2.13/header-attrs.js"></script>
+<link rel="next" href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -54,6 +52,14 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.22/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -289,6 +295,16 @@ div.csl-indent {
 <li class="chapter" data-level="9.5" data-path="lab_8.html"><a href="lab_8.html#example"><i class="fa fa-check"></i><b>9.5</b> Приклад побудови не сезонної ARIMA-моделі<span></span></a></li>
 <li class="chapter" data-level="9.6" data-path="lab_8.html"><a href="lab_8.html#завдання-на-лабораторну-роботу"><i class="fa fa-check"></i><b>9.6</b> Завдання на лабораторну роботу<span></span></a></li>
 </ul></li>
+<li class="chapter" data-level="10" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><i class="fa fa-check"></i><b>10</b> Лабораторна робота № 9. Веб скрепінг. Пакет <code>rvest</code>. Short-версія<span></span></a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#пакет-rvest"><i class="fa fa-check"></i><b>10.1</b> Пакет <code>rvest</code><span></span></a></li>
+<li class="chapter" data-level="10.2" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#основні-методи-пакета-rvest"><i class="fa fa-check"></i><b>10.2</b> Основні методи пакета <code>rvest</code><span></span></a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#отримання-html-сторінки-і-знаходження-потрібного-елемента"><i class="fa fa-check"></i><b>10.2.1</b> Отримання <code>html</code>-сторінки і знаходження потрібного елемента<span></span></a></li>
+<li class="chapter" data-level="10.2.2" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#розбір-елементів-на-складові-частини"><i class="fa fa-check"></i><b>10.2.2</b> Розбір елементів на складові частини<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html"><a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html#завдання-на-лабораторну-роботу-1"><i class="fa fa-check"></i><b>10.3</b> Завдання на лабораторну роботу<span></span></a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -477,176 +493,6 @@ div.csl-indent {
 <li>Створити звіт у вигляді .Rmd-документа у форматі RNotebook.</li>
 </ul>
 
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div class="csl-entry">
-Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2022. <em>Rmarkdown: Dynamic Documents for r</em>. <a href="https://CRAN.R-project.org/package=rmarkdown">https://CRAN.R-project.org/package=rmarkdown</a>.
-</div>
-<div class="csl-entry">
-Barsegjan, Kuprijanov, A. 2007. <em>Data Analysis and Process</em>. bhv. <a href="http://kist.ntu.edu.ua/textPhD/AnalizDannyhIProcessov.pdf">http://kist.ntu.edu.ua/textPhD/AnalizDannyhIProcessov.pdf</a>.
-</div>
-<div class="csl-entry">
-Box J., Jenkins G. 1974. <em>Time Series Analysis Forecasting and Management</em>. Moscow, MIR. <a href="https://scask.ru/a_book_boks1.php">https://scask.ru/a_book_boks1.php</a>.
-</div>
-<div class="csl-entry">
-Breiman, Leo. 2001. <span>“Random Forests.”</span> <em>Machine Learning</em> 45 (1).
-</div>
-<div class="csl-entry">
-Casas, Pablo. 2020. <em>funModeling: Exploratory Data Analysis and Data Preparation Tool-Box</em>. <a href="https://livebook.datascienceheroes.com">https://livebook.datascienceheroes.com</a>.
-</div>
-<div class="csl-entry">
-Chan, Chung-hong, Geoffrey CH Chan, Thomas J. Leeper, and Jason Becker. 2018. <em>Rio: A Swiss-Army Knife for Data File i/o</em>.
-</div>
-<div class="csl-entry">
-Chan, Chung-hong, and Thomas J. Leeper. 2021. <em>Rio: A Swiss-Army Knife for Data i/o</em>. <a href="https://github.com/leeper/rio">https://github.com/leeper/rio</a>.
-</div>
-<div class="csl-entry">
-Chang, Winston, Joe Cheng, JJ Allaire, Carson Sievert, Barret Schloerke, Yihui Xie, Jeff Allen, Jonathan McPherson, Alan Dipert, and Barbara Borges. 2021. <em>Shiny: Web Application Framework for r</em>. <a href="https://CRAN.R-project.org/package=shiny">https://CRAN.R-project.org/package=shiny</a>.
-</div>
-<div class="csl-entry">
-Conway, Joe, Dirk Eddelbuettel, Tomoaki Nishiyama, Sameer Kumar Prayaga, and Neil Tiffin. 2021. <em>RPostgreSQL: R Interface to the PostgreSQL Database System</em>. <a href="https://CRAN.R-project.org/package=RPostgreSQL">https://CRAN.R-project.org/package=RPostgreSQL</a>.
-</div>
-<div class="csl-entry">
-Cooper, Nicholas. 2017. <em>Reader: Suite of Functions to Flexibly Read Data from Files</em>. <a href="https://CRAN.R-project.org/package=reader">https://CRAN.R-project.org/package=reader</a>.
-</div>
-<div class="csl-entry">
-Garrett Grolemund, Hadley Wickham. 2018. <em>R for Data Science</em>. <a href="http://r4ds.had.co.nz/index.html">http://r4ds.had.co.nz/index.html</a>.
-</div>
-<div class="csl-entry">
-H., Kantorovich H. 2003. <em>Time Series Analysis</em>. Economical Journal High School Economics. <a href="https://elib.hse.ru/e-resources/HSE_economic_journal/articles/06_02_07.pdf">https://elib.hse.ru/e-resources/HSE_economic_journal/articles/06_02_07.pdf</a>.
-</div>
-<div class="csl-entry">
-Hadley Wickham, Lionel Henry, Romain Francois. 2018. <span>“Introduction to Dplyr. Translation of Andrey Ogurtsov.”</span> Documentation. <a href="http://rpubs.com/aa989190f363e46d/dplyr_intro">http://rpubs.com/aa989190f363e46d/dplyr_intro</a>.
-</div>
-<div class="csl-entry">
-Hahsler, Michael. 2019. <em>arulesViz: Visualizing Association Rules and Frequent Itemsets</em>. <a href="https://CRAN.R-project.org/package=arulesViz">https://CRAN.R-project.org/package=arulesViz</a>.
-</div>
-<div class="csl-entry">
-———. 2021. <em>arulesViz: Visualizing Association Rules and Frequent Itemsets</em>. <a href="https://github.com/mhahsler/arulesViz">https://github.com/mhahsler/arulesViz</a>.
-</div>
-<div class="csl-entry">
-Hahsler, Michael, Christian Buchta, Bettina Gruen, and Kurt Hornik. 2022. <em>Arules: Mining Association Rules and Frequent Itemsets</em>. <a href="https://github.com/mhahsler/arules">https://github.com/mhahsler/arules</a>.
-</div>
-<div class="csl-entry">
-Hahsler, Michael, Bettina Gruen, and Kurt Hornik. 2005. <span>“Arules – <span>A</span> Computational Environment for Mining Association Rules and Frequent Item Sets.”</span> <em>Journal of Statistical Software</em> 14 (15): 1–25. <a href="https://doi.org/10.18637/jss.v014.i15">https://doi.org/10.18637/jss.v014.i15</a>.
-</div>
-<div class="csl-entry">
-Henry, Lionel, and Hadley Wickham. 2020. <em>Purrr: Functional Programming Tools</em>. <a href="https://CRAN.R-project.org/package=purrr">https://CRAN.R-project.org/package=purrr</a>.
-</div>
-<div class="csl-entry">
-Hester, Jim, and Hadley Wickham. 2021. <em>Odbc: Connect to ODBC Compatible Databases (Using the DBI Interface)</em>. <a href="https://CRAN.R-project.org/package=odbc">https://CRAN.R-project.org/package=odbc</a>.
-</div>
-<div class="csl-entry">
-Hyndman, Athanasopoulos, R. J. 2018. <em>Forecasting: Principles and Practice, 2nd Edition</em>. OTexts: Melbourne, Australia. <a href="https://otexts.com/fpp2/">https://otexts.com/fpp2/</a>.
-</div>
-<div class="csl-entry">
-———. 2021. <em>Forecasting: Principles and Practice, 3nd Edition</em>. OTexts: Melbourne, Australia. <a href="https://otexts.com/fpp3/">https://otexts.com/fpp3/</a>.
-</div>
-<div class="csl-entry">
-Khramov, Dmitry. 2017. <span>“Saving-Importing Machine Learning Models in Databases.”</span> Article. <a href="http://dkhramov.dp.ua/Comp.CaretModelsAndDB.html#.Xbr4G0YzY2w">http://dkhramov.dp.ua/Comp.CaretModelsAndDB.html#.Xbr4G0YzY2w</a>.
-</div>
-<div class="csl-entry">
-Kuhn, M. 2003. <span>“Variable Selection Using the Caret Package.”</span> <a href="https://r-forge.r-project.org/scm/viewvc.php/*checkout*/pkg/caret/inst/doc/caretSelection.pdf?revision=77&amp;root=caret&amp;pathrev=90">https://r-forge.r-project.org/scm/viewvc.php/*checkout*/pkg/caret/inst/doc/caretSelection.pdf?revision=77&amp;root=caret&amp;pathrev=90</a>.
-</div>
-<div class="csl-entry">
-———. 2008. <span>“Building Predictive Models in r Using the Caret Package.”</span> <em>Journal of Statistical Software</em> 5: 113–42. <a href="https://doi.org/10.18637/jss.v028.i05">https://doi.org/10.18637/jss.v028.i05</a>.
-</div>
-<div class="csl-entry">
-———. 2013. <span>“Predictive Modeling with r and the Caret Package.”</span> <a href="https://www.r-project.org/">https://www.r-project.org/</a>.
-</div>
-<div class="csl-entry">
-Kuhn M., Johnson K. 2013. <em>Applied Predictive Modeling</em>. Springer-Verlag New-York.
-</div>
-<div class="csl-entry">
-Kuhn, Max. 2021. <em>Caret: Classification and Regression Training</em>. <a href="https://github.com/topepo/caret/">https://github.com/topepo/caret/</a>.
-</div>
-<div class="csl-entry">
-Manuel Fernandez-Delgado, Senen Barro, Eva Cernadas. 2014. <span>“Do We Need Hundreds of Classifiers to Solve Real World Classification Problems?”</span> <a href="https://www.jstatsoft.org/article/view/v059i10">https://www.jstatsoft.org/article/view/v059i10</a>.
-</div>
-<div class="csl-entry">
-Muller, Kirill. 2021. <em>Hms: Pretty Time of Day</em>. <a href="https://CRAN.R-project.org/package=hms">https://CRAN.R-project.org/package=hms</a>.
-</div>
-<div class="csl-entry">
-Müller, Kirill, and Hadley Wickham. 2021. <em>Tibble: Simple Data Frames</em>. <a href="https://CRAN.R-project.org/package=tibble">https://CRAN.R-project.org/package=tibble</a>.
-</div>
-<div class="csl-entry">
-Müller, Kirill, Hadley Wickham, David A. James, and Seth Falcon. 2022. <em>RSQLite: SQLite Interface for r</em>. <a href="https://CRAN.R-project.org/package=RSQLite">https://CRAN.R-project.org/package=RSQLite</a>.
-</div>
-<div class="csl-entry">
-Ooms, Jeroen, David James, Saikat DebRoy, Hadley Wickham, and Jeffrey Horner. 2021. <em>RMySQL: Database Interface and MySQL Driver for r</em>. <a href="https://CRAN.R-project.org/package=RMySQL">https://CRAN.R-project.org/package=RMySQL</a>.
-</div>
-<div class="csl-entry">
-R Core Team. 2021. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
-</div>
-<div class="csl-entry">
-R Special Interest Group on Databases (R-SIG-DB), Hadley Wickham, and Kirill Muller. 2021. <em>DBI: R Database Interface</em>. <a href="https://CRAN.R-project.org/package=DBI">https://CRAN.R-project.org/package=DBI</a>.
-</div>
-<div class="csl-entry">
-RStudio Team. 2020. <em>RStudio: Integrated Development Environment for r</em>. Boston, MA: RStudio, PBC. <a href="http://www.rstudio.com/">http://www.rstudio.com/</a>.
-</div>
-<div class="csl-entry">
-sandino. 2013. <span>“Cheat Sheet of Markdown.”</span> Article. <a href="https://github.com/sandino/Markdown-Cheatsheet#emphasis">https://github.com/sandino/Markdown-Cheatsheet#emphasis</a>.
-</div>
-<div class="csl-entry">
-Science, Eberly College of. 2020. <span>“STAT 505: Applied Multivariate Statistical Analysis.”</span> Course materials. <a href="http://belousovv.ru/markdown_syntax#fnref:2">http://belousovv.ru/markdown_syntax#fnref:2</a>.
-</div>
-<div class="csl-entry">
-Shitikov V. K., Masticky S. E. 2017. <em>Classification, Regression, and Other Data Mining Algorithms Using r</em>. <a href="https://ranalytics.github.io/data-mining/index.html">https://ranalytics.github.io/data-mining/index.html</a>.
-</div>
-<div class="csl-entry">
-Slabchenko Olesia, Siebert Xavier, Sydorenko Valeriy. 2016. <span>“Development of Models for Imputation of Data from Social Networks on the Basis of an Extended Matrix of Attributes.”</span> <em>Eastern-European Journal of Enterprise Technologies</em> 4 (2-82): 24–34.
-</div>
-<div class="csl-entry">
-Spinu, Vitalie, Garrett Grolemund, and Hadley Wickham. 2021. <em>Lubridate: Make Dealing with Dates a Little Easier</em>. <a href="https://CRAN.R-project.org/package=lubridate">https://CRAN.R-project.org/package=lubridate</a>.
-</div>
-<div class="csl-entry">
-Statsoft. 2021. <span>“Time Series Analysis.”</span> Article. <a href="http://statsoft.ru/home/textbook/modules/sttimser.html">http://statsoft.ru/home/textbook/modules/sttimser.html</a>.
-</div>
-<div class="csl-entry">
-Viacheslav Oreshkov, Nikolay Paklin. 2012. <em>Business: From Data to Knowlige</em>. Piter. <a href="https://kniga.biz.ua/book-biznes-analitika-ot-dannykh-k-znaniiam-cd-uchebnoe-posobie-2-e-izdanie-ispravlennoe-003514.html">https://kniga.biz.ua/book-biznes-analitika-ot-dannykh-k-znaniiam-cd-uchebnoe-posobie-2-e-izdanie-ispravlennoe-003514.html</a>.
-</div>
-<div class="csl-entry">
-Wickham, Hadley. 2009. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="http://ggplot2.org">http://ggplot2.org</a>.
-</div>
-<div class="csl-entry">
-———. 2021a. <em>Nycflights13: Flights That Departed NYC in 2013</em>. <a href="https://github.com/hadley/nycflights13">https://github.com/hadley/nycflights13</a>.
-</div>
-<div class="csl-entry">
-———. 2021b. <em>Tidyverse: Easily Install and Load the Tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
-</div>
-<div class="csl-entry">
-Wickham, Hadley, and Jennifer Bryan. 2021. <em>Bigrquery: An Interface to Google’s BigQuery ’API’</em>. <a href="https://CRAN.R-project.org/package=bigrquery">https://CRAN.R-project.org/package=bigrquery</a>.
-</div>
-<div class="csl-entry">
-Wickham, Hadley, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, and Dewey Dunnington. 2021. <em>Ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics</em>. <a href="https://CRAN.R-project.org/package=ggplot2">https://CRAN.R-project.org/package=ggplot2</a>.
-</div>
-<div class="csl-entry">
-Wickham, Hadley, Romain Francois, Lionel Henry, and Kirill Muller. 2022. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.
-</div>
-<div class="csl-entry">
-Wickham, Hadley, and Maximilian Girlich. 2022. <em>Tidyr: Tidy Messy Data</em>. <a href="https://CRAN.R-project.org/package=tidyr">https://CRAN.R-project.org/package=tidyr</a>.
-</div>
-<div class="csl-entry">
-Wickham, Hadley, Maximilian Girlich, and Edgar Ruiz. 2021. <em>Dbplyr: A Dplyr Back End for Databases</em>. <a href="https://CRAN.R-project.org/package=dbplyr">https://CRAN.R-project.org/package=dbplyr</a>.
-</div>
-<div class="csl-entry">
-Wickham, H., and an O’Reilly Media Company Safari. 2021. <em>Mastering Shiny</em>. O’Reilly Media, Incorporated. <a href="https://books.google.com.ua/books?id=ha1CzgEACAAJ">https://books.google.com.ua/books?id=ha1CzgEACAAJ</a>.
-</div>
-<div class="csl-entry">
-wikipedia. 2018a. <span>“Cross-Industry Standard Process for Data Mining.”</span> Article. <a href="https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining">https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining</a>.
-</div>
-<div class="csl-entry">
-———. 2018b. <span>“Exploratory Data Analysis.”</span> Article. <a href="https://en.wikipedia.org/wiki/Exploratory_data_analysis">https://en.wikipedia.org/wiki/Exploratory_data_analysis</a>.
-</div>
-<div class="csl-entry">
-———. 2018c. <span>“Principal Component Analysis.”</span> Article. <a href="https://en.wikipedia.org/wiki/Principal_component_analysis">https://en.wikipedia.org/wiki/Principal_component_analysis</a>.
-</div>
-<div class="csl-entry">
-Wikipedia. 2020. <span>“Decision Tree Learning.”</span> Article. <a href="https://en.wikipedia.org/wiki/Decision_tree_learning">https://en.wikipedia.org/wiki/Decision_tree_learning</a>.
-</div>
-<div class="csl-entry">
-Yihui Xie, Garrett Grolemund, J. J. Allaire. 2018. <em>R Markdown: The Definitive Guide</em>. <a href="https://bookdown.org/yihui/rmarkdown/">https://bookdown.org/yihui/rmarkdown/</a>.
-</div>
-</div>
 </div>
 </div>
 <h3>References</h3>
@@ -672,8 +518,8 @@ Statsoft. 2021. <span>“Time Series Analysis.”</span> Article. <a href="http:
           </div>
         </div>
       </div>
-<a href="лабораторна-робота-7.-пошук-асоціативних-правил.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="лабораторна-робота-7.-пошук-асоціативних-правил.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="лабораторна-робота-9.-веб-скрепінг.-пакет-rvest.-short-версія.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
